@@ -1,0 +1,254 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+<div *ngIf="issLoading" class="overlay" style="margin-top: 21%; margin-left: 46%; background-color: transparent"
+  [style.left.px]="spinleft">
+  <img src="/assets/img/spinner.gif" width="100px" />
+</div>
+
+<div *ngIf="main_View" class="main-content screenfixed new-margin-T" [hidden]="Search_Div">
+  <div class="container-fluid1">
+    <!-- Backdrop -->
+    <div class="modal-backdrop" *ngIf="Send_Mail_View && Show_Send_Mail"></div>
+
+    <!-- new -->
+    <div *ngIf="Send_Mail_View && Show_Send_Mail">
+      <div class="dialog-content">
+        <!-- Header -->
+        <div class="dialog-header">
+          <h2 class="title">
+            <mat-icon>mail</mat-icon>
+            Send Mail
+          </h2>
+        </div>
+
+        <!-- Body -->
+        <div class="dialog-body">
+          <!-- Loader -->
+          <div *ngIf="isLoading" class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+          <mat-form-field appearance="outline" class="template-select" style="width: auto;">
+            <mat-select placeholder="Select a template..." [(ngModel)]="selectedTemplate"
+              [ngClass]="{ 'error-select': showError && !selectedTemplate }">
+              <mat-option [value]="null">Select a template...</mat-option>
+              <mat-option *ngFor="let template of emailTemplates" [value]="template">
+                {{ template.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Template Selector -->
+          <div *ngIf="!isLoading" class="template-selector">
+            <!-- Template Preview / Editor -->
+            <div *ngIf="selectedTemplate" class="template-preview">
+              <button class="mb-3" mat-flat-button color="primary" (click)="toggleEdit()" style="width: max-content">
+                {{ isEditing ? "Preview" : "Close Preview" }}
+              </button>
+
+              <div *ngIf="!isEditing" class="preview-content" style="height: 300px" [innerHTML]="selectedTemplate.body">
+              </div>
+              <div class="form-row" *ngIf="isEditing">
+                <label class="col-form-label text-sm-right">Insert Fields</label>
+                <div class="col-md-3 col-lg-2 mt-0 mb-3">
+                  <select class="form-control" placeholder="Select Field" (change)="onFieldSelect($event)">
+                    <option value="">Insert Field</option>
+                    <option *ngFor="let field of templateFields" [value]="field.value">
+                      {{ field.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <textarea *ngIf="isEditing" class="emailbody" [(ngModel)]="selectedTemplate.body" rows="10"
+                style="width: 100%"></textarea>
+            </div>
+          </div>
+
+          <!-- Attachments Section -->
+          <div class="attachments-section">
+            <h5 class="section-title">Attachments</h5>
+            <div class="file-upload-container">
+              <input type="file" multiple #fileInput (change)="onFileSelected($event)" style="display: none" />
+              <button mat-stroked-button color="accent" (click)="fileInput.click()">
+                <mat-icon>attach_file</mat-icon> Add Attachments
+              </button>
+              <small class="text-muted ml-2">Max file size: 5MB</small>
+
+              <div *ngIf="fileSizeError" class="error-message">
+                {{ fileSizeError }}
+              </div>
+            </div>
+
+            <!-- Display Selected Files -->
+            <div class="selected-files" *ngIf="attachments.length > 0">
+              <div *ngFor="let file of attachments; let i = index" class="file-item">
+                <span class="file-name">{{ file.name }}</span>
+                <button mat-icon-button color="warn" (click)="removeFile(i)" aria-label="Remove File">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="dialog-footer">
+          <button mat-stroked-button color="warn" (click)="onCancel()">
+            <mat-icon>cancel</mat-icon> Cancel
+          </button>
+          <button mat-raised-button color="primary"
+            [disabled]="!this.selectedTemplate || !this.selectedTemplate.brevo_template_id" (click)="onSend()">
+            <mat-icon>send</mat-icon>
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 pl-0 pr-0 mt-2" style="border: 1">
+      <div class="dt-card mb-0 pb-1 pt-1">
+        <div class="dt-card__body m-0">
+          <div class="mb-0">
+            <div class="form-row">
+
+              <label class="col-md-0 col-lg-0 col-form-label text-sm-right">From</label>
+              <div class="col-md-1 col-sm-1">
+
+                <mat-form-field class="pading_tab form-control mrgn-crct-input-text-div-tre-prt-sles1 dateField">
+                  <input matInput [matDatepicker]="dp1" placeholder="" [(ngModel)]="startDate" name="startDate" />
+                  <mat-datepicker-toggle matSuffix [for]="dp1" class="datePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #dp1></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+
+              <label class="col-form-label">To</label>
+              <div class="col-md-1 col-sm-1">
+                <mat-form-field class="pading_tab form-control mrgn-crct-input-text-div-tre-prt-sles1 dateField">
+                  <input matInput [matDatepicker]="dpdate" placeholder="" [(ngModel)]="endDate" name="endDate" />
+                  <mat-datepicker-toggle matSuffix [for]="dpdate" class="datePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #dpdate></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <label class="col-form-label">Direction</label>
+
+              <div class="col-md-1 col-sm-1">
+
+ <select
+                  name="FollowUp_Department"
+                  [(ngModel)]="direction"
+                  required
+                  class="form-control p-0 pl-1"
+                  id="normal-input-4"
+                >
+                <option value="All">All</option>
+                  <option value="inbound">Inbound</option>
+                  <option value="clicktocall">Outbound</option>
+                </select>
+
+              </div>
+
+              <label class="col-form-label">Caller Id</label>
+
+              <div class="col-md-1 col-sm-1 ">
+                <input type="text" [(ngModel)]="callerIdNumber" name="" class="form-control"
+                  placeholder="Enter Your callerIdNumber" />
+              </div>
+
+              <label class="col-form-label">Agent Name</label>
+
+              <div class="col-md-2 col-sm-2">
+                <input type="text" [(ngModel)]="agentName" name="" class="form-control"
+                  placeholder="Enter Your Selection" />
+              </div>
+
+               <label class="col-form-label" >Student Name</label>
+
+              <div class="col-md-2 col-sm-2">
+                <input type="text" [(ngModel)]="studentName" name="" class="form-control"
+                  placeholder="Enter Your Selection" />
+              </div>
+
+
+              <button mat-raised-button type="submit" style="background-color: #0caef7" id="Registration_Report"
+                (click)="loadData()" class="other-button-style btnflot pull-right mr-1 btn-pdng3">
+                Search
+              </button>
+              <button mat-raised-button type="submit" style="background-color: #4bc859 !important"
+                [hidden]="Export_View == false" (click)="Export()"
+                class="other-button-style btnflot pull-right mr-1 btn-pdng3">
+                <i></i>EXPORT
+              </button>
+
+
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="col-md-12 pr-0 pl-0 mt-2" style="border: 1">
+          <div class="dt-card mb-0 pb-1" style="background-color: #ffff">
+            <div class="card-body card-body-for-searchedit-lead-section">
+            <div class="table-responsive"
+     style="overflow-y: scroll; font-size: 14px;height: 560px;">
+
+  <table class="table table-hover colour-change-title-searchsection-table heading-styles-as-gmail-format"
+         style="width: 100%">
+    <thead class="table-head mb-1 crect-margin-width-table-header-title">
+      <tr>
+         <th>Sl No</th>
+        <th>Date & Time</th>
+        <!-- <th>UUID</th> -->
+        <th>Call To</th>
+        <th>Caller ID</th>
+        <th>Hangup Cause</th>
+        <th>Direction</th>
+        <th>Talk Time</th>
+        <th>Answered Agent</th>
+        <th>Agent Name</th>
+        <th>Student Name</th>
+        <th>Recording</th>
+        <th>Status</th>
+        <th>Reason</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let call of paginatedCallHistory; let i = index">
+        <td class="id-table-data"> {{ i + 1 }}</td>
+        <td>{{ call.Entry_Date | date:'dd-MM-yyyy HH:mm' }}</td>
+        <!-- <td>{{ call.uuid }}</td> -->
+        <td>{{ call.call_to_number }}</td>
+        <td>{{ call.caller_id_number }}</td>
+        <td>{{ call.hangup_cause }}</td>
+        <td>{{ call.direction }}</td>
+        <td>{{ convertToHHMMSS(call.outbound_sec) }}</td>
+        <td>{{ call.answered_agent }}</td>
+        <td>{{ call.answered_agent_name }}</td>
+        <td>{{ call.Student_Name }}</td>
+        <td>
+          <audio *ngIf="call.recording_url" [src]="call.recording_url" controls></audio>
+        </td>
+        <td>{{ call.call_status }}</td>
+        <td>{{ call.reason_key }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination controls -->
+<div class="pagination-controls" style="margin-top: 10px;">
+   <label style="margin-left: 10px">Total Entries : <b>{{ Total_Data }}</b></label>
+  <!-- <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button> -->
+</div>
+
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,143 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<div *ngIf="issLoading" class="overlay" style="margin-top: 21%; margin-left: 46%; background-color: transparent"
+  [style.left.px]="spinleft">
+  <img src="/assets/img/spinner.gif" width="100px" />
+</div>
+<div *ngIf="main_View" class="main-content screenfixed new-margin-T" [hidden]="Search_Div">
+  <div class="container-fluid1">
+    <div class="col-md-12 pl-0 pr-0 mt-2" style="border: 1">
+      <div class="dt-card mb-0 pb-1 pt-1">
+        <div class="dt-card__body m-0">
+          <div class="mb-0">
+            <div class="form-row">
+              
+              <label class="col-md-2 col-lg-1 col-form-label text-sm-right">Branch</label>
+                <div class="col-md-3 col-lg-2 mb-1">
+                  <select [(ngModel)]="Search_Branch" class="form-control p-0 pl-1" id="simple-select">
+                    <option *ngFor="let Branch_T of Branch_Data" [ngValue]="Branch_T">
+                      {{ Branch_T.Branch_Name }}
+                    </option>
+                  </select>
+                </div>
+
+               <label class="col-md-2 col-lg-1 col-form-label text-sm-right">Channel</label>
+                <div class="col-md-2 col-sm-2 mb-1">
+                  <select [(ngModel)]="Department_Search" class="form-control p-0 pl-1" id="simple-select">
+                    <option *ngFor="let Department_T of Department_Data" [ngValue]="Department_T">
+                      {{ Department_T.Department_Name }}
+                    </option>
+                  </select>
+                </div>
+
+              <label class="col-md-2 col-lg-1 col-form-label text-sm-right">
+                  Handled By</label>
+                <div class="col-md-2 col-sm-2 mb-1">
+                  <select [(ngModel)]="To_User_Search" class="form-control p-0 pl-1" id="simple-select">
+                    <option *ngFor="let User_T of Users_Data" [ngValue]="User_T">
+                      {{ User_T.User_Details_Name }}
+                    </option>
+                  </select>
+                </div>
+
+                 <label class="col-md-1 col-sm-1 col-form-label text-sm-right">Status</label>
+                <div class="col-md-3 col-lg-2 mb-1">
+                  <select [(ngModel)]="Search_Status" class="form-control p-0 pl-1" id="simple-select">
+                    <option *ngFor="let Status_T of Status_Data" [ngValue]="Status_T">
+                      {{ Status_T.Department_Status_Name }}
+                    </option>
+                  </select>
+                </div>
+
+                <label class="col-md-2 col-lg-1 col-form-label text-sm-right pt-1 x-tra-label"
+                  style="padding-left: 14px">Date</label>               
+                <div class="col-md-0 col-lg-0 mb-1 x-tra-label text-sm-right ml-2" style="padding-left: 14px">
+                  <div _ngcontent-xmy-c9="" class="checkbox-to-crect-sales-search-section">
+                    <div _ngcontent-xmy-c9="" class="form-check uper-dte-lbel-sales-sctn-new pl-0">
+                      <label _ngcontent-xmy-c9="" class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="Date_checks" [(ngModel)]="Look_In_Date" />
+                        <span _ngcontent-xmy-c9="" class="form-check-sign"><span _ngcontent-xmy-c9="" class="check">
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                   <label class="col-md-0 col-lg-0 col-form-label text-sm-right">From</label>
+                <div class="col-md-2 col-sm-2 mb-1"> 
+                  <mat-form-field class="pading_tab form-control mrgn-crct-input-text-div-tre-prt-sles1 dateField">
+                    <input matInput [matDatepicker]="dp1" placeholder="" [(ngModel)]="Search_FromDate"
+                      name="Search_FromDate" />
+                    <mat-datepicker-toggle matSuffix [for]="dp1" class="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dp1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <label class="col-md-1 col-sm-1 col-form-label text-sm-right">To</label>
+                <div class="col-md-2 col-sm-2 mb-1">
+                  <mat-form-field class="pading_tab form-control mrgn-crct-input-text-div-tre-prt-sles1 dateField">
+                    <input matInput [matDatepicker]="dpdate" placeholder="" [(ngModel)]="Search_ToDate"
+                      name="Search_ToDate" />
+                    <mat-datepicker-toggle matSuffix [for]="dpdate" class="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dpdate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                   <label class="col-md-2 col-lg-1 col-form-label text-sm-right pt-1 x-tra-label"
+                  style="padding-left: 14px">Including Create Date</label>               
+                <div class="col-md-0 col-lg-0 mb-1 x-tra-label text-sm-right ml-2" style="padding-left: 14px">
+                  <div _ngcontent-xmy-c9="" class="checkbox-to-crect-sales-search-section">
+                    <div _ngcontent-xmy-c9="" class="form-check uper-dte-lbel-sales-sctn-new pl-0">
+                      <label _ngcontent-xmy-c9="" class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="Date_checks_Create" [(ngModel)]="Date_checks_Create" />
+                        <span _ngcontent-xmy-c9="" class="form-check-sign"><span _ngcontent-xmy-c9="" class="check">
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              <button mat-raised-button type="submit" style="background-color: #0caef7" id="Registration_Report"
+                (click)="Search_Lead_button()" class="other-button-style btnflot pull-right mr-1 btn-pdng3 mobtn">
+                Search
+              </button>
+              <button mat-raised-button type="submit" style="background-color: #4bc859 !important"
+                [hidden]="Export_View == false" (click)="Export()"
+                class="other-button-style btnflot pull-right mr-1 btn-pdng3 mobtn">
+                <i></i>EXPORT
+              </button>             
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 pr-0 pl-0 mt-2" style="border: 1">
+          <div class="dt-card mb-0 pb-1" style="background-color: #ffff">
+            <div class="card-body card-body-for-searchedit-lead-section">
+              <div class="table-responsive" [style.height.px]="myInnerHeight"
+                style="overflow-y: scroll; font-size: 14px">
+                <table class="table table-hover colour-change-title-searchsection-table heading-styles-as-gmail-format"
+                  style="width: 100%">
+                  <thead style="
+                  color: #fff !important;
+                  text-align: left;">
+                    <tr>
+                       <th *ngFor="let col of columns">
+                        {{col}}
+                      </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of Student_Data_Search; let i = index">
+                      <td *ngFor="let col of columns">
+                        {{row[col]}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>                
+              </div>
+            </div>
+          </div>
+          <label style="margin-left: 10px">Total Entries : <b>{{ Total_Data }}</b></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+.one { color: rgb(42, 11, 219) ; } 
+.three { color:green; } 
+.two { color: rgb(255, 0, 0); } 
+.Four { color: black; }
+.Five { color: rgb(165, 2, 151); }
+
+.mobtn{
+    background-color: #0caef7;
+    height: 33px!important;
+    margin-top: 16px!important;
+}
+
+.dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.dialog-header,
+.dialog-body,
+.dialog-footer {
+  margin-bottom: 1rem;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 5px;
+  background: #fff; /* make it visible on white background */
+  position: relative; /* keep it in flow */
+  z-index: 1; /* ensure it's above the table */
+}
+
+.pagination-controls button {
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination-controls span {
+  font-size: 14px;
+}
+
+.dialog-content {
+  overflow: visible; /* or auto if you want scrollbars */
+  padding-bottom: 40px; /* so pagination doesn't touch the edge */
+}

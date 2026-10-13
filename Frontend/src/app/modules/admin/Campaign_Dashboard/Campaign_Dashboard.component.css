@@ -1,0 +1,19 @@
+.overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+.save-button-style {
+    background-color: #f44336;
+    color: white;
+}
+.other-button-style {
+    background-color: #6c757d;
+    color: white;
+}

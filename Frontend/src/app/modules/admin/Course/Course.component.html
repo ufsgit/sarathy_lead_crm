@@ -1,0 +1,441 @@
+<div
+  *ngIf="issLoading"
+  class="overlay"
+  style="margin-top: 21%; margin-left: 46%; background-color: transparent"
+  [style.left.px]="spinleft"
+>
+  <img src="/assets/img/spinner.gif" width="100px" />
+</div>
+
+<div class="main-content screenfixed new-margin-T">
+  <div class="container-fluid2">
+    <!-- Entry View Section -->
+    <div class="row" *ngIf="Entry_View">
+      <div class="col-md-12 pl-0 pt-2">
+        <div class="dt-card mb-0 pb-1 pt-4">
+          <div class="dt-card__body mb-0 pb-0">
+            <form>
+              <div class="form-row">
+                <div class="form-row col-6" style="align-items: center">
+                <!-- Course Name Input -->
+                <div class="col-md-12 row">
+                  <label
+                    for="normal-input-4"
+                    class="col-md-4 col-lg-4 col-form-label text-sm-right"
+                    >Enquiry Status<span
+                      style="
+                        color: #ef071e;
+                        font-size: 22px;
+                        vertical-align: -webkit-baseline-middle;
+                      "
+                      >*</span
+                    ></label
+                  >
+                  <div class="col-md-8 col-lg-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="Course_.Course_Name"
+                      name="Course_.Course_Name"
+                      id="normal-input-4"
+                      placeholder="Enquiry Status"
+                    />
+                  </div>
+                </div>
+
+                <!-- University Input -->
+                <!-- <div class="col-md-12 row">
+                  <label
+                    for="normal-input-4"
+                    class="col-md-3 col-lg-2 col-form-label text-sm-right"
+                    >University</label
+                  >
+                  <div class="col-md-9 col-lg-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [matAutocomplete]="autoc3"
+                      placeholder=""
+                      [(ngModel)]="University_"
+                      name="University_"
+                      (click)="University_Typeahead($event)"
+                      (input)="University_Typeahead($event)"
+                    />
+                  </div>
+                  <mat-autocomplete
+                    #autoc3="matAutocomplete"
+                    [displayWith]="display_University_"
+                  >
+                    <mat-option *ngIf="issLoading">
+                      <mat-spinner diameter="500"></mat-spinner>
+                    </mat-option>
+                    <ng-container *ngIf="!issLoading">
+                      <mat-option
+                        *ngFor="let University_1 of University_Data"
+                        [value]="University_1"
+                      >
+                        <span name="University_1.University_Name">{{
+                          University_1.University_Name
+                        }}</span>
+                      </mat-option>
+                    </ng-container>
+                  </mat-autocomplete>
+                </div> -->
+
+                <!-- Country Input -->
+                <!-- <div class="col-md-12 row">
+                  <label
+                    for="normal-input-4"
+                    class="col-md-3 col-lg-2 col-form-label text-sm-right"
+                    >Country</label
+                  >
+                  <div class="col-md-9 col-lg-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [matAutocomplete]="autoc1"
+                      placeholder=""
+                      [(ngModel)]="Country_"
+                      name="Country_"
+                      (click)="Search_Country_Typeahead($event)"
+                      (input)="Search_Country_Typeahead($event)"
+                    />
+                  </div>
+                  <mat-autocomplete
+                    #autoc1="matAutocomplete"
+                    [displayWith]="display_Country_"
+                  >
+                    <mat-option *ngIf="issLoading">
+                      <mat-spinner diameter="500"></mat-spinner>
+                    </mat-option>
+                    <ng-container *ngIf="!issLoading">
+                      <mat-option
+                        *ngFor="let Country_1 of Country_Data"
+                        [value]="Country_1"
+                      >
+                        <span name="Country_1.Country_Name">{{
+                          Country_1.Country_Name
+                        }}</span>
+                      </mat-option>
+                    </ng-container>
+                  </mat-autocomplete>
+                </div> -->
+                
+                <!-- Save and Close Buttons -->
+                <div
+                  class="col-md-12 butn-crct-alghn-dwnwrd-users-srch-new"
+                  style="display: flex; justify-content: end"
+                >
+                  <button
+                    mat-raised-button
+                    type="submit"
+                    [hidden]="Course_Save == false"
+                    id="Save_Button"
+                    class="save-button-style pull-right mr-1"
+                    (click)="Save_Course()"
+                  >
+                    Save
+                  </button>
+                  <button
+                    mat-raised-button
+                    type="submit"
+                    class="close-button-style pull-right mr-1"
+                    (click)="Close_Click()"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+              <!-- <div class="col-6 " style="overflow-y: auto; height: 400px;">
+                <div _ngcontent-xmy-c9="" class="nav-tabs-navigation">
+                      <table _ngcontent-xmy-c9="" class="table">
+                        <tbody _ngcontent-xmy-c9="">
+                          <tr _ngcontent-xmy-c9="">
+                            <th class="crect-margin-width-table-header-title">
+                              Select
+                            </th>
+                            <th
+                              class="crect-margin-width-table-header-title"
+                              style="text-align: center"
+                            >
+                              Intake
+                            </th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div _ngcontent-xmy-c9="" class="card-body">
+                      <div _ngcontent-xmy-c9="" class="tab-content">
+                        <div
+                          _ngcontent-xmy-c9=""
+                          class="tab-pane active"
+                          id="profile"
+                        >
+                          <table _ngcontent-xmy-c9="" class="table">
+                            <tbody
+                              _ngcontent-xmy-c9=""
+                              *ngFor="let Intake of Intake_Data; let i = index"
+                            >
+                              <tr _ngcontent-xmy-c9="">
+                                <td
+                                  _ngcontent-xmy-c9=""
+                                  class="crect-margin-width-table-header-title"
+                                >
+                                  <div _ngcontent-xmy-c9="" class="form-check mt-2">
+                                    <label
+                                      _ngcontent-xmy-c9=""
+                                      class="form-check-label"
+                                    >
+                                      <input
+                                        _ngcontent-xmy-c9=""
+                                        checked=""
+                                        class="form-check-input"
+                                        [(ngModel)]="Intake.Intake_Selection"
+                                        type="checkbox"
+                                        name="{{ Intake.Intake_Id }}{{
+                                          Intake.Intake_Selection
+                                        }}"
+                                        [checked]="Intake.Intake_Selection"
+                                        value=""
+                                      />
+                                      <span
+                                        _ngcontent-xmy-c9=""
+                                        class="form-check-sign"
+                                      >
+                                        <span
+                                          _ngcontent-xmy-c9=""
+                                          class="check"
+                                        ></span>
+                                      </span>
+                                    </label>
+                                  </div>
+                                </td>
+                               
+                                <td
+                                  style="
+                                    text-align: center;
+                                    padding-left: 0px !important;
+                                  "
+                                >
+                                  <div>
+                                    {{ Intake["Intake_Name"] }}
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+              </div> -->
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- List View Section -->
+    <div class="row mt-2" *ngIf="!Entry_View">
+      <div class="col-md-12 pl-0 pr-0 pt-0 mb-2">
+        <div class="dt-card mb-0 pb-1 pt-3">
+          <div class="dt-card__body mb-0 pb-0">
+            <div class="form-row mb-2 align-items-center">
+              <!-- Course Search -->
+              <label class="col-form-label">Enquiry Status</label>
+              <div class="col-md-2 col-sm-4 mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="Search_Course_name"
+                  name="Search_Course_name"
+                  placeholder="Enquiry Status"
+                />
+              </div>
+
+              <!-- University Search -->
+              
+                <!-- <label
+                  for="normal-input-4"
+                  class="col-form-label"
+                  >University</label
+                >
+                <div class="col-md-2 col-sm-4 mb-0">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [matAutocomplete]="autoc3"
+                    placeholder=""
+                    [(ngModel)]="Search_University_"
+                    name="Search_University_"
+                    (click)="University_Typeahead($event)"
+                    (input)="University_Typeahead($event)"
+                  />
+                </div>
+                <mat-autocomplete
+                  #autoc3="matAutocomplete"
+                  [displayWith]="display_University_"
+                >
+                  <mat-option *ngIf="issLoading">
+                    <mat-spinner diameter="500"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!issLoading">
+                    <mat-option
+                      *ngFor="let University_1 of University_Data"
+                      [value]="University_1"
+                    >
+                      <span>{{ University_1.University_Name }}</span>
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+               -->
+
+              <!-- Country Search -->
+              
+                <!-- <label
+                  for="normal-input-4"
+                  class="col-form-label"
+                  >Country</label
+                >
+                <div class="col-md-2 col-sm-4 mb-0">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [matAutocomplete]="autoc1"
+                    placeholder=""
+                    [(ngModel)]="Search_Country_"
+                    name="Search_Country_"
+                    (click)="Search_Country_Typeahead($event)"
+                    (input)="Search_Country_Typeahead($event)"
+                  />
+                </div>
+                <mat-autocomplete
+                  #autoc1="matAutocomplete"
+                  [displayWith]="display_Country_"
+                >
+                  <mat-option *ngIf="issLoading">
+                    <mat-spinner diameter="500"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!issLoading">
+                    <mat-option
+                      *ngFor="let Country_1 of Country_Data"
+                      [value]="Country_1"
+                    >
+                      <span>{{ Country_1.Country_Name }}</span>
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+              -->
+
+
+              <!--intake -->
+              
+                <!-- <label
+                  for="normal-input-4"
+                  class="col-form-label"
+                  >Intake</label
+                >
+                <div class="col-md-1 col-sm-4 mb-0">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [matAutocomplete]="autoc5"
+                    placeholder=""
+                    [(ngModel)]="Search_Intake_"
+                    name="Search_Intake_"
+                    (click)="Search_Course_Intake($event)"
+                    (input)="Search_Course_Intake($event)"
+                  />
+                </div>
+                <mat-autocomplete
+                  #autoc5="matAutocomplete"
+                  [displayWith]="display_Intake_"
+                >
+                  <mat-option *ngIf="issLoading">
+                    <mat-spinner diameter="500"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!issLoading">
+                    <mat-option
+                      *ngFor="let Intake_1 of Intake_Data"
+                      [value]="Intake_1"
+                    >
+                      <span>{{ Intake_1.Intake_Name }}</span>
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+               -->
+
+
+                <div class="d-flex align-items-center ml-2">
+                   <button
+                  (click)="Search_Course_Click()"
+                  mat-raised-button
+                  type="button"
+                  class="other-button-style mr-2"
+                >
+                  Search
+                </button>
+                <button
+                  (click)="Create_New()"
+                  mat-raised-button
+                  type="button"
+                  class="save-button-style "
+                >
+                  Create New
+                </button>
+               
+              </div>
+            </div>
+
+            <!-- Buttons Row: right-aligned -->
+            <!-- <div class="form-row mb-2">
+             
+            </div> -->
+
+            <!-- Course List -->
+            <div
+              class="dt-module__list pl-0 pr-0"
+              [style.height.px]="myInnerHeight"
+              style="overflow-y: scroll"
+              id="profile"
+            >
+              <div
+                class="dt-module__list-item pb-2"
+                *ngFor="let Course of Course_Data; let i = index"
+              >
+                <div class="dt-module__list-item-content">
+                  <div class="user-detail">
+                    <span
+                      class="icon-background2 mr-1"
+                      *ngIf="Course_Edit"
+                      (click)="Edit_Course(Course, i)"
+                    >
+                      <mat-icon class="text-green small">edit</mat-icon>
+                    </span>
+                    <span
+                      class="icon-background3 mr-1"
+                      *ngIf="Course_Delete"
+                      (click)="Delete_Course(Course.Course_Id, i)"
+                    >
+                      <mat-icon class="text-red small">close</mat-icon>
+                    </span>
+                    <span class="user-name">{{ Course["Course_Name"] }}</span>
+                    <span class="dt-separator-v"></span>
+                    <!-- <span class="d-inline-block mr-3"><b>University:</b> {{
+                      Course["University"]
+                    }}</span>
+                    <span class="dt-separator-v"></span>
+                    <span class="designation"><b>Country:</b> {{
+                      Course["Country"]
+                    }}</span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

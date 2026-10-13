@@ -1,0 +1,711 @@
+
+<!-- <div *ngIf="issLoading" class="overlay">
+  <mat-progress-spinner class="spinner" [color]="color" [mode]="mode" [value]="value">
+  </mat-progress-spinner> -->
+<!-- <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+ 
+      <div class="row">
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
+                  <span class="h2 font-weight-bold mb-0">350,897</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                <span class="text-nowrap">Since last month</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
+                  <span class="h2 font-weight-bold mb-0">2,356</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                    <i class="fas fa-chart-pie"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                <span class="text-nowrap">Since last week</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
+                  <span class="h2 font-weight-bold mb-0">924</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                <span class="text-nowrap">Since yesterday</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
+                  <span class="h2 font-weight-bold mb-0">49,65%</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                    <i class="fas fa-percent"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                <span class="text-nowrap">Since last month</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- [style.height.px]="myInnerHeight"  -->
+
+<div style="height:30px;"></div>
+<div class="main-content screenfixed mt-7 dash-board" [style.height.px]="myInnerHeight"  style="width:100%!important;overflow-y:scroll;overflow-x:hidden;">
+<!-- <div [style.height.px]="myInnerHeight"  style="overflow-y: scroll;"> -->
+
+  <div class="row">
+    <label class="col-md-2 col-lg-1 col-form-label text-sm-right pt-1 x-tra-label" style="padding-left: 14px;" >Search Date</label>  
+    <div class="col-md-1 col-lg-2 mb-1 x-tra-label">                    
+      <div _ngcontent-xmy-c9="" class="checkbox-to-crect-sales-search-section">
+      <div _ngcontent-xmy-c9="" class="form-check uper-dte-lbel-sales-sctn-new pl-0" >
+          <label _ngcontent-xmy-c9="" class="form-check-label">
+          <input type='checkbox' class="form-check-input" name="Date_checks" [(ngModel)]="Look_In_Date"   />
+          <span _ngcontent-xmy-c9="" class="form-check-sign"><span _ngcontent-xmy-c9="" class="check">
+          </span>
+          </span>
+          </label>
+      </div>
+      </div>    
+  </div>   
+  
+  <label class="col-md-2 col-lg-1 col-form-label text-sm-right">From</label>
+  <div class="col-md-2 col-sm-2 mb-1">
+      <mat-form-field class="pading_tab form-control mrgn-crct-input-text-div-tre-prt-sles1" 
+      >
+          <input matInput [matDatepicker]="dp1" placeholder=""[(ngModel)]="Search_FromDate" name="Search_FromDate"  > 
+          <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+          <mat-datepicker #dp1></mat-datepicker>
+          </mat-form-field>
+  </div> 
+  <label class="col-md-1 col-sm-1 col-form-label text-sm-right">To</label>
+  <div class="col-md-2 col-sm-2 mb-1">
+  
+     <mat-form-field class="pading_tab form-control mrgn-crct-input-text-div-tre-prt-sles1"
+     >
+     <input matInput [matDatepicker]="dpdate" placeholder=""  [(ngModel)]="Search_ToDate" name="Search_ToDate"> 
+     <mat-datepicker-toggle matSuffix [for]="dpdate"></mat-datepicker-toggle>
+     <mat-datepicker #dpdate></mat-datepicker>
+     </mat-form-field>
+   </div>           
+    <!-- <label class="col-md-2 col-lg-1 col-form-label text-sm-right">Department</label>
+    <div class="col-md-2 col-sm-2 mb-1">
+        <select [(ngModel)]="Department_Search"  class="form-control p-0 pl-1" id="simple-select">
+            <option *ngFor="let Department_T of Department_Data" [ngValue]="Department_T">
+              {{Department_T.Department_Name}}</option>
+        </select>
+    </div>
+    <label class="col-md-2 col-lg-1 col-form-label text-sm-right">Branch</label>
+    <div class="col-md-3 col-lg-2 mb-1">
+        <select [(ngModel)]="Search_Branch" class="form-control p-0 pl-1" id="simple-select">
+            <option *ngFor="let Branch_T of Branch_Data" [ngValue]="Branch_T">{{Branch_T.Branch_Name}}
+            </option>
+         
+        </select>
+    </div>
+    <label class="col-md-2 col-lg-1 col-form-label text-sm-right"> To Staff</label>
+    <div class="col-md-2 col-sm-2 mb-1">
+        <select [(ngModel)]="User_Search" class="form-control p-0 pl-1" id="simple-select">
+            <option *ngFor="let User_T of Users_Data" [ngValue]="User_T" >{{User_T.User_Details_Name}}
+            </option>
+          </select>
+    </div>
+    <label class="col-md-1 col-sm-1 col-form-label text-sm-right">Status</label>
+    <div class="col-md-3 col-lg-2 mb-1">
+        <select [(ngModel)]="Status_Search" class="form-control p-0 pl-1" id="simple-select">
+            <option *ngFor="let Status_T of Status_Data" [ngValue]="Status_T" >{{Status_T.Department_Status_Name}}
+            </option>
+        
+        </select>
+    </div> -->
+
+    <label class="col-md-2 col-lg-1 col-form-label text-sm-right" style="text-align: end;">
+      Country
+    </label>
+    <div class="col-md-3 col-lg-2 mb-1">
+      <input
+        type="text"
+        class="form-control"
+        [matAutocomplete]="autoc4"
+        placeholder=""
+        [(ngModel)]="Search_Dropdown_Country"
+        name="Search_Dropdown_Country"
+        (click)="Search_Country_Typeahead($event)"
+        (keyup)="Search_Country_Typeahead($event)"
+      />
+      <mat-autocomplete
+        #autoc4="matAutocomplete" 
+        [displayWith]="display_Country" (optionSelected)="optionSelected($event)" 
+      >
+        <mat-option *ngIf="issLoading">
+          <mat-spinner diameter="50"></mat-spinner>
+        </mat-option>
+        <mat-option [value]="countryAll" 
+          (click)="toggleSelection(countryAll)">{{countryAll.Country_Name}}
+        </mat-option>
+        <ng-container *ngIf="!issLoading">
+          <mat-option *ngFor="let University_T1 of Country_Data_Filter" [value]="University_T1">
+            <mat-checkbox
+              [checked]="isSelected(University_T1)"
+              (click)="$event.stopPropagation()"
+              (change)="toggleSelection(University_T1)"
+            >
+              {{ University_T1.Country_Name }}
+            </mat-checkbox>
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </div>
+
+
+    <!-- Intake Mode Typeahead -->
+<label class="col-md-2 col-lg-1 col-form-label text-sm-right" style="text-align: end;">
+  Intake Mode
+</label>
+<div class="col-md-3 col-lg-2 mb-1">
+  <input
+    type="text"
+    class="form-control"
+    [matAutocomplete]="autocIntakeMode"
+    placeholder=""
+    [(ngModel)]="Search_Dropdown_IntakeMode"
+    name="Search_Dropdown_IntakeMode"
+    (click)="Search_IntakeMode_Typeahead($event)"
+    (keyup)="Search_IntakeMode_Typeahead($event)"
+  />
+  <mat-autocomplete
+    #autocIntakeMode="matAutocomplete"
+    [displayWith]="display_IntakeMode"
+    (optionSelected)="optionSelected_IntakeMode($event)"
+  >
+    <mat-option *ngIf="issLoadingIntakeMode">
+      <mat-spinner diameter="50"></mat-spinner>
+    </mat-option>
+    <mat-option [value]="intakeModeAll" (click)="toggleSelection_IntakeMode(intakeModeAll)">
+      {{ intakeModeAll.Intake_Name }}
+    </mat-option>
+    <ng-container *ngIf="!issLoadingIntakeMode">
+      <mat-option *ngFor="let intakeMode of Intake_Mode_Data_Filter" [value]="intakeMode">
+        <mat-checkbox
+          [checked]="isSelected_IntakeMode(intakeMode)"
+          (click)="$event.stopPropagation()"
+          (change)="toggleSelection_IntakeMode(intakeMode)"
+        >
+          {{ intakeMode.Intake_Name }}
+        </mat-checkbox>
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</div>
+
+<!-- Intake Year Typeahead -->
+<label class="col-md-2 col-lg-1 col-form-label text-sm-right" style="text-align: end;">
+  Intake Year
+</label>
+<div class="col-md-3 col-lg-2 mb-1">
+  <input
+    type="text"
+    class="form-control"
+    [matAutocomplete]="autocIntakeYear"
+    placeholder=""
+    [(ngModel)]="Search_Dropdown_IntakeYear"
+    name="Search_Dropdown_IntakeYear"
+    (click)="Search_IntakeYear_Typeahead($event)"
+    (keyup)="Search_IntakeYear_Typeahead($event)"
+  />
+  <mat-autocomplete
+    #autocIntakeYear="matAutocomplete"
+    [displayWith]="display_IntakeYear"
+    (optionSelected)="optionSelected_IntakeYear($event)"
+  >
+    <mat-option *ngIf="issLoadingIntakeYear">
+      <mat-spinner diameter="50"></mat-spinner>
+    </mat-option>
+    <mat-option [value]="intakeYearAll" (click)="toggleSelection_IntakeYear(intakeYearAll)">
+      {{ intakeYearAll.Intake_Year_Name }}
+    </mat-option>
+    <ng-container *ngIf="!issLoadingIntakeYear">
+      <mat-option *ngFor="let intakeYear of Intake_Year_Data_Filter" [value]="intakeYear">
+        <mat-checkbox
+          [checked]="isSelected_IntakeYear(intakeYear)"
+          (click)="$event.stopPropagation()"
+          (change)="toggleSelection_IntakeYear(intakeYear)"
+        >
+          {{ intakeYear.Intake_Year_Name }}
+        </mat-checkbox>
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</div>
+
+    <!-- <div *ngIf="selectedCountries.length > 0" class="selected-universities mt-2">
+      <mat-chip-list>
+        <mat-chip *ngFor="let uni of selectedCountries" removable (removed)="removeUniversity(uni)">
+          {{uni.University_Name}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>	 -->
+
+    <button mat-raised-button type="submit"  style="background-color: #0caef7;"  id="Dashboard" (click)="Get_Dashboard_Count()" class="other-button-style btnflot pull-right mr-1 btn-pdng3 mobtn">Search</button>
+  </div>
+  
+<div class="row">
+  <div class="col-lg-3 col-md-4 col-sm-3">
+    <!-- <a href=""> -->
+      <div class="card card-stats card-h card-1" (click)="Click_No1()">
+          <div class="card-header card-header-warning card-header-icon" >
+              <!-- <div class="dash-icon" style="background: #e2e2e240">
+
+                  <i class="material-icons" style="color: #8a85bc">person_add_alt</i>
+              </div> -->
+              <p class="card-category"> All Applications</p>
+              <h3 class="" >{{Dashboard_Count}}</h3>
+          </div>
+          <div class="card-footer">
+              <div class="stats">
+                  <!-- <i class="material-icons text-danger">warning</i> -->
+                  <button style=" background-color:#8a85bc" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+                  > 
+                    <!-- {{Shipment_Master_.Porforma_Caption}} -->
+                    View
+                  </button>
+                  <!-- <h4 onclick="Get_Dashboard_Count(Login_User)">Get Details</h4> -->
+              </div>
+          </div>
+      </div>
+    <!-- </a> -->
+  </div>
+
+
+  <div class="col-lg-3 col-md-4 col-sm-3" *ngFor="let statusD of Dashboard_Count9">
+    <!-- <a href=""> -->
+      <div class="card card-stats card-h card-2" (click)="Click_Status(statusD.Department_Status_Id)">
+          <div class="card-header card-header-success card-header-icon" >
+              <div class="dash-icon" style="background: #e2e2e240;">
+                <!-- store -->
+            <i class="material-icons"  style="color: #98d2cc;">beenhere</i>
+              </div>
+              <p class="card-category">{{statusD.Department_Status_Name}}</p>
+              <h3 class="">{{statusD.Data_Count}}</h3>
+              
+          </div>
+          <div class="card-footer">
+              <div class="stats">
+                  <!-- <i class="material-icons">date_range</i> Last 24 Hours -->
+                  <button style=" background-color: #98d2cc;" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+                  (click)="Click_Status(statusD.Department_Status_Id)"> View</button>
+              </div>
+          </div>
+      </div>
+      <!-- </a> -->
+  </div>
+
+
+  <div class="col-lg-3 col-md-4 col-sm-3">
+  
+    <div class="card card-stats card-h card-3" (click)="Click_No3()">
+        <div class="card-header card-header-success card-header-icon" >
+          
+            <p class="card-category"> Payments</p>
+            <h3 class="">{{Dashboard_Count2}}</h3>
+        </div>
+        <div class="card-footer">
+            <div class="stats">
+              
+                <button style=" background-color: #CA9C95;;" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+                (click)="Click_No3()" > View</button>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+ 
+  <!-- <div class="col-lg-3 col-md-4 col-sm-3">
+   
+      <div class="card card-stats card-h card-2" (click)="Click_No2()">
+          <div class="card-header card-header-success card-header-icon" >
+          
+              <p class="card-category"> Offersaa</p>
+              <h3 class="">{{Dashboard_Count1}}</h3>
+          </div>
+          <div class="card-footer">
+              <div class="stats">
+               
+                  <button style=" background-color: #98d2cc;" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+                  (click)="Click_No2()" > View</button>
+              </div>
+          </div>
+      </div>
+     
+  </div>
+  <div class="col-lg-3 col-md-4 col-sm-3">
+  
+    <div class="card card-stats card-h card-3" (click)="Click_No3()">
+        <div class="card-header card-header-success card-header-icon" >
+          
+            <p class="card-category"> Payments</p>
+            <h3 class="">{{Dashboard_Count2}}</h3>
+        </div>
+        <div class="card-footer">
+            <div class="stats">
+              
+                <button style=" background-color: #CA9C95;;" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+                (click)="Click_No3()" > View</button>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+ 
+
+
+<div class="col-lg-3 col-md-4 col-sm-3">
+ 
+  <div class="card card-stats card-h card-4" (click)="Click_No6()">
+      <div class="card-header card-header-success card-header-icon" >
+       
+          <p class="card-category"> Visa Received</p>
+          <h3 class="">{{Dashboard_Count4}}</h3>
+      </div>
+      <div class="card-footer">
+          <div class="stats">
+            
+              <button style=" background-color: #7C98AB" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+              (click)="Click_No6()" > View</button>
+          </div>
+      </div>
+  </div>
+  
+</div>
+
+
+
+
+  <div class="col-lg-3 col-md-4 col-sm-3">
+   
+      <div class="card card-stats card-h card-5" (click)="Click_No4()">
+          <div class="card-header card-header-info card-header-icon" >
+            
+              <p class="card-category">Visa Rejected</p>
+              <h3 class="">{{Dashboard_Count3}}</h3>
+          </div>
+          <div class="card-footer">
+              <div class="stats">
+                <button style=" background-color: #E6A57E" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+                (click)="Click_No4()" > View</button>
+              </div>
+          </div>
+      </div>
+   
+  </div> -->
+
+  <div class="col-lg-3 col-md-4 col-sm-3 " >
+  
+    <div class="card card-stats card-6" (click)="Click_No7()">
+        <div class="card-header card-header-info card-header-icon" >
+         
+            <p class="card-category">Non Enrolments</p>
+            <h3 class="">{{Dashboard_Count5}}</h3>
+        </div>
+        <div class="card-footer">
+            <div class="stats">
+              <button style=" background-color: #F27348" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+              (click)="Click_No7()" > View</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+<!-- 
+<div class="col-lg-3 col-md-4 col-sm-3">
+  <div class="card card-stats card-h card-4" (click)="Click_No11()">
+      <div class="card-header card-header-success card-header-icon" >
+        
+          <p class="card-category"> Deferrals</p>
+          <h3 class="">{{Dashboard_Count11}}</h3>
+      </div>
+      <div class="card-footer">
+          <div class="stats">
+            
+              <button style=" background-color: #7C98AB" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+              (click)="Click_No11()" > View</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+<!-- 
+<div class="col-lg-3 col-md-4 col-sm-3 " >
+  
+  <div class="card card-stats card-6" (click)="Click_No8()">
+      <div class="card-header card-header-info card-header-icon" >
+          <div class="dash-icon" style="background: #e2e2e240;">
+             
+              <i class="material-icons"  style="color: #F27348">
+              receipt_long
+              </i>
+          </div>
+          <p class="card-category">Not Intrested</p>
+          <h3 class="">{{Dashboard_Count10}}</h3>
+      </div>
+      <div class="card-footer">
+          <div class="stats">
+            <button style=" background-color: #F27348" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+            (click)="Click_No8()" > View</button>
+          </div>
+      </div>
+  </div>
+ 
+</div> -->
+
+<!-- <div class="col-lg-3 col-md-4 col-sm-3" *ngFor="let statusD of Dashboard_Count9">
+ 
+    <div class="card card-stats card-h card-2" (click)="Click_Status(statusD.Department_Status_Id)">
+        <div class="card-header card-header-success card-header-icon" >
+            <div class="dash-icon" style="background: #e2e2e240;">
+             
+          <i class="material-icons"  style="color: #98d2cc;">beenhere</i>
+            </div>
+            <p class="card-category">{{statusD.Department_Status_Name}}</p>
+            <h3 class="">{{statusD.Data_Count}}</h3>
+            
+        </div>
+        <div class="card-footer">
+            <div class="stats">
+                
+                <button style=" background-color: #98d2cc;" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+                (click)="Click_Status(statusD.Department_Status_Id)"> View</button>
+            </div>
+        </div>
+    </div>
+
+</div> -->
+
+
+<!-- <div class="col-lg-3 col-md-4 col-sm-3 ">
+  <div class="card card-stats card-7">
+      <div class="card-header card-header-info card-header-icon">
+          <div class="dash-icon" style="background: #e2e2e240;">
+        
+              <i class="material-icons"  style="color: #8DA47E;">
+                person_add
+              </i>
+          </div>
+          <p class="card-category">Telecaller Positive Count</p>
+          <h3 class="">{{Dashboard_Count7}}</h3>
+      </div>
+      <div class="card-footer">
+          <div class="stats">
+            <button style=" background-color: #8DA47E;" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+            (click)="Click_No8()" > View</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+
+
+<!-- <div class="col-lg-3 col-md-4 col-sm-3 ">
+  <div class="card card-stats card-8">
+      <div class="card-header card-header-info card-header-icon">
+          <div class="dash-icon" style="background:#e2e2e240;">
+             
+              <i class="material-icons"  style="color: #AF8C72;">
+                person_remove
+              </i>
+          </div>
+          <p class="card-category">Telecaller Negative Count</p>
+          <h3 class="">{{Dashboard_Count8}}</h3>
+      </div>
+      <div class="card-footer">
+          <div class="stats">
+            <button style=" background-color: #AF8C72" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+            (click)="Click_No8()" > View</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-lg-3 col-md-4 col-sm-3 pr-7">
+  <div class="card card-stats">
+      <div class="card-header card-header-info card-header-icon">
+          <div class="dash-icon" style="background: linear-gradient(60deg,#dfeb36,#ecee7b);">
+            
+              <i class="material-icons"  style="color: #ffff;">
+              receipt_long
+              </i>
+          </div>
+          <p class="card-category">Pending Task</p>
+          <h3 class="">{{Dashboard_Count6}}</h3>
+      </div>
+      <div class="card-footer">
+          <div class="stats">
+            <button style=" background-color: #dfeb36;" mat-raised-button type="submit" class="btn pull-right btn-danger div-rspnsv-pstn-crct-sls-mstr"
+            (click)="Click_No8()" > View</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+
+</div> 
+
+<div  class="row">
+ <div class="col-md-2">
+
+ </div>
+  <div *ngIf="1>2" class="col-md-4">
+      <div class="card card-chart">
+          <div class="card-header card-header-warning">
+              <div class="ct-chart" id="websiteViewsChart"></div>
+          </div>
+          <div class="card-body">
+              <h4 class="card-title">Email Subscriptions</h4>
+              <p class="card-category">Last Campaign Performance</p>
+          </div>
+          <div class="card-footer">
+              <div class="stats">
+                  <i class="material-icons">access_time</i> campaign sent 2 days ago
+              </div>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="1>2" class="col-md-4">
+     <div class="card card-chart">
+            <div class="card-header card-header-danger">
+                <div class="ct-chart" id="completedTasksChart"></div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Completed Tasks</h4>
+                <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">access_time</i> campaign sent 2 days ago
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- <div class="row" > -->
+        <!-- <div class="container-Dash">
+          <div class="col-md-12 mt-0" style="border: 1;padding: 0;">
+            <div class=" mb-0 pb-1 " style="border:none;">         
+                   <div class="form-row"> 
+
+          <div class="col-lg-6 col-md-6 col-sm-6">
+
+            
+            <div class="g-scroll">
+            <div class="cardnew ">
+              <div  class="card-headernew" >
+                <h4 class=""><b>Enquiries in this Month</b></h4>
+              </div>
+            <google-chart #chart [title]='Enquiry_Source_title' [type]="Enquiry_Source_type" [data]="Enquiry_Source_data" [columnNames]="Enquiry_Source_columnNames" [options]="Enquiry_Source_options" 
+            [width]="width" [height]="height">
+            
+            </google-chart>
+            
+
+          </div>
+        </div>
+
+         </div>
+        <div class="col-lg-6 col-md-6 col-sm-6" >
+          <div class="g-scroll">
+          <div class="cardnew ">
+            <div class="card-headernew">
+              <h4 class=""><b>Enquiries in this Month</b></h4>
+            </div>
+
+
+            <google-chart #chart [title]='Title_Bar' [type]="Type_Bar" [data]="Data_Bar" [columnNames]="columnNames_Bar" [options]="options_Bar"
+            [width]="width" [height]="height">
+            </google-chart>
+            </div>
+           </div>
+        </div>
+
+        <div class="col-md-12 b-0 mt-1 mb-0 pb-0 pr-3">
+
+        <button class="view-button-style btnflot" type="submit" style="
+        font-weight: 600;background-color: #8a85bc;;" (click)="Click_No5()">View</button>
+
+        </div>
+    </div>
+</div>
+</div>
+   
+
+  
+</div> -->
+
+
+</div>
+</div>
+<!-- </div> -->

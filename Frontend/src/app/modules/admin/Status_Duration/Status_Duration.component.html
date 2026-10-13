@@ -1,0 +1,226 @@
+<div *ngIf="issLoading" class="overlay" style="margin-top: 21%;margin-left:46% ;
+background-color: transparent;" [style.left.px]="spinleft">
+    <img src="/assets/img/spinner.gif" width="100px">
+</div>
+
+<div class="main-content new-margin-T">
+    <div class="container-fluid2">
+        <div class="row" *ngIf="Entry_View">
+            <div class="col-md-12 pt-4">
+
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 pl-2 pr-2">
+                                <div class="form-group form-row">
+                                    <label for="normal-input-4" class="col-md-2 col-sm-3 col-form-label text-sm-right"
+                                        style="background: transparent;">Duration Count<span
+                                            style="color:#ef071e; font-size: 22px; vertical-align: -webkit-baseline-middle;">*</span></label>
+                                    <div class="col-md-10 col-sm-9">
+                                        <input type="text" class="form-control" [(ngModel)]="Status_Duration_.Duration_Count"
+                                            name="Status_Duration_.Duration_Count" id="normal-input-4"
+                                            placeholder="Duration Count">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                     <label class="col-md-1 col-sm-2 col-form-label text-sm-right">Channel<span style="
+                                        color: #ef071e;
+                                        font-size: 22px;
+                                        vertical-align: -webkit-baseline-middle;
+                                        ">*</span></label>
+                                    <div class="col-md-5 col-sm-3 mb-1">
+                                        <input type="text" [matAutocomplete]="auto1" class="form-control"
+                                            name="FollowUp_Department_" [(ngModel)]="FollowUp_Department_"
+                                            (mouseup)="Search_Default_Department_Typeahead($event, 2)"
+                                            (input)="Search_Default_Department_Typeahead($event, 1)" />
+                                    </div>
+
+                                    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="display_Department">
+                                        <mat-option *ngIf="issLoading"><mat-spinner
+                                                diameter="500"></mat-spinner></mat-option>
+                                        <ng-container *ngIf="!issLoading">
+                                            <mat-option *ngFor="let Dept of Followup_Department_Data_Check"
+                                                [value]="Dept">
+                                                <span>{{ Dept.Department_Name }}</span>
+                                            </mat-option>
+                                        </ng-container>
+                                    </mat-autocomplete>
+
+                                    <label class="col-md-1 col-sm-2 col-form-label text-sm-right">Channel Status<span style="
+                                    color: #ef071e;
+                                    font-size: 22px;
+                                    vertical-align: -webkit-baseline-middle;
+                                    ">*</span></label>
+                                    <div class="col-md-5 col-sm-3 mb-1">
+                                        <input type="text" class="form-control" [matAutocomplete]="auto8"
+                                            name="Department_Status_" [(ngModel)]="Department_Status_"
+                                          
+                                            (input)="Search_Department_Status_Typeahead($event, 1)"
+                                            (mouseup)="Search_Department_Status_Typeahead($event, 2)" placeholder=" " />
+                                    </div>
+                                    <mat-autocomplete #auto8="matAutocomplete" [displayWith]="display_Followup_Status">
+                                        <mat-option *ngIf="issLoading"><mat-spinner
+                                                diameter="500"></mat-spinner></mat-option>
+                                        <ng-container *ngIf="!issLoading">
+                                            <mat-option 
+                                                *ngFor="let Status1 of Followup_Department_Status_Data_Filter" [value]="Status1">
+                                                <span >{{
+                                                    Status1.Department_Status_Name
+                                                    }}</span></mat-option>
+                                        </ng-container>
+                                    </mat-autocomplete>
+
+                                   
+                                </div>
+
+                                <div class="form-row mb-2">
+                                    <div class="col-lg-12">
+                                        <button mat-raised-button type="submit"
+                                            class="close-button-style pull-right mr-1 "
+                                            (click)="Close_Click()">Close</button>
+                                        <button mat-raised-button type="submit" [hidden]="DSE_Save==false"
+                                            id="Save_Button" class="save-button-style pull-right mr-1"
+                                            (click)="Save_Status_Duration()">Save</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!Entry_View">
+        <div class="col-md-12  mb-2 mt-2">
+            <div class="dt-card mb-0 pb-1 pt-3">
+                <div class="dt-card__body mb-0 pb-0">
+                    <form class="mb-0">
+                        <div class="form-row" style="padding-left: 10px;">
+                            <label class="col-md-0 col-sm-0 col-form-label text-sm-right">Duration Count</label>
+                            <div class="col-md-2 col-sm-2 mb-2">
+                                <input type="text" class="form-control" [(ngModel)]="Duration_Count_Search"
+                                    name="Duration_Count_Search" placeholder="Duration Count">
+                            </div>
+                            <label class="col-md-0 col-sm-0 col-form-label text-sm-right">Channel</label>
+                            <div class="col-md-2 col-sm-2 mb-2">
+                                <select class="form-control p-0 pl-1" [(ngModel)]="Search_Depaertment_"
+                                    name="Search_Depaertment_">
+                                    <option *ngFor="let m of Department_Data" [ngValue]="m">
+                                        {{ m.Department_Name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                             <label class="col-md-0 col-sm-0 col-form-label text-sm-right">Chnnel Status</label>
+                            <div class="col-md-2 col-sm-2 mb-2">
+                                <select class="form-control p-0 pl-1" [(ngModel)]="Search_Department_Status_"
+                                    name="Search_Department_Status_">
+                                    <option *ngFor="let m of Department_Status_Data" [ngValue]="m">
+                                        {{ m.Department_Status_Name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3 mt-0">
+                                <button (click)="Search_Status_Duration()" mat-raised-button type="submit"
+                                    class="other-button-style pull-left mr-1">Search</button>
+                                <button (click)="Create_New()" mat-raised-button type="submit"
+                                    class="save-button-style pull-left mr-1 ">Create New</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-md-12 pl-0  mb-3">
+        
+                <form>           
+                <div class="form-row mb-0">
+                    <div class="col-md-11 mt-2">
+                        <button mat-raised-button type="submit" (click)="Create_New()" class="save-button-style pull-right mr-1 ">Create New</button>    
+                      <button mat-raised-button type="submit" (click)="Search_DSE()"  class="other-button-style pull-right mr-1">Search</button>    
+                    </div>
+                </div>
+            </form>
+        
+      </div>  -->
+
+
+        <div class="col-md-12  pr-2 pl-2" [style.height.px]="myInnerHeight" itemSize="10">
+            <div class="dt-module">
+                <div class="dt-module__container">
+                    <!-- style="overflow: scroll;"[style.height.px]="myTotalHeight" -->
+                    <div class="dt-module__content ps-custom-scrollbar">
+                        <div class="dt-module__content-inner card-body set-height-scroll-bar-wole-block">
+                            <div class="dt-module__list" [style.height.px]="myInnerHeight" style="overflow-y: scroll"
+                                id="profile">
+                                <!-- <div class="card-body set-height-scroll-bar-wole-block"> -->
+                                <div class="dt-module__list-item pb-2 pt-2"
+                                    *ngFor="let Location1 of Status_Duration_Data; let i = index">
+                                    <div class="dt-module__list-item-content">
+                                        <div class="user-detail">
+
+                                            <span class="icon-background2 mr-1" (click)="Edit_Status_Duration(Location1,i)">
+                                                <mat-icon class="text-green small">edit</mat-icon></span>
+                                            <span class="icon-background3 mr-1" (click)="Delete_Status_Duration(Location1,i)">
+                                                <mat-icon class="text-red small">close</mat-icon></span>
+
+
+                                            <!-- <button _ngcontent-jry-c5="" _ngcontent-gxp-c5="" aria-describedby="cdk-describedby-message-0" cdk-describedby-host="" 
+                                        class="aligyn-crect-deprtnment btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" 
+                                        mattooltip="Edit Task" ng-reflect-message="Edit Task" ng-reflect-position="above" type="button">
+                                        <span class="mat-button-wrapper"><span _ngcontent-jry-c5="" class="mat-button-wrapper"><i _ngcontent-jry-c5="" 
+                                         _ngcontent-gxp-c5="" class="material-icons save-material-style" (click)="Edit_DSE(DSE1,i)">edit</i></span>
+                                         <div _ngcontent-jry-c5="" class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" 
+                                         ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div><div _ngcontent-jry-c5="" 
+                                         class="mat-button-focus-overlay"></div></span><div class="mat-button-ripple mat-ripple" matripple="" 
+                                         ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+                                         <div class="mat-button-focus-overlay"></div>
+                                    </button>   
+                                    <button _ngcontent-gdi-c11="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" 
+                                        mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-1" 
+                                        cdk-describedby-host="" ng-reflect-position="above" ng-reflect-message="Remove"><span class="mat-button-wrapper">
+                                        <i _ngcontent-gdi-c11="" class="material-icons delete-material-style" (click)="Delete_DSE(DSE1,i)" >close</i></span>
+                                        <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" 
+                                        ng-reflect-trigger="[object HTMLButtonElement]"></div><div class="mat-button-focus-overlay"></div>
+                                    </button> -->
+                                            <span class="user-name line-space">{{ Location1["Duration_Count"]
+                                                }}</span> <span class="dt-separator-v">&nbsp;</span>
+                                            <span class="user-name line-space">{{ Location1["Department_Status_Name"]
+                                                }}</span> <span class="dt-separator-v">&nbsp;</span>
+                                            <span class="user-name line-space">{{ Location1["Department_Name"] }}</span>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- </div> -->
+
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">                       
+                        <button type="submit" (click)="Search_Client_Accounts()" class="btn btn-primary">Previous</button>
+                        <button type="submit" (click)="Create_New()" class="btn btn-primary">Next</button>                             
+                    </div> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

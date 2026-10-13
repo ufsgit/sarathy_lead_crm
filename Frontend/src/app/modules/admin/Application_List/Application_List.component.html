@@ -1,0 +1,3192 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<div *ngIf="issLoading" class="overlay">
+	<mat-progress-spinner
+		class="spinner"
+		[color]="color"
+		[mode]="mode"
+		[value]="value"
+	>
+	</mat-progress-spinner>
+</div>
+
+<div class="main-content screenfixed new-margin-T" style="padding-left: 20px; padding-right: 20px;">
+	<div class="container-fluid1 mt-2">	
+		<div class="col-md-12 mt-2 p-0" style="border: 1" *ngIf="Search_Div" >
+			<div class="dt-card__body mt-4"  >
+				<div id="Topdiv"></div>
+				<div id="Bottomdiv"></div>
+				<form class="mb-0">
+					<div class="container-fluidprofile p-0" >
+						<div class="dt-card mt-0 p-0" style="margin-top: -10px !important;">					
+							<div class="dt-card__heading">
+								<div class="form-row ml-3 mr-3 mt-3" [ngClass]="More_Search_Options ? 'mb-3' : ''" style="align-items: center;">
+									<!-- <div class="col-xl-3 col-lg-3 col-md-4   font-tab">
+										<h3 >
+											<i
+												class="icon icon-users icon-fw icon-lg material-icons mr-2"
+												style="color: #586ae9;color: #4b5cd5;
+												font-weight: 600;
+												margin-left: 15px;
+												font-size: 40px;"
+											>
+												list_alt
+											</i>
+											<b style="color: #4b5cd5; font-weight: 600"
+												>Application List</b
+											>
+										</h3>
+										
+
+									</div> -->
+
+									<label class="col-form-label text-sm-right mr-2 min-w-max">Student</label>                          
+									<div class="col-sm-2 col-md-2 d-flex align-items-center">
+									<input type="text"  [(ngModel)]="Search_Student_Name" name="Search_Student_Name" class="form-control"  placeholder=" "/>
+									</div>
+									<label class="col-form-label text-sm-right mr-2 min-w-max">To Staff</label>
+										<div class="col-sm-2 col-md-2 d-flex align-items-center">									
+										<select
+											[(ngModel)]="User_Search"
+											name="User_Search"
+											required
+											class="form-control p-0 pl-1">
+											<option *ngFor="let User_T of Users_Data" [ngValue]="User_T">
+												{{ User_T.User_Details_Name }}
+											</option>
+										</select>
+									</div>
+
+
+									<div class="col-md-6 col-lg-6 mb-1 mt-1">
+										<button 
+											_ngcontent-lkq-c5="" 
+											(click)="Search_Application_List()" 
+											class="other-button-style bb-2 mr-1" 
+											id="Save_Button"
+											style="padding-left: 10px; padding-right: 10px;" 
+											type="submit"
+										> 
+											Search 
+										</button>
+										<button
+										_ngcontent-lkq-c5=""
+										(click)="Filter_Todays_Application()"
+										class="save-button-style bb-2 mr-1"
+										style="padding-left: 10px; padding-right: 10px;" 
+										type="button"
+									  >
+										Today's Application
+									  </button>
+									  <button
+										_ngcontent-lkq-c5=""
+										(click)="Filter_Pending_Application()"
+										class="pending-button-style bb-2 mr-1"
+										style="padding-left: 10px; padding-right: 10px;" 
+										type="button"
+									  >
+										Pending Application
+									  </button>
+									  <button
+											_ngcontent-lkq-c5=""
+											(click)="Search_More_Options()"
+											style="padding-left: 10px; padding-right: 10px;" 
+											class="More-button-style bb-2 mr-1"
+										>
+											<span [hidden]="More_Search_Options">Less Options</span>
+											<span [hidden]="!More_Search_Options">More Options</span>
+										</button>
+									</div>
+							
+
+									
+
+									<!-- <div class="col-md-4 col-lg-6 font-tab">
+									
+										<button _ngcontent-lkq-c5="" class="save-button-style btnflot bb-2" id="Save_Button" type="submit"> Refresh </button>
+									  </div> -->
+
+									
+
+								
+								</div>
+								<div class="form-row ml-3 mr-3" style="align-items: center;" [hidden]="More_Search_Options">
+
+
+									<label class="col-form-label text-sm-right mr-2 min-w-max"
+                >Entry Date</label
+              >
+              <div class="ew-7 mb-2">
+                <div
+                  _ngcontent-xmy-c9=""
+                  class="col-md-1 lead-search-section-date-alighn label-down-alighn-stk-ad-mstr-prhse-rte x-tra"
+                >
+                  <div
+                    _ngcontent-xmy-c9=""
+                    class="form-check algyn-checkbx-lead-serch-scton margin-down-tocrect-lead-chckbox-date-front-section"
+                  >
+                    <label _ngcontent-xmy-c9="" class="form-check-label">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        placeholder="Search..."
+                        [(ngModel)]="Look_In_Date"
+												name="Look_In_Date"
+                      />
+                      <span
+                        _ngcontent-xmy-c9=""
+                        class="form-check-sign"
+                        style="margin-top: 0px; margin-left: -10px;margin-bottom: 5px;"
+                        ><span _ngcontent-xmy-c9="" class="check"></span>
+                      </span>
+                      <!-- <label class="">Created</label> -->
+                    </label>
+                  </div>
+                  <!-- <label class="for-down-title-tabs-personal-details">Created</label> -->
+                </div>
+							</div>
+
+							<label class="col-form-label text-sm-right">From</label>
+              <div class="col-md-3 col-lg-3 mt-2 mb-1 ew-4">
+                <!-- <input type="date" class="form-control p-0 pl-1 mt-2" placeholder="From"[(ngModel)]="Search_FromDate" name="Search_FromDate" > -->
+                <mat-form-field
+                  class="form-control mrgn-crct-input-text-div-tre-prt-sles1 dateField"
+                  
+                >
+                  <input
+                    matInput
+                    [matDatepicker]="dp1"
+                    placeholder=""
+                    [(ngModel)]="Search_FromDate"
+                    name="Search_FromDate"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="dp1"
+										class="datePicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #dp1 style="padding-top: 9px !important"></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <label class="col-form-label text-sm-right">To</label>
+              <div class="col-md-3 col-lg-3 mt-2 mb-1 ew-4">
+                <!-- <input type="date" class="form-control p-0 pl-1 mt-2" placeholder="To"  [(ngModel)]="Search_ToDate" name="Search_ToDate"> -->
+                <mat-form-field
+                  class="form-control mrgn-crct-input-text-div-tre-prt-sles1 dateField"
+                >	
+                  <input
+                    matInput
+                    [matDatepicker]="dpdate"
+                    placeholder=""
+                    [(ngModel)]="Search_ToDate"
+                    name="Search_ToDate"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="dpdate"
+										class="datePicker"
+
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #dpdate></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+									<div class="col-sm-6 col-md-3 d-flex align-items-center">
+										<label class="col-form-label text-sm-right mr-2 min-w-max">Status
+										</label>                           
+											<select [(ngModel)]="Department_Status_Dropdown_" name="Department_Status_Dropdown_" required class="form-control p-0 pl-1 ">
+												<option *ngFor="let Department_Status_Dropdown_T of Department_Status_Dropdown_Data" [ngValue]="Department_Status_Dropdown_T">{{Department_Status_Dropdown_T.Department_Status_Name}}</option>
+											</select>
+									</div>
+
+									<div class="col-sm-6 col-md-3 d-flex align-items-center">
+										<label class="col-form-label text-sm-right mr-2 min-w-max">Agent
+										</label>                           
+											<select
+											[(ngModel)]="Agent_Mode_"
+											name="Agent_Mode_"
+											required
+											class="form-control p-0 pl-1"
+										>
+											<option
+												*ngFor="let Agent_Mode_T of Agent_Mode_Data"
+												[ngValue]="Agent_Mode_T"
+											>
+												{{ Agent_Mode_T.Agent_Name }}
+											</option>
+	
+	
+										</select>
+									</div>
+									
+											<!-- <div class="col-md-4 col-lg-1 font-tab"> -->
+												<!-- <i  class="fa fa-refresh" style="color: #23d539;margin-left: 694px;
+												padding-top: 30px;" 
+												(click)="Search_Application_List()"></i> -->
+												<!-- <button _ngcontent-lkq-c5="" (click)=Search_Application_List() class="save-button-style btnflot bb-2" id="Save_Button" type="submit"> Search </button> -->
+											<!-- </div> -->
+
+											<!-- <div class="col-md-4 col-lg-6 font-tab">
+											
+												<button _ngcontent-lkq-c5="" class="save-button-style btnflot bb-2" id="Save_Button" type="submit"> Refresh </button>
+											</div> -->		
+								</div>
+								<div class="form-row ml-3 mr-3 mt-1 mb-3" style="align-items: center;" [hidden]="More_Search_Options">
+									
+									<div class="col-sm-6 col-md-3 d-flex align-items-center">
+										<label class="col-form-label text-sm-right mr-2 min-w-max"
+										>Contry</label>
+										 <div class="col-md-9 col-lg-9 mt-1">
+                    <input
+                      Input
+                      type="text"
+                      class="form-control"
+                      [matAutocomplete]="autoc3"
+                      placeholder=""
+                      [(ngModel)]="Application_Country_"
+                      name="Application_Country_"
+                      id="Application_Country_"
+                      (click)="Search_Country_Typeahead($event)"
+                      (keyup)="Search_Country_Typeahead($event)"
+                      (ngModelChange)="Country_Change1()"
+                    />
+                  </div>
+                  <mat-autocomplete
+                    #autoc3="matAutocomplete"
+                    [displayWith]="display_Country"
+                  >
+                    <mat-option *ngIf="issLoading">
+                      <mat-spinner diameter="500"></mat-spinner>
+                    </mat-option>
+                    <ng-container *ngIf="!issLoading">
+                      <mat-option
+                        *ngFor="let Country_T of Country_Data_Filter"
+                        [value]="Country_T"
+                      >
+                        <span name="Country_T.Country_Name">{{
+                          Country_T.Country_Name
+                        }}</span>
+                      </mat-option>
+                    </ng-container>
+                  </mat-autocomplete>
+									
+									</div>
+									<div class="col-sm-6 col-md-3 d-flex align-items-center">
+										<label
+										class="col-form-label text-sm-right mr-2 min-w-max"
+										> Id</label
+										>
+											<input
+												type="text"
+												[(ngModel)]="Student_Id_Search"
+												name="Student_Id_Search"
+												class="form-control"
+												placeholder=" "/>
+
+									</div>
+								</div>
+								<hr class="lineheader mt-0 mb-0" />
+							</div>
+							<!-- </div> -->
+
+							<div class="col-md-12 pr-0 pl-0">
+								<div class="data col-lg-9 pl-3 mt-0">
+								  <h4 style="color: #145388; font-weight: bold"></h4>
+								</div>
+								<div>
+								  <div class="card-body card-body-for-searchedit-lead-section" style="padding: 10px;" id="profile">
+									<!-- Fixed height and enforced scrollbar -->
+									<div class="table-responsive" 
+										 style="height: 400px; overflow-y: auto; display: block; position: relative;" 
+										 [style.height.px]="myTotalHeight">
+									  
+									  <!-- Table with minimum height to ensure scrollbar appears -->
+									  <table class="table table-hover colour-change-title-searchsection-table heading-styles-as-gmail-format" 
+											 style="width: 120% !important;">
+										<thead style="color: #151515 !important; text-align: left; background-color: #f6f8fc; position: sticky; top: 0; z-index: 10;">
+							  <th class="col-md-0 pl-1 ml-0" style="color: #151515 !important">No</th>
+							  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Actions</th>
+							  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Student</th>
+							   <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">University</th>
+							    <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Course</th>
+
+								 <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Intake</th>
+								 <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Counsellor</th>
+								  <th class="col-md-4 pl-1 ml-0" style="color: #151515 !important">Remark</th>
+								  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Portal</th>
+								  
+								  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Status</th>	
+								<th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Country</th>	
+								<th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">To Staff</th>
+
+							  									
+							  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Unique ID</th>
+							  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Assigned on</th>
+							  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Next FollowUp</th>
+							  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">No of Days</th>	
+							  <th class="col-md-1 pl-1 ml-0" style="color: #151515 !important">Actions</th>
+							</thead>
+							<tbody>
+							  <tr *ngFor="let ApplicationDetails_d of ApplicationDetails_Data; let i = index" class="table-data-row">
+								<td>{{ i + 1 }}</td>
+								<td><div class="d-flex">	<button class="other-button-style btn-cs me-1 d-flex align-items-center justify-content-center"
+									(click)="Change_Bph_Status(ApplicationDetails_d, i)"
+									type="submit"
+									style="background-color: #ffffff; border: 1.5px solid rgb(75, 35, 219); color: rgb(235, 137, 57); padding: 5px 15px; text-align: center;">
+							  Change Status
+							</button></div></td>
+									<td>
+								  <a target="_blank" (click)="Edit_Student_Notification(ApplicationDetails_d.Student_Id, i)" 
+									 style="color: lightseagreen; font-weight: 800">
+									{{ ApplicationDetails_d["Student_Name"] }}
+								  </a>
+								</td>
+								<td>{{ ApplicationDetails_d["University_Name"] }}</td>
+								<td>{{ ApplicationDetails_d["Course_Name"] }}</td>
+								<td>{{ ApplicationDetails_d["intake_Name"] }}</td>
+								<td>{{ ApplicationDetails_d["User"] }}</td>
+								<td style="width: 450px;">{{ ApplicationDetails_d["Remark"] }}</td>
+								<td>{{ ApplicationDetails_d["Course_Link"] }}</td>
+								<td>{{ ApplicationDetails_d["AppstatusName"] }}</td>
+								<td>{{ ApplicationDetails_d["Country_Name"] }}</td>
+								<td>{{ ApplicationDetails_d["To_Staff_Name"] }}</td>
+								
+								<td>{{ ApplicationDetails_d["AIMS_Id"] }}</td>
+								<td>{{ ApplicationDetails_d["Grid_Date"] }}</td>
+								<td><span 
+									[hidden]="ApplicationDetails_d.FollowUp == 0">{{ ApplicationDetails_d["Next_FollowUp_Date"] }}</span></td>
+								<td>{{ ApplicationDetails_d["Day_diff"] }}</td>
+							
+								
+								
+								
+								
+							
+								
+								
+								
+								
+							
+								<td>
+								  <div class="d-flex">
+									<!-- Change Status Button -->
+								
+									
+									<!-- Comment Button -->
+									<button style="color: #fff; background-color: #0ab33c !important; border: none !important;"
+											class="other-button-style btn-cs me-1"
+											(click)="Add_Comment(ApplicationDetails_d, i)">
+									  Comment
+									</button>
+									
+									<!-- View Conditions Button -->
+									<button *ngIf="ApplicationDetails_d.Offerletter_Type_Id==1"
+											class="other-button-style btn-cs me-1"
+											(click)="View_Conditions(ApplicationDetails_d,i)"
+											type="submit" style="background-color: #ffffff; border: 1.5px solid rgb(75, 35, 219); color: rgb(235, 137, 57);">
+									  View Conditions
+									</button>
+									
+									<!-- History Button -->
+									<button class="other-button-style btn-cs me-1"
+											style="background-color: #ffffff; border: 1.5px solid rgb(7, 196, 221); color: rgb(7, 196, 221);"
+											(click)="Get_ApplicationDetailswise_History(ApplicationDetails_d.Application_details_Id, ApplicationDetails_d.Application_Fees_Paid)"
+											type="submit">
+									  History
+									</button>
+									
+									<!-- Edit Icon -->
+									<span style="font-size: 20px; padding: 10px; line-height: 15px;"
+										  class="icon-backgroune"
+										  (click)="Edit_ApplicationDetails(ApplicationDetails_d, i)">
+									  <mat-icon class="text-green smalle">edit</mat-icon>
+									</span>
+								  </div>
+								</td>
+							  </tr>
+							</tbody>
+						  </table>										
+					</div>
+										<!-- <div class="card horizontal mb-1 col-12"
+											*ngFor="let ApplicationDetails_d of ApplicationDetails_Data;let i = index">
+											<div class="card-stacked col-12">
+												<div class="grid-container" style="    display: flex;
+												align-items: center;
+												padding-top: 5px; padding-bottom: 5px;">	
+													
+													<div class="d-flex flex-wrap mb-1 mr-2 grid-item" style="height:50px !important;">
+														<img
+															*ngIf="
+																ApplicationDetails_d.Activation_Status == 1
+															"
+															src="assets/img/active.png"
+															width="50px" height="50px"
+														/>
+														<img
+															*ngIf="
+																ApplicationDetails_d.Activation_Status == 0
+															"
+															src="assets/img/fileimg.png"
+															width="50px" height="50px"
+														/>
+													</div>
+
+													<div class="col-md-12 pr-0">
+
+														<div class="d-flex flex-wrap mb-1 grid-item">
+
+
+														<div class="d-flex flex-wrap mb-0 mr-2 grid-item">	
+
+														
+
+														<button 
+																
+																class="other-button-style btnflot pull-right btn-cs"
+																(click)="Change_Bph_Status(ApplicationDetails_d,i)"
+																type="submit" style="
+																background-color: #ffffff;
+																border: 1.5px solid rgb(75, 35, 219);
+																color: rgb(235, 137, 57);">Change Status</button>
+														</div>
+
+														<div class="pr-3 lh">
+															AIMS ID:
+															<span class="text-dark">
+		{{
+			ApplicationDetails_d["AIMS_Id"]
+		}}</span
+															>
+														</div>
+														<div class="pr-3 lh">
+															Date of Applying:
+															<span class="text-dark">
+																{{
+																	ApplicationDetails_d["Grid_Date"]
+																}}</span
+															>
+														</div>
+														<div class="pr-3 lh" >
+															Student:
+															<span class="text-dark">
+																<a
+						target="_blank"
+						
+						(click)="Edit_Student_Notification(ApplicationDetails_d.Student_Id, i)"
+						style="color:  lightseagreen; font-weight: 800"
+						>{{ ApplicationDetails_d["Student_Name"] }}
+						</a>
+					</span
+															>
+														</div>
+															
+													
+															<div class="pr-3 lh">
+																<span class="text-dark">{{
+																	ApplicationDetails_d["Country_Name"]
+																}}</span>
+															</div>
+															<div class="pr-3 lh">
+																<span class="text-dark">
+																	{{
+																		ApplicationDetails_d["University_Name"]
+																	}}</span
+																>
+															</div>
+															<div class="pr-3 lh">
+																<span class="text-dark">{{
+																	ApplicationDetails_d["Course_Name"]
+																}}</span>
+															</div>
+															
+
+															<div class="pr-1 lh">
+																To Staff:
+																<span class="text-dark" >
+																	{{
+																		ApplicationDetails_d[
+																			"To_Staff_Name"
+																		]
+																	}}</span
+																>
+															</div>
+
+															
+
+
+															<div class="pr-3 lh">
+																Intake:
+																<span class="text-dark">
+																	{{
+																		ApplicationDetails_d["intake_Name"]
+																	}}</span
+																>
+															</div>
+															
+															<div class="pr-3 lh">
+																<span class="text-dark">{{
+																	ApplicationDetails_d["Intake_Year_Name"]
+																}}</span>
+															</div>
+															<div class="pr-3 lh">
+																Agent:
+																<span class="text-dark">
+																	{{
+																		ApplicationDetails_d["Agent_Name"]
+																	}}</span
+																>
+															</div>
+															<div class="pr-3 lh">
+																Status:
+																<span class="text-dark">
+																	{{
+																		ApplicationDetails_d[
+																			"AppstatusName"
+																		]
+																	}}</span
+																>
+															</div>
+															<div class="pr-3 lh">
+																Remark:
+																<span class="text-dark"
+																	>{{ ApplicationDetails_d["Remark"] }}
+																</span>
+															</div>
+															
+															
+															<div class="pr-1 lh">
+																Application Fees:
+																<span class="text-dark">
+																	{{
+																		ApplicationDetails_d[
+																			"Application_Fees"
+																		]
+																	}}</span
+																>
+															</div>
+
+
+															<div class="pr-1 lh">
+																Application Fees Paid:
+																<span class="text-dark" *ngIf="
+																ApplicationDetails_d.Application_Fees_Paid >=0
+															">
+																	{{
+																		ApplicationDetails_d[
+																			"Application_Fees_Paid"
+																		]
+																	}}</span
+																>
+															</div>
+
+
+															<div class="pr-1 lh">
+																Class Name:
+																<span class="text-dark" >
+																	{{
+																		ApplicationDetails_d[
+																			"Class_Name"
+																		]
+																	}}</span
+																>
+															</div>
+
+															<div>	
+															</div>
+														
+															<div class="d-flex flex-wrap mb-0 mr-2 grid-item">	
+																
+
+<button style="color: #fff; background-color: #0ab33c !important; border: none !important;"
+class="other-button-style btnflot pull-right btn-cs new-btn"
+(click)="Add_Comment(ApplicationDetails_d, i)">
+		  Comment 	</button>
+	
+
+
+																<div>
+														</div>
+													</div>
+
+													<div class="d-flex flex-wrap mb-0 mr-2 grid-item">	
+														<button 
+													
+														*ngIf="ApplicationDetails_d.Offerletter_Type_Id==1"
+														
+														class="other-button-style btnflot pull-right btn-cs"
+														(click)="View_Conditions(ApplicationDetails_d,i)"
+														type="submit" style="
+														background-color: #ffffff;
+														border: 1.5px solid rgb(75, 35, 219);
+														color: rgb(235, 137, 57);">View Conditions</button>
+														<button
+														class="other-button-style btnflot pull-right btn-cs m-btn"
+														style="
+															background-color: #ffffff;
+															border: 1.5px solid rgb(7, 196, 221);
+															color: rgb(7, 196, 221);
+														"
+														(click)="
+															Get_ApplicationDetailswise_History(
+																ApplicationDetails_d.Application_details_Id,
+																ApplicationDetails_d.Application_Fees_Paid
+															)
+														"
+														type="submit"
+													>
+														History
+													</button>
+													<span
+													style="
+														font-size: 20px;
+														padding: 10px;
+														line-height: 15px;
+													"
+													class="icon-backgroune ml-1"
+													
+													(click)="
+														Edit_ApplicationDetails(
+															ApplicationDetails_d,
+															i
+														)
+													"
+												>
+													<mat-icon class="text-green smalle"
+														>edit</mat-icon
+													></span
+												>
+													
+											</div>
+
+
+
+												</div>												
+													</div>
+												</div>
+											</div>
+										</div> -->
+									</div>
+									
+						
+								</div>							
+								
+							
+									
+							</div>
+						</div>
+					</div>
+				</form>
+				 <!-- Navigation buttons with reduced top margin and padding -->
+				 <div class="form-group" style="margin-top: 5px;">  
+					<div class="col-md-12" style="text-align: center;">                                
+				<button mat-raised-button type="submit" (click)="previous_Click()"  class="btn btn-danger change-colour-button buttons-next-previous-edit-portion  pt-0 mt-0"  style="background: none; padding-top: 0; margin-top: 0;"><i class="fa fa-chevron-left" aria-hidden="true" style="color:#5f6368;"></i></button>
+				<button mat-raised-button type="submit"  (click)="Next_Click()" class="btn btn-danger change-colour-button buttons-next-previous-edit-portion   pt-0 mt-0"   style="background: none; padding-top: 0; margin-top: 0;"><i class="fa fa-chevron-right" aria-hidden="true" style="color: #5f6368;"></i></button>
+				</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="dt-card__body mt-2" *ngIf="Change_Status_View"  [hidden]="Lodgement_section_View==false">
+			<form class="mb-0">
+				<div class="container-fluidprofile">
+					<div class="dt-card mt-2" style="display:table; width:100%;" [style.height.px]="myTotalHeight"style="overflow-y: scroll;">
+						<div class="card-body card-body-for-searchedit-lead-section" >
+							<div class="dt-card__header" >
+								<div class="dt-card__heading row" style="align-items: center;">
+									<h3 style="margin-top: 0px;" class="col-md-11">
+										<i
+											class="fa fa-file-text mr-2"
+											style="color: #586ae9"
+										>
+											</i
+										><b
+											style="
+												margin-bottom: 20px;
+												margin-bottom: 20px;
+												color: #4b5cd5;
+												font-weight: 600;
+											"
+											>{{Login_Department_Name_}} &nbsp;</b
+										>
+
+										<b
+											style="
+												margin-bottom: 20px;
+												margin-bottom: 20px;
+												color: lightseagreen;
+												font-weight: 600;
+											"
+											>{{App_List_Student_Name}}</b
+										>
+									
+								
+									</h3>
+									<div _ngcontent-oeu-c5="" class="col-md-1 col-sm-1 mt-0" (click)="Close_Click_Change_Status()" style=" display: flex;    justify-content: end;"><span class="mr-1 profile-close" ></span><span _ngcontent-oeu-c5="" class="main profile-close" ><mat-icon _ngcontent-oeu-c5="" class="text-red small mat-icon notranslate material-icons mat-icon-no-color" role="img" style="font-size: 32px; cursor: pointer" aria-hidden="true">close</mat-icon></span></div>
+									<div class="mb-2"></div>
+									<hr class="lineheader" />
+								</div>
+							</div>
+								<div class="form-row">
+		
+								<!-- <label class="col-md-2 col-lg-2 col-form-label text-sm-right"
+								>Status
+								<span
+								style="
+									color: #ef071e;
+									font-size: 22px;
+									vertical-align: -webkit-baseline-middle;
+								"
+								>*</span
+							></label
+							>
+							<div class="col-md-3 col-lg-4 mb-1">
+								<select
+									[(ngModel)]="Department_Status_Mode_"
+									name="Department_Status_Mode_"
+									required
+									class="form-control p-0 pl-1"
+								>
+									<option *ngFor="let Department_Status_s of Department_Status_Mode_Data" [ngValue]="Department_Status_s">
+										{{ Department_Status_s.Department_Status_Name }}
+									</option>
+								</select>
+							</div>	 -->
+
+							<label
+									class="col-md-1 col-sm-2 col-form-label text-sm-right"
+									>Status<span
+										style="
+											color: #ef071e;
+											font-size: 22px;
+											vertical-align: -webkit-baseline-middle;
+										"
+										>*</span
+									></label
+								>
+								<div class="col-md-5 col-sm-3 mb-1">
+									<input
+										Input
+										type="text"
+										class="form-control"
+										[matAutocomplete]="autoc3"
+										placeholder=""
+										[(ngModel)]="Department_Status_Mode1_"
+										(ngModelChange)="Status_Change()"
+										name="Department_Status_Mode1_"
+										id="Department_Status_Mode1_"
+										(click)="Search_Application_StatusforChangeStatus_Typeahead($event)"
+										(keyup)="Search_Application_StatusforChangeStatus_Typeahead($event)"
+									/>
+								</div>
+								<mat-autocomplete
+									#autoc3="matAutocomplete"
+									[displayWith]="display_Application_Status"
+								>
+									<mat-option *ngIf="issLoading">
+										<mat-spinner diameter="500"></mat-spinner>
+									</mat-option>
+									<ng-container *ngIf="!issLoading">
+										<mat-option
+											*ngFor="let Department_Status_s of Department_Status_Mode_Data1_Filter"
+											[value]="Department_Status_s"
+										>
+											<span name="Department_Status_s.Department_Status_Name">{{
+												Department_Status_s.Department_Status_Name
+											}} &nbsp;</span>
+
+											<span *ngIf="Department_Status_s.Transfer_Department_Name" style="color: #000000;"> - &nbsp;
+                                  
+											</span>
+
+
+											<span
+											 
+											style="
+											color: #ef071e;
+											
+										"
+											 >
+											{{
+												Department_Status_s.Transfer_Department_Name
+											}}</span>
+										</mat-option>
+									</ng-container>
+								</mat-autocomplete>
+
+
+								<label
+                      *ngIf="Is_Follow_ == 1"
+                      class="col-md-1 col-sm-2 col-form-label text-sm-right"
+                      >Follow Up on<span
+                        style="
+                          color: #ef071e;
+                          font-size: 22px;
+                          vertical-align: -webkit-baseline-middle;
+                        "
+                        >*</span
+                      ></label
+                    >
+                    <div class="col-md-5 col-sm-3 mb-1" *ngIf="Is_Follow_ == 1">
+                      <!-- <input type="date" class="form-control" placeholder="Followup date" name="FollowUp_.Next_FollowUp_Date" [(ngModel)]="FollowUp_.Next_FollowUp_Date" > -->
+                      <mat-form-field
+                        class="form-control mrgn-crct-input-text-div-tre-prt-sles1 dateField"
+                      >
+                        <input
+                          matInput
+                          [matDatepicker]="dp11"
+                          placeholder=""
+                          [(ngModel)]="ApplicationDetails_.Next_FollowUp_Date"
+                          name="ApplicationDetails_.Next_FollowUp_Date"
+													
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp11"
+													class="datePicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp11></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+
+
+<!-- 
+							<label
+							class="col-md-1 col-lg-2  col-form-label"
+							
+							style="
+								font-size: 14px !important;
+								
+							"
+							*ngIf="Agent_Applicationlist_View"
+						>
+							Agent
+						</label>
+						<div
+							class="col-md-3 col-lg-4 mt-1"
+							style="padding-right: 6px"
+							*ngIf="Agent_Applicationlist_View"
+						>
+							<select
+								[(ngModel)]="Agent_Mode_"
+								name="Agent_Mode_"
+								required
+								class="form-control p-0 pl-1"
+							>
+								<option
+									*ngFor="let Agent_Mode_T of Agent_Mode_Data"
+									[ngValue]="Agent_Mode_T"
+								>
+									{{ Agent_Mode_T.Agent_Name }}
+								</option>
+							</select>
+						</div>  -->
+
+
+						
+
+
+
+							
+										
+							<!-- <label class="col-md-2 col-sm-0 col-form-label " *ngIf="Application_No_View">Application No</label>
+							<div class="col-md-4 col-sm-3 mb-2" *ngIf="Application_No_View">
+								<input type="text" class="form-control" [(ngModel)]="ApplicationDetails_.Application_No" name="ApplicationDetails_.Application_No"  placeholder="Application No">
+							   
+							</div> -->
+
+						
+
+
+						</div>
+						<div class="form-row">
+											<label class="col-md-2 col-lg-1 col-form-label text-sm-right" >Remark <span
+                                style="
+                                    color: #ef071e;
+                                    font-size: 22px;
+                                    vertical-align: -webkit-baseline-middle;
+                                "
+                                >*</span
+                            ></label>
+                            <div class="col-md-4 col-lg-5 mb-1">
+                                <!-- <input type="text" class="form-control" [(ngModel)]="ApplicationDetails_.Remark" name="ApplicationDetails_.Remark"  placeholder="Remark"> -->
+
+                                
+                                <textarea
+                                [(ngModel)]="ApplicationDetails_.Remark" name="ApplicationDetails_.Remark"  placeholder="Remark"
+                                class="form-control"
+                                rows="1"
+                        				cols="2"
+                                
+                                    class="form-control"
+                                    cols="50"
+                                >
+                                </textarea>
+                               
+                            </div>
+										</div>
+							<div class="form-row mt-1">
+							
+								<label class="col-md-2 col-lg-1 col-form-label text-sm-right"
+									>Branch<span
+										style="
+											color: #ef071e;
+											font-size: 22px;
+											vertical-align: -webkit-baseline-middle;
+											
+										"
+										>*</span
+									></label
+								>
+								<div class="col-md-3 col-lg-3 mb-1">
+								<input
+									type="text"
+									[matAutocomplete]="auto8"
+									[(ngModel)]="FollowUp_Branch_1"
+									name="FollowUp_Branch_1"
+									(click)="Search_Branch_Typeahead($event)"
+									(keyup)="Search_Branch_Typeahead($event)"
+									class="form-control"
+									(ngModelChange)="Branch_Change(FollowUp_Branch_1)"
+								/>
+								<mat-autocomplete
+									#auto8="matAutocomplete"
+									[displayWith]="display_Branch"
+								>
+									<mat-option *ngIf="issLoading"
+										><mat-spinner diameter="500"></mat-spinner
+									></mat-option>
+									<ng-container *ngIf="!issLoading">
+										<mat-option
+											*ngFor="let Branch1 of Followup_Branch_Data"
+											[value]="Branch1"
+										>
+											<span>{{ Branch1.Branch_Name }}</span>
+										</mat-option>
+									</ng-container>
+								</mat-autocomplete>
+							</div>
+							
+								<label class="col-md-1 col-lg-1 col-form-label text-sm-right"
+									>Department<span
+										style="
+											color: #ef071e;
+											font-size: 22px;
+											vertical-align: -webkit-baseline-middle;
+											
+										"
+										>*</span
+									></label
+								>
+								<div class="col-md-3 col-lg-3 mb-1">
+								<input
+									type="text"
+									[matAutocomplete]="auto1"
+									[(ngModel)]="FollowUp_Department_1"
+									name="FollowUp_Department_1"
+									(click)="Search_Branch_Department_Typeahead_application($event)"
+									class="form-control"
+									(ngModelChange)="Department_Change()"
+								/>
+								<mat-autocomplete
+									#auto1="matAutocomplete"
+									[displayWith]="display_Department"
+								>
+									<mat-option *ngIf="issLoading"
+										><mat-spinner diameter="500"></mat-spinner
+									></mat-option>
+									<ng-container *ngIf="!issLoading">
+										<mat-option
+											*ngFor="let Dept of Followup_Department_Data"
+											[value]="Dept"
+										>
+											<span >{{ Dept.Department_Name }}</span>
+										</mat-option>
+									</ng-container>
+								</mat-autocomplete>
+							</div>
+						
+
+
+
+							
+								<label class="col-md-1 col-lg-1 col-form-label text-sm-right"
+									>To Staff<span
+										style="
+											color: #ef071e;
+											font-size: 22px;
+											vertical-align: -webkit-baseline-middle;
+											
+										"
+										>*</span
+									></label
+								>
+								<div class="col-md-3 col-lg-3 mb-1">
+								<input
+									type="text"
+									[matAutocomplete]="auto_Followup_Users"
+									[(ngModel)]="Followup_Users_List_"
+									name="Followup_Users_List_"
+									(click)="Search_Department_User_Typeahead_application($event)"
+									class="form-control"
+								/>
+								<mat-autocomplete
+									#auto_Followup_Users="matAutocomplete"
+									[displayWith]="display_Followup_Users"
+								>
+									<mat-option *ngIf="issLoading"
+										><mat-spinner diameter="500"></mat-spinner
+									></mat-option>
+									<ng-container *ngIf="!issLoading">
+										<mat-option
+											*ngFor="let Users of Followup_Users_Data"
+											[value]="Users"
+										>
+											<span>{{ Users.User_Details_Name }}</span>
+										</mat-option>
+									</ng-container>
+								</mat-autocomplete>
+							</div>
+							</div>
+						<!-- <div class="dt-card__body mt-2" *ngIf="Offtertype_View"  [hidden]="Offerchasing_section_View==false">
+							<form class="mb-0">
+								<div class="container-fluidprofile p-0">
+									<div class="dt-card mt-0 p-0" style="display:table; width:100%;border: none;">
+										<div class="card-body card-body-for-searchedit-lead-section  p-0">
+											<div class="dt-card__header">
+												<div class="dt-card__heading">
+													<h3 style="margin-top: 0px;">
+														<i
+															class="fa fa-file-text mr-2"
+															style="color: #586ae9"
+														>
+															 </i
+														><b
+															style="
+																margin-bottom: 20px;
+																margin-bottom: 20px;
+																color: #4b5cd5;
+																font-weight: 600;
+															"
+															>Offer Details
+
+															</b
+														>
+													</h3>
+													<div class="mb-2"></div>
+													<hr class="lineheader" />
+												</div>
+											</div>
+												<div class="form-row">
+						
+												<label class="col-md-2 col-lg-2 col-form-label "
+												>Offerletter Type
+												<span
+												style="
+													color: #ef071e;
+													font-size: 22px;
+													vertical-align: -webkit-baseline-middle;
+												"
+												>*</span
+											></label
+											>
+											<div class="col-md-3 col-lg-4 mb-1">
+												<select
+													[(ngModel)]="Offerletter_Type_"
+													name="Offerletter_Type_"
+													required
+													class="form-control p-0 pl-1"
+												>
+													<option *ngFor="let Offerletter_Type_T of Offerletter_Type_Data" [ngValue]="Offerletter_Type_T">
+														{{ Offerletter_Type_T.Offerletter_Type_Name }}
+													</option>
+												</select>
+											</div>					
+											<label class="col-md-2 col-sm-0 col-form-label " *ngIf="Offerletter_Type_.Offerletter_Type_Id==1">Conditions</label>
+											<div class="col-md-3 col-sm-3 mb-2" *ngIf="Offerletter_Type_.Offerletter_Type_Id==1">
+												<input type="text" class="form-control" [(ngModel)]="Conditions_Sub.Conditions_Name" name="Conditions_Sub.Conditions_Name"  placeholder="">
+											   
+											</div>
+				
+											<div class="col-md-1" style="float:right;" *ngIf="Offerletter_Type_.Offerletter_Type_Id==1"> 
+												<button  type="submit" (click)="Plus_Conditions($event)"  class="other-button-style ">Add </button>           
+											</div>   
+										</div>
+				
+										<div class="col-md-12 p-0" *ngIf="Offerletter_Type_.Offerletter_Type_Id==1">
+											<div class="card-body p-0">
+										   <div class="table-responsive" [style.height.px]="myInnerHeightThree" style="overflow-y: scroll;"
+										   style="overflow-y: scroll;min-height: 200px;">
+											<table class="table table-hover table-for-sale-search-section-diary">
+											<thead class="thead">
+											<th class="col-md-6">Condition</th>   
+											<th [hidden]="Course_Edit==false">Edit</th>
+											<th  [hidden]="Course_Delete==false">Delete</th>
+											</thead>
+											<tbody class="bk_tb_bg" *ngFor="let Coditions_Sub_T of Conditions_Sub_Data; let i = index">
+											<td class="">{{Coditions_Sub_T["Conditions_Name"]}}</td>
+											<td  class="" >
+												<span class="icon-background2 mr-1"    (click)="Edit_Conditins_Sub(Coditions_Sub_T,i)" > <mat-icon class="text-green small" >edit</mat-icon></span>
+												</td>
+												<td class=""> 
+												<span class="icon-background3 mr-1"   (click)="Delete_Conditionssub(Coditions_Sub_T,i)" > <mat-icon class="text-red small" >close</mat-icon></span>
+												</td>
+											</tbody>
+											</table>
+											</div>
+											</div>
+											</div>		
+										</div>
+									</div>
+								</div>
+							</form>						
+						</div>						 -->
+							<button class="other-button-style btnflot pull-right" style="height: 33px !important" 
+						(click)="Close_Click_Change_Status()"
+						type="submit" style="background-color: red;">Close
+						</button>		
+						<button class="other-button-style btnflot pull-right mr-1" style="height: 33px !important" 
+						(click)="Save_Lodgemet()"
+							type="submit" style="background-color: rgb(41, 214, 119);">Save</button>	
+						
+						</div>
+					</div>
+				</div>
+			</form>
+			
+		</div>
+		<div class="dt-card__body mt-2" *ngIf="Viewconditions_View"  >
+			<form class="mb-0">
+				<div class="container-fluidprofile">
+					<div class="dt-card mt-4" style="display:table; width:100%;">
+						<div class="card-body card-body-for-searchedit-lead-section">
+							<div class="dt-card__header">
+								<div class="dt-card__heading">
+									<h3 style="margin-top: 0px;">
+										<i
+											class="icon icon-users icon-fw icon-lg material-icons mr-2"
+											style="color: #586ae9"
+										>
+											history </i
+										><b
+											style="
+												margin-bottom: 20px;
+												margin-bottom: 20px;
+												color: #4b5cd5;
+												font-weight: 600;
+											"
+											>Conditions Views</b
+										>
+									</h3>
+									<div class="mb-2"></div>
+									<hr class="lineheader" />
+								</div>
+							</div>
+							
+
+
+						<div class="col-md-12" >
+							<div class="card-body">
+						   <div class="table-responsive" style="overflow:scroll;height: 350px;">
+							<table class="table table-hover table-for-sale-search-section-diary">
+							<thead class="thead">
+							<th>Condition</th>   
+							<th>Remark</th> 
+							<th>Completed</th>   
+							<!-- <th [hidden]="Course_Edit==false">Edit</th>
+							<th [hidden]="Course_Delete==false">Delete</th> -->
+							</thead>
+							<tbody class="bk_tb_bg" *ngFor="let Coditions_Sub_T1 of Conditions_Search_Data; let i = index">
+						
+								<td class="">{{Coditions_Sub_T1["Conditions_Name"]}}</td>
+							<td class="">
+								
+								<!-- <input type="text" class="form-control" [(ngModel)]="Conditions_Sub.Condition_Remark" 
+								name="Conditions_Sub.Condition_Remark"  placeholder=""> -->
+								
+								<input type="text"  [(ngModel)]="Coditions_Sub_T1.Condition_Remark"   
+								name={{Coditions_Sub_T1.Conditions_Name}}
+								class="form-control" placeholder=""  >
+
+
+
+								<!-- <label class="col-md-0 col-sm-0 col-form-label text-sm-right">Child Age</label>
+								<div class="col-md-1 col-sm-1 mb-1">
+								  <div style="height:auto;overflow-y:scroll;">
+									<div
+									*ngFor="let Child_Age_D of Child_Age_Data"											
+								>
+								{{ Child_Age_D.Child_Name }}
+								<input type="text" [(ngModel)]="Child_Age_D.Child_Age" 
+								name={{Child_Age_D.Child_Name}} class="form-control" placeholder="">										
+								  </div>
+								  </div>										  
+								  </div>  -->
+
+
+
+
+							</td>
+
+							<td class="">
+							<div class="col-md-4 col-sm-0 mb-1 x-tra-label-mob" style="padding-top: 6px;">
+								<div
+									_ngcontent-xmy-c9=""
+									class="checkbox-to-crect-sales-search-section"
+								>
+									<div
+										_ngcontent-xmy-c9=""
+										class="form-check uper-dte-lbel-sales-sctn-new pl-0"
+									>
+										<label _ngcontent-xmy-c9="" class="form-check-label">
+											<input
+												type="checkbox"
+												class="form-check-input"
+												name={{Coditions_Sub_T1.Completed}}
+												[(ngModel)]="Coditions_Sub_T1.Completed"
+											/>
+											<span _ngcontent-xmy-c9="" class="form-check-sign"
+												><span _ngcontent-xmy-c9="" class="check"> </span>
+											</span>
+										</label>
+									</div>
+								</div>
+							</div>
+							</td>
+
+							<!-- <td  class="" >
+								<span class="icon-background2 mr-1"    (click)="Edit_Conditins_Sub(Coditions_Sub_T,i)" > <mat-icon class="text-green small" >edit</mat-icon></span>
+								</td>
+								<td class=""> 
+								<span class="icon-background3 mr-1"   (click)="Delete_Conditionssub(Coditions_Sub_T,i)" > <mat-icon class="text-red small" >close</mat-icon></span>
+								</td> -->
+							</tbody>
+							</table>
+							</div>
+							</div>
+							</div>
+		  
+
+
+						<button class="other-button-style btnflot pull-right" style="height: 33px !important" 
+																(click)="Close_Click_Change_Status()"
+																type="submit" style="background-color: red;">Close
+															</button>
+		
+															<button class="other-button-style btnflot pull-right mr-1" style="height: 33px !important" 
+															(click)="Save_Viewconditions()"
+																type="submit" style="background-color: rgb(41, 214, 119);">Save
+															</button>
+									
+						</div>
+					</div>
+				</div>
+			</form>
+			
+		</div>
+
+		<div class="dt-card__body mt-2" *ngIf="History_View">
+			<form class="mb-0">
+				<div class="container-fluidprofile">
+					<div class="dt-card mt-2">
+						<div class="card-body card-body-for-searchedit-lead-section">
+							<div class="dt-card__header">
+								<div class="dt-card__heading">
+									<h3 style="margin-top: 0px">
+										<i
+											class="icon icon-users icon-fw icon-lg material-icons mr-2"
+											style="color: #586ae9"
+										>
+											history </i
+										><b
+											style="
+												margin-bottom: 20px;
+												margin-bottom: 20px;
+												color: #4b5cd5;
+												font-weight: 600;
+											"
+											>Application History</b
+										>
+									</h3>
+									<div class="mb-2"></div>
+									<hr class="lineheader" />
+								</div>
+							</div>
+
+							<!-- new grid div -->
+							
+						<div [style.height.px]="myInnerHeightFour"  style="overflow-y: scroll;overflow-x: hidden;">
+							<div
+								class="card horizontal mb-1"
+								*ngFor="
+									let ApplicationdetailsHistory_Data_d of ApplicationdetailsHistory_Data;
+									let i = index
+								"
+							>
+								<div class="card-stacked">
+									<div class="grid-container" style="    display: flex;
+									align-items: center;
+									padding: 5px 0;">
+										<div
+											class="d-flex flex-wrap mb-1 mr-2 grid-item"
+											style="height: 50px !important"
+										>
+											<img
+												*ngIf="
+													ApplicationdetailsHistory_Data_d.Activation_Status ==
+													1
+												"
+												src="assets/img/active.png"
+												width="50px"
+												height="50px"
+											/>
+											<img
+												*ngIf="
+													ApplicationdetailsHistory_Data_d.Activation_Status ==
+													0
+												"
+												src="assets/img/fileimg.png"
+												width="50px"
+												height="50px"
+											/>
+										</div>
+
+										<div class="col-md-12">
+											<!-- <div
+														_ngcontent-xmy-c9=""
+														class="checkbox-to-crect-sales-search-section" style="margin-right:20px;"
+													>
+														<div
+															_ngcontent-xmy-c9=""
+															class="form-check uper-dte-lbel-sales-sctn-new pl-0"
+														>
+															<label _ngcontent-xmy-c9="" class="form-check-label">
+																<input
+																	type="checkbox"
+																	class="form-check-input"
+																	name="Visa_.Visa_Letter"
+																	[(ngModel)]="Visa_.Visa_Letter"
+																/>
+																<span _ngcontent-xmy-c9="" class="form-check-sign"
+																	><span _ngcontent-xmy-c9="" class="check"> </span>
+																</span>
+															</label>
+														</div>
+													</div> -->
+											<div class="d-flex flex-wrap mb-1 grid-item" style="align-items: center;">
+												<div class="pr-3">
+													<span class="text-dark">{{
+														ApplicationdetailsHistory_Data_d["Country_Name"]
+													}}</span>
+												</div>
+												<div class="pr-3">
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d[
+																"University_Name"
+															]
+														}}</span
+													>
+												</div>
+												<div class="pr-3">
+													<span class="text-dark">{{
+														ApplicationdetailsHistory_Data_d["Course_Name"]
+													}}</span>
+												</div>
+												<div class="pr-3">
+													Intake:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d[
+																"intake_Name"
+															]
+														}}</span
+													>
+												</div>
+												<div class="pr-3">
+													<span class="text-dark">{{
+														ApplicationdetailsHistory_Data_d[
+															"Intake_Year_Name"
+														]
+													}}</span>
+												</div>
+												<div *ngIf="Agent_View" class="pr-3">
+													Agent:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d["Agent_Name"]
+														}}</span
+													>
+												</div>
+												<div class="pr-3">
+													Date of Applying:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d["Grid_Date"]
+														}}</span
+													>
+												</div>
+												<div class="pr-3">
+													Remark:
+													<span class="text-dark"
+														>{{
+															ApplicationdetailsHistory_Data_d["Remark"]
+														}}
+													</span>
+												</div>
+												<div class="pr-3">
+													Status:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d[
+																"Application_Status_Name"
+															]
+														}}</span
+													>
+												</div>
+												<div class="pr-3">
+													Application No:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d[
+																"Application_No"
+															]
+														}}</span
+													>
+												</div>
+												<div class="pr-3">
+													Preference:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d[
+																"Preference"
+															]
+														}}</span
+													>
+												</div>
+
+												<div class="pr-3">
+													To User:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d[
+																"To_User_Name"
+															]
+														}}</span
+													>
+												</div>
+
+												<div class="pr-3">
+													By User:
+													<span class="text-dark">
+														{{
+															ApplicationdetailsHistory_Data_d[
+																"User"
+															]
+														}}</span
+													>
+												</div>
+												<!-- <div class="pr-3">
+															
+															<span
+															class="icon-backgroune mr-1" style="width: 100%;"
+															*ngIf="Applications_Details_Tab_Edit"
+															>
+															<mat-icon class="text-blue smalle" style="font-weight: bold;">check</mat-icon>{{ApplicationdetailsHistory_Data_d[
+																"Status_Name_Approval"
+															]}}</span>
+														</div> -->
+
+												<div
+													class="pr-3"
+													*ngIf="
+														ApplicationdetailsHistory_Data_d.Student_Approved_Status ==
+														true 
+													"
+												>
+													<span
+														class="icon-backgroune mr-1 mb-1"
+														style="width: 100%; cursor: default !important"
+														*ngIf="Applications_Details_Tab_Edit"
+													>
+														<mat-icon
+															class="text-blue smalle"
+															style="font-weight: bold"
+															>check</mat-icon
+														>{{
+															ApplicationdetailsHistory_Data_d[
+																"Status_Name_Approval"
+															]
+														}}</span
+													>
+												</div>
+
+												<div
+													class="pr-3"
+													*ngIf="
+														ApplicationdetailsHistory_Data_d.Student_Approved_Status ==
+														false && Student_approved_Status_View==true
+													"
+												>
+													<span
+														class="icon-backgroune mr-1"
+														style="width: 100%; cursor: default !important"
+														*ngIf="Applications_Details_Tab_Edit"
+													>
+														<mat-icon
+															class="text-orange smalle"
+															style="font-weight: bold"
+															>warning</mat-icon
+														>{{
+															ApplicationdetailsHistory_Data_d[
+																"Status_Name_Approval"
+															]
+														}}</span
+													>
+												</div>
+
+												<!-- <div class="pr-3">
+															<span
+															class="icon-backgroune mr-1" style="width: 100%;"
+															*ngIf="Applications_Details_Tab_Edit"
+															>
+															<mat-icon class="text-red smalle" style="font-weight: bold;">check</mat-icon>{{ApplicationdetailsHistory_Data_d[
+																"Bph_Status_Name"
+															]}}</span>
+														</div> -->
+
+
+														<div class="pr-3" 	*ngIf="ApplicationdetailsHistory_Data_d.Bph_Approved_Status ==3 && Auditor_Status_View==true">
+															<span
+															class="icon-backgroune mr-1" style="width: 100%;cursor: default!important;"
+															
+															>
+															<mat-icon class="text-red smalle" style="font-weight: bold;">close</mat-icon>{{ApplicationdetailsHistory_Data_d[
+																"Bph_Status_Name"
+															]}}</span>
+														</div>
+
+														<div class="pr-3" 	*ngIf="ApplicationdetailsHistory_Data_d.Bph_Approved_Status ==2 && Auditor_Status_View==true">
+															<span
+															class="icon-backgroune mr-1" style="width: 100%;cursor: default!important;"
+															
+															>
+															<mat-icon class="text-green smalle" style="font-weight: bold;">check</mat-icon>Auditor Approved</span>
+														</div>
+
+														<div class="pr-3" *ngIf="ApplicationdetailsHistory_Data_d.Bph_Approved_Status ==1 && Auditor_Status_View==true">
+															<span
+															class="icon-backgroune mr-1" style="width: 100%;cursor: default!important;"
+															
+															>
+															<mat-icon class="text-orange smalle" style="font-weight: bold;">warning</mat-icon>Auditor Pending</span>
+														</div>
+
+
+														<div class="pr-3" *ngIf="FeesId_History >=0 && Payment_Status_View==true">
+															<span
+															class="icon-backgroune mr-1" style="width: 100%;"
+															*ngIf="Applications_Details_Tab_Edit"
+															>
+															<mat-icon class="text-green smalle" style="font-weight: bold;">check</mat-icon>Paid</span>
+														</div>
+														<div class="pr-3" *ngIf="FeesId_History ==-1 && Payment_Status_View==true">
+															<span
+															class="icon-backgroune mr-1" style="width: 100%;cursor: default!important;"
+															*ngIf="Applications_Details_Tab_Edit"
+															>
+															<mat-icon class="text-orange smalle" style="font-weight: bold;">warning</mat-icon>Payment Pending</span>
+														</div>
+
+
+
+												<div>
+													<!-- <button
+															class="other-button-style btnflot pull-right"
+															*ngIf="ApplicationdetailsHistory_Data_d.Activation_Status ==false"
+															(click)="Activate_Application(ApplicationdetailsHistory_Data_d.Application_details_Id,i)"
+															type="submit" style="background-color: green;">Activate</button>
+
+															<button class="other-button-style btnflot pull-right"
+															*ngIf="ApplicationdetailsHistory_Data_d.Activation_Status ==true"
+															(click)="Remove_Activity(ApplicationdetailsHistory_Data_d.Application_details_Id,i)"
+															type="submit">DeActivate</button> -->
+													<!-- <button class="other-button-style btnflot pull-right mr-1" style="height: 33px !important" 
+														(click)="Get_ApplicationDetailswise_History(ApplicationdetailsHistory_Data_d.Application_details_Id)"
+														type="submit">History
+													</button> -->
+												</div>
+												<div class="d-flex flex-wrap mb-0 mr-2 grid-item">
+													<!-- <span
+																class="icon-backgroune mr-1"
+																*ngIf="Applications_Details_Tab_Edit"
+																(click)="Edit_ApplicationDetails(ApplicationdetailsHistory_Data_d,i)">
+																<mat-icon class="text-green smalle">edit</mat-icon></span> -->
+													<!-- <span
+																class="icon-backgroundd mr-1"
+																*ngIf="Applications_Details_Tab_Delete"
+																(click)="Delete_Application_History(ApplicationdetailsHistory_Data_d.Application_details_history_Id,i)">
+																<mat-icon class="text-red smalld">close</mat-icon></span> -->
+
+													<button
+														
+														class="other-button-style btnflot pull-right mr-1"
+														style="height: 33px !important"
+														(click)="
+															Delete_Application_History(
+																ApplicationdetailsHistory_Data_d.Application_details_history_Id,
+																i
+															)
+														"
+														type="submit"
+														style="background-color: red; margin-top: 3px"
+													>
+														Delete
+													</button>
+													<div></div>
+												</div>
+											</div>
+											<!-- <div class="grid-container col-md-12">	</div> -->
+
+											<!-- <div
+														_ngcontent-xmy-c9=""
+														class="checkbox-to-crect-sales-search-section"
+													>
+														<div
+															_ngcontent-xmy-c9=""
+															class="form-check uper-dte-lbel-sales-sctn-new pl-0"
+														>
+															<label _ngcontent-xmy-c9="" class="form-check-label">
+																<input
+																	type="checkbox"
+																	class="form-check-input"
+																	name="Visa_.Visa_Letter"
+																	[(ngModel)]="Visa_.Visa_Letter"
+																/>
+																<span _ngcontent-xmy-c9="" class="form-check-sign"
+																	><span _ngcontent-xmy-c9="" class="check"> </span>
+																</span>
+															</label>
+														</div>
+													</div> -->
+
+											<!-- <button class="other-button-style btnflot pull-right"  style="height: 33px!important;"  [hidden]="Student_Save==false" id="Save_Button" data-toggle="modal"
+									data-toggle="modal" id="myModal" (click)=" Get_ApplicationDetailswise_History(ApplicationDetails_d.Application_details_Id)" 
+									type="submit">History</button> -->
+
+											<!-- <button class="other-button-style btnflot pull-right" style="height: 33px!important;"  type="button" (click)="Edit_ApplicationDetails(ApplicationDetails_d,i)"><span>Edit</span></button>
+									<button class="other-button-style btnflot pull-right" style="height: 33px!important;background-color: red;"  type="button" (click)="Delete_Application_Details(ApplicationDetails_d.Application_details_Id,i)"><span>Delete</span></button> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+							
+							<!-- new grid div end -->
+
+							<!-- <div class="table-responsive">
+								<table
+									class="table table-hover colour-change-title-searchsection-table heading-styles-as-gmail-format"
+								>
+									<thead>
+										<th class="col-md-2 pl-1 ml-0">Date Of Applying</th>
+										<th>Country</th>
+										<th>University</th>
+										<th>Courses</th>
+										<th>Intake</th>
+										<th class="col-md-0 pl-1 ml-0">Year</th>
+										<th *ngIf="Agent_View">Agent</th>
+										<th class="col-md-0 pl-1 ml-0">Status</th>
+										<th class="col-md-0 pl-1 ml-0">Reamrk</th>
+										<th class="col-md-0 pl-1 ml-0"></th>
+									</thead>
+									<tbody
+										*ngFor="
+											let ApplicationdetailsHistory_Data_d of ApplicationdetailsHistory_Data;
+											let i = index
+										"
+									>
+										<tr>
+											<td>
+												{{ ApplicationdetailsHistory_Data_d["Grid_Date"] }}
+											</td>
+											<td>
+												{{
+													ApplicationdetailsHistory_Data_d["Country_Name"]
+												}}
+											</td>
+											<td style="width: 30% !important">
+												{{
+													ApplicationdetailsHistory_Data_d[
+														"University_Name"
+													]
+												}}
+											</td>
+											<td style="width: 30% !important">
+												{{
+													ApplicationdetailsHistory_Data_d["Course_Name"]
+												}}
+											</td>
+											<td>
+												{{
+													ApplicationdetailsHistory_Data_d["intake_Name"]
+												}}
+											</td>
+											<td>
+												{{
+													ApplicationdetailsHistory_Data_d[
+														"Intake_Year_Name"
+													]
+												}}
+											</td>
+											<td *ngIf="Agent_View">
+												{{ ApplicationdetailsHistory_Data_d["Agent_Name"] }}
+											</td>
+											<td>
+												{{
+													ApplicationdetailsHistory_Data_d[
+														"Application_Status_Name"
+													]
+												}}
+											</td>
+											<td style="width: 160% !important">
+												{{ ApplicationdetailsHistory_Data_d["Remark"] }}
+											</td>
+											<td>
+												<span
+													class="mr-1"
+													(click)="
+														Delete_Application_History(
+															ApplicationdetailsHistory_Data_d.Application_details_history_Id,
+															i
+														)
+													"
+													><mat-icon
+														style="font-size: 21px; cursor: pointer"
+														class="text-red small"
+														>close</mat-icon
+													></span
+												>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<div calss=" col-md-12" style="float: right">
+									<button
+										class="close-button-style mt-2"
+										type="submit"
+										(click)="Close_Click_History()"
+										aria-label="Close"
+									>
+										Close
+									</button>
+									
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</form>
+			<button
+				class="other-button-style btnflot pull-right mr-1"
+				style="height: 33px !important"
+				(click)="Close_Click_History()"
+				type="submit"
+				style="background-color: red; margin-top: 3px;    margin-right: 15px !important;"
+			>
+				Close History
+			</button>
+		</div>
+
+		
+
+
+
+
+		<div
+		class="dt-card__body mt-3"
+		*ngIf="Applicationmodal_View"
+		
+	>
+		<!-- style="margin-left: 2%;"  -->
+		<div class="container-fluidprofile p-0">
+			<div
+				class="dt-card mt-2"
+				style="box-shadow: 5px 3px 14px 17px #dddddd"
+			>
+				<div class="dt-card__header">
+					<div class="dt-card__heading">
+						<h3 style="margin-top: 2px">
+							<i
+								class="icon icon-users icon-fw icon-lg material-icons mr-2"
+								style="color: #586ae9"
+							>
+								description </i
+							><b
+								style="
+									margin-bottom: 20px;
+									margin-bottom: 20px;
+									color: #4b5cd5;
+									font-weight: 600;
+								"
+								>Application Details</b
+							>
+						</h3>
+						<div class="mb-2"></div>
+						<hr class="lineheader" />
+					</div>
+				</div>
+
+				<!--<div class="form-row mb-2">
+					<label class="col-form-label" style="font-size: 14px !important"
+						>Country<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						></label
+					>
+
+					<div class="col-md-2 col-sm-2 mb-2">
+						<input
+							Input
+							type="text"
+							class="form-control"
+							[matAutocomplete]="autoc3"
+							placeholder=""
+							[(ngModel)]="Application_Country_"
+							name="Application_Country_"
+							id="Application_Country_"
+							(click)="Search_Country_Typeahead($event)"
+							(keyup)="Search_Country_Typeahead($event)"
+						/>
+					</div>
+					<mat-autocomplete
+						#autoc3="matAutocomplete"
+						[displayWith]="display_Country">
+						<mat-option *ngIf="issLoading">
+							<mat-spinner diameter="500"></mat-spinner>
+						</mat-option>
+						<ng-container *ngIf="!issLoading">
+							<mat-option
+								*ngFor="let Country_T of Country_Data_Filter"
+								[value]="Country_T">
+								<span name="Country_T.Country_Name">{{
+									Country_T.Country_Name
+								}}</span>
+							</mat-option>
+						</ng-container>
+					</mat-autocomplete>
+
+					<div class="col-md-0 col-sm-0"></div>							
+					<label class="col-form-label" style="font-size: 14px !important"
+						>University<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						></label
+					>
+
+					<div class="col-md-4 col-sm-4 mb-2">
+						<input
+							Input
+							type="text"
+							class="form-control"
+							[matAutocomplete]="autoc4"
+							placeholder=""
+							[(ngModel)]="University_1"
+							name="University_1"
+							(click)="Search_University_Typeahead($event)"
+							(keyup)="Search_University_Typeahead($event)"
+						/>
+					</div>
+					<mat-autocomplete
+						#autoc4="matAutocomplete"
+						[displayWith]="display_University_1"
+					>
+						<mat-option *ngIf="issLoading">
+							<mat-spinner diameter="500"></mat-spinner>
+						</mat-option>
+						<ng-container *ngIf="!issLoading">
+							<mat-option
+								*ngFor="let University_T1 of University_Data_Filter_2"
+								[value]="University_T1"
+							>
+								<span name="University_T1.University_Name">{{
+									University_T1.University_Name
+								}}</span>
+							</mat-option>
+						</ng-container>
+					</mat-autocomplete>								
+					<label class="col-form-label" style="font-size: 14px !important"
+						>Course<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						></label
+					>
+					<div class="col-md-3 col-sm-3 mb-2">
+						<input
+							Input
+							type="text"
+							class="form-control"
+							[matAutocomplete]="autoc5"
+							placeholder=""
+							[(ngModel)]="Course_"
+							name="Course_"
+							(click)="Search_Courses_Typeahead($event)"
+							(keyup)="Search_Courses_Typeahead($event)"
+						/>
+					</div>
+					<mat-autocomplete
+						#autoc5="matAutocomplete"
+						[displayWith]="display_Course_1"
+					>
+						<mat-option *ngIf="issLoading">
+							<mat-spinner diameter="500"></mat-spinner>
+						</mat-option>
+						<ng-container *ngIf="!issLoading">
+							<mat-option
+								*ngFor="let Course_T of Course_Data_Filter"
+								[value]="Course_T"
+							>
+								<span name="Course_T.Course_Name">{{
+									Course_T.Course_Name
+								}}</span>
+							</mat-option>
+						</ng-container>
+					</mat-autocomplete>
+				</div>-->
+
+				<div class="form-row ">
+					<!-- <label class="col-md-0 col-sm-0 col-form-label text-sm-right"> -->
+
+						<div class="col-lg-4 row">
+							<!-- <label class="col-md-0 col-sm-0 col-form-label text-sm-right"> -->
+							<label
+								class="col-md-2 col-lg-3 text-sm-right col-form-label"
+								style="
+									font-size: 14px !important;
+									
+								"
+								>Country<span
+									style="
+										color: #ef071e;
+										font-size: 22px;
+										vertical-align: -webkit-baseline-middle;
+									"
+									>*</span
+								></label
+							>
+							<div class="col-md-9 col-lg-9 mt-1">
+								<input
+									Input
+									type="text"
+									class="form-control"
+									[matAutocomplete]="autoc3"
+									placeholder=""
+									[(ngModel)]="Application_Country_"
+									name="Application_Country_"
+									id="Application_Country_"
+									(click)="Search_Country_Typeahead($event)"
+									(keyup)="Search_Country_Typeahead($event)"
+									(ngModelChange)="Country_Change1()"
+								/>
+
+							</div>
+							<mat-autocomplete
+								#autoc3="matAutocomplete"
+								[displayWith]="display_Country"
+							>
+								<mat-option *ngIf="issLoading">
+									<mat-spinner diameter="500"></mat-spinner>
+								</mat-option>
+								<ng-container *ngIf="!issLoading">
+									<mat-option
+										*ngFor="let Country_T of Country_Data_Filter"
+										[value]="Country_T"
+									>
+										<span name="Country_T.Country_Name">{{
+											Country_T.Country_Name
+										}}</span>
+									</mat-option>
+								</ng-container>
+							</mat-autocomplete>
+						</div>
+						<!-- <div class="col-md-4 row">
+					<label
+						class="col-md-2 col-lg-4 text-sm-right col-form-label"
+						style="
+							font-size: 14px !important;
+							
+						"
+						>Country<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						></label
+					>
+					<div class="col-md-3 col-lg-8 mt-1">
+						<input
+							Input
+							type="text"
+							class="form-control"
+							[matAutocomplete]="autoc3"
+							placeholder=""
+							[(ngModel)]="Application_Country_"
+							name="Application_Country_"
+							id="Application_Country_"
+							(click)="Search_Country_Typeahead($event)"
+							(keyup)="Search_Country_Typeahead($event)"
+						/>
+					</div>
+					<mat-autocomplete
+						#autoc3="matAutocomplete"
+						[displayWith]="display_Country"
+					>
+						<mat-option *ngIf="issLoading">
+							<mat-spinner diameter="500"></mat-spinner>
+						</mat-option>
+						<ng-container *ngIf="!issLoading">
+							<mat-option
+								*ngFor="let Country_T of Country_Data_Filter"
+								[value]="Country_T"
+							>
+								<span name="Country_T.Country_Name">{{
+									Country_T.Country_Name
+								}}</span>
+							</mat-option>
+						</ng-container>
+					</mat-autocomplete>
+					</div> -->
+					<div class="col-md-4 row">
+						<label
+						class="col-md-2 col-lg-4 text-sm-right col-form-label"
+						style="
+							font-size: 14px !important;
+							
+						"
+						>Intake<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						></label
+					>
+					<div class="col-md-3 col-lg-8 mt-1">
+						<select
+							[(ngModel)]="Intake_Mode_"
+							name="Intake_Mode_"
+							required
+							class="form-control p-0 pl-1"
+						>
+							<option
+								*ngFor="let Intake_Mode_T of Intake_Mode_Data"
+								[ngValue]="Intake_Mode_T"
+							>
+								{{ Intake_Mode_T.Intake_Name }}
+							</option>
+						</select>
+					</div>
+					
+					</div>
+
+					<!-- <label class="col-md-0 col-sm-0 col-form-label text-sm-right"> -->
+						<div class="col-lg-4 row">
+							<label
+						class="col-md-2 col-lg-4 col-form-label text-sm-right"
+					
+						>Application Fees</label
+					>
+					<div class="col-md-8 col-sm-3 mb-1" style="    padding-left: 9px;">
+						<input 
+							type="number"
+							[(ngModel)]="ApplicationDetails_.Application_Fees"
+							name="ApplicationDetails_.Application_Fees"
+							class="form-control"
+							placeholder=""
+						/>
+					</div>
+				
+				</div>
+				</div>
+
+				<div class="form-row ">
+					<!-- <label class="col-md-0 col-sm-0 col-form-label text-sm-right"> -->
+						<div class="col-lg-4 row">
+							<label
+							  class="col-md-3 col-lg-3 text-sm-right col-form-label"
+							  style="font-size: 14px !important"
+							>
+							  University<span
+								style="
+								  color: #ef071e;
+								  font-size: 22px;
+								  vertical-align: -webkit-baseline-middle;
+								"
+								>*</span
+							  >
+							</label>
+							<div class="col-md-5 col-lg-9 mt-1">
+							  <input
+								Input
+								type="text"
+								class="form-control"
+								[matAutocomplete]="autoc4"
+								placeholder=""
+								[(ngModel)]="University_1"
+								name="University_1"
+								(click)="Search_University_Typeahead_Country($event)"
+								(keyup)="Search_University_Typeahead_Country($event)"
+								(ngModelChange)="onUniversityChange()"
+							  />
+							</div>
+							<mat-autocomplete
+							  #autoc4="matAutocomplete"
+							  [displayWith]="display_University_12"
+							>
+							  <mat-option *ngIf="issLoading">
+								<mat-spinner diameter="500"></mat-spinner>
+							  </mat-option>
+							  <ng-container *ngIf="!issLoading">
+								<mat-option
+								  *ngFor="let University_T1 of University_Data_Filter_2"
+								  [value]="University_T1"
+								>
+								  <span name="University_T1.University_Name">{{
+									University_T1.University_Name
+								  }}</span>
+								</mat-option>
+							  </ng-container>
+							</mat-autocomplete>
+						  </div>
+						<!-- <div class="col-lg-4 row">
+							<label
+						class="col-md-2 col-lg-4 text-sm-right col-form-label"
+						style="font-size: 14px !important"
+					>
+						University<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						>
+					</label>
+					<div class="col-md-5 col-lg-8 mt-1" >
+						<input
+							Input
+							type="text"
+							class="form-control"
+							[matAutocomplete]="autoc4"
+							placeholder=""
+							[(ngModel)]="University_1"
+							name="University_1"
+							(click)="Search_University_Typeahead($event)"
+							(keyup)="Search_University_Typeahead($event)"
+						/>
+					</div>
+					<mat-autocomplete
+						#autoc4="matAutocomplete"
+						[displayWith]="display_University_1"
+					>
+						<mat-option *ngIf="issLoading">
+							<mat-spinner diameter="500"></mat-spinner>
+						</mat-option>
+						<ng-container *ngIf="!issLoading">
+							<mat-option
+								*ngFor="let University_T1 of University_Data_Filter_2"
+								[value]="University_T1"
+							>
+								<span name="University_T1.University_Name">{{
+									University_T1.University_Name
+								}}</span>
+							</mat-option>
+						</ng-container>
+					</mat-autocomplete>
+					
+					</div> -->
+
+					<!-- <label class="col-md-0 col-sm-0 col-form-label text-sm-right"> -->
+						<div class="col-md-4 row">
+					<label
+						class="col-md-1 col-lg-4 text-sm-right col-form-label"
+						style="font-size: 14px !important"
+						>Year<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						></label
+					>
+					<div class="col-md-8 col-sm-2 mt-1 ">
+						<select
+							[(ngModel)]="Intake_Year_Mode_"
+							name="Intake_Year_Mode_"
+							required
+							class="form-control p-0 pl-1"
+						>
+							<option
+								*ngFor="let Intake_Year_Mode_T of Intake_Year_Mode_Data"
+								[ngValue]="Intake_Year_Mode_T"
+							>
+								{{ Intake_Year_Mode_T.Intake_Year_Name }}
+							</option>
+						</select>
+					</div>
+					</div>
+
+					<!-- <label
+						class="col-md-1 col-lg-1 text-sm-right col-form-label"
+						*ngIf="Agent_View"
+						style="
+							font-size: 14px !important;
+							
+						"
+					>
+						Agent
+					</label>
+					<div
+						class="col-md-3 col-lg-5 mt-1"
+						style="padding-right: 6px"
+						*ngIf="Agent_View"
+					>
+						<select
+							[(ngModel)]="Agent_Mode_"
+							name="Agent_Mode_"
+							required
+							class="form-control p-0 pl-1"
+						>
+							<option
+								*ngFor="let Agent_Mode_T of Agent_Mode_Data"
+								[ngValue]="Agent_Mode_T"
+							>
+								{{ Agent_Mode_T.Agent_Name }}
+							</option>
+						</select>
+					</div> -->
+					<div class="col-md-4 row">
+						<label class="col-md-2 col-lg-4 col-form-label text-sm-right" 
+						>Course Fee</label
+					>
+					<div
+						class="col-md-8 col-sm-3 mb-1 pr-0"
+						
+					>
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Course_Fee"
+							name="ApplicationDetails_.Course_Fee"
+							class="form-control"
+							placeholder=""
+						/>
+					</div>
+					<!-- <label
+						class="col-md-1 col-lg-4 text-sm-right col-form-label"
+						style="font-size: 14px !important"
+						>Remark</label
+					>
+					<div class="col-md-5 col-lg-8 mt-1">
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Remark"
+							name="ApplicationDetails_.Remark"
+							class="form-control"
+							placeholder=""
+						/>
+					</div> -->
+				</div>
+				</div>
+
+			
+					<!-- <label 
+						class="col-md-2 col-lg-1 text-sm-right col-form-label"
+						style="font-size: 14px !important; margin-left: -7px !important;"
+						>Status<span
+							style="
+								color: #ef071e;
+								font-size: 22px;
+								vertical-align: -webkit-baseline-middle;
+							"
+							>*</span
+						></label
+					>
+					<div class="col-md-4 col-lg-3 mt-1">
+						<select
+							[(ngModel)]="Application_Status_Mode_"
+							name="Application_Status_Mode_"
+							required
+							class="form-control p-0 pl-1"
+						>
+							<option
+								*ngFor="
+									let Application_Status_Mode_T of Application_Status_Mode_Data
+								"
+								[ngValue]="Application_Status_Mode_T"
+							>
+								{{ Application_Status_Mode_T.Application_Status_Name }}
+							</option>
+						</select>
+					</div>
+					 -->
+
+					<!-- <label
+						class="col-form-label col-lg-1"
+						*ngIf="Application_Status_Mode_.Application_status_Id != 0"
+						style="font-size: 14px !important"
+					>
+						Date</label
+					>
+					<div
+						class="col-md-3 col-lg-3 mt-1"
+						style="margin-left: 5px"
+						*ngIf="Application_Status_Mode_.Application_status_Id != 0"
+					>
+						<input
+							style="padding: 10px"
+							type="date"
+							[(ngModel)]="ApplicationDetails_.Date_Of_Applying"
+							name="ApplicationDetails_.Date_Of_Applying"
+							class="form-control"
+							
+						/>
+					</div> -->
+
+					<!-- <label class="col-md-1 col-lg-1 text-sm-right col-form-label" style="font-size: 14px !important"
+						>Remark</label
+					>
+					<div class="col-md-5 col-lg-3 mt-1">
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Remark"
+							name="ApplicationDetails_.Remark"
+							class="form-control"
+							placeholder=""
+						/>
+					</div>
+				 -->
+
+					<!-- <div class="form-row mb-2">
+					<label class="col-md-2 col-lg-1 col-form-label text-sm-right"  style="margin-left: -7px !important;"
+						>Student Portal Id</label
+					>
+					<div
+						class="col-md-3 col-sm-3 mb-1"
+						
+					>
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Student_Reference_Id"
+							name="ApplicationDetails_.Student_Reference_Id"
+							class="form-control"
+							placeholder=""
+						/>
+					</div>
+					
+					<label
+						class="col-md-2 col-lg-1 col-form-label text-sm-right"
+						
+						>Application No</label
+					>
+					<div class="col-md-3 col-sm-3 mb-1">
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Application_No"
+							name="ApplicationDetails_.Application_No"
+							class="form-control"
+							placeholder=""
+						/>
+					</div>
+
+
+					<label
+					class="col-md-2 col-lg-1 col-form-label text-sm-right"
+					
+					>Duration<span
+					style="
+						color: #ef071e;
+						font-size: 22px;
+						vertical-align: -webkit-baseline-middle;
+					"
+					>*</span
+				></label
+				>
+					<div class="col-md-3 col-sm-3 mb-1">
+
+					
+						<select
+							[(ngModel)]="Duration_Id"
+							
+						   
+							class="form-control p-0 pl-1"
+							name="Duration_Id"
+							id="custimertype"
+						   
+						>
+							<option value=0>Select</option>
+							<option value=1>1 Year</option>
+							<option value=2>2 Year</option>
+							<option value=3>3 Year</option>
+							<option value=4>4 Year</option>
+	
+							
+						</select>
+					</div>
+
+
+
+
+					
+				</div> -->
+
+					<div class="form-row mb-2">
+
+						<div class="col-lg-4 row">
+							<label
+							  class="col-md-2 col-lg-3 text-sm-right col-form-label"
+							  style="font-size: 14px !important"
+							  >Course<span
+								style="
+								  color: #ef071e;
+								  font-size: 22px;
+								  vertical-align: -webkit-baseline-middle;
+								"
+								>*</span
+							  ></label
+							>
+							<div class="col-md-5 col-lg-9 mt-1">
+							  <input
+								Input
+								type="text"
+								class="form-control"
+								[matAutocomplete]="autoc5"
+								placeholder=""
+								[(ngModel)]="Course_"
+								name="Course_"
+								(click)="Search_Courses_Typeahead_tempp($event)"
+								(keyup)="Search_Courses_Typeahead_tempp($event)"
+								(ngModelChange)="onCourseChange()"
+							  />
+							</div>
+		  
+							<mat-autocomplete
+							  #autoc5="matAutocomplete"
+							  [displayWith]="display_Course_1"
+							>
+							  <mat-option *ngIf="issLoading">
+								<mat-spinner diameter="500"></mat-spinner>
+							  </mat-option>
+							  <ng-container *ngIf="!issLoading">
+								<mat-option
+								  *ngFor="let Course_T of Course_Data_Filter"
+								  [value]="Course_T"
+								>
+								  <span name="Course_T.Course_Name">{{
+									Course_T.Course_Name
+								  }}</span>
+								</mat-option>
+							  </ng-container>
+							</mat-autocomplete>
+						  </div>
+						
+						<!-- <div class="col-md-4 row">
+							<label
+							class="col-md-2 col-lg-4 text-sm-right col-form-label"
+							style="font-size: 14px !important"
+							>Course<span
+								style="
+									color: #ef071e;
+									font-size: 22px;
+									vertical-align: -webkit-baseline-middle;
+								"
+								>*</span
+							></label
+						>
+						<div class="col-md-5 col-lg-8 mt-1">
+							<input
+								Input
+								type="text"
+								class="form-control"
+								[matAutocomplete]="autoc5"
+								placeholder=""
+								[(ngModel)]="Course_"
+								name="Course_"
+								(click)="Search_Courses_Typeahead($event)"
+								(keyup)="Search_Courses_Typeahead($event)"
+							/>
+						</div>
+	
+						<mat-autocomplete
+							#autoc5="matAutocomplete"
+							[displayWith]="display_Course_1"
+						>
+							<mat-option *ngIf="issLoading">
+								<mat-spinner diameter="500"></mat-spinner>
+							</mat-option>
+							<ng-container *ngIf="!issLoading">
+								<mat-option
+									*ngFor="let Course_T of Course_Data_Filter"
+									[value]="Course_T"
+								>
+									<span name="Course_T.Course_Name">{{
+										Course_T.Course_Name
+									}}</span>
+								</mat-option>
+							</ng-container>
+						</mat-autocomplete>
+						
+						</div> -->
+
+
+
+
+						<div class="col-md-4 row">
+
+							<label
+						class="col-md-2 col-lg-4 col-form-label text-sm-right" 
+						
+						>Duration<span
+						style="
+							color: #ef071e;
+							font-size: 22px;
+							vertical-align: -webkit-baseline-middle;
+						"
+						>*</span
+					></label
+					>
+						<div class="col-md-8 col-sm-3 mb-1">
+	
+						
+							<select
+								[(ngModel)]="Duration_Id"
+								
+							   
+								class="form-control p-0 pl-1"
+								name="Duration_Id"
+								id="custimertype"
+							   
+							>
+								<option value=0>Select</option>
+								<option value=1>1 Year</option>
+								<option value=2>2 Year</option>
+								<option value=3>3 Year</option>
+								<option value=4>4 Year</option>
+		
+								
+							</select>
+						</div>
+							
+					<!-- <label class="col-md-2 col-lg-4 col-form-label text-sm-right" 
+						>Course Fee</label
+					>
+					<div
+						class="col-md-8 col-sm-3 mb-1 pr-0"
+						
+					>
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Course_Fee"
+							name="ApplicationDetails_.Course_Fee"
+							class="form-control"
+							placeholder=""
+						/>
+					</div> -->
+					</div>
+					<div class="col-md-4 row">
+					<label
+						class="col-md-2 col-lg-4 col-form-label text-sm-right"
+						
+						>Living Expense</label
+					>
+					<div class="col-md-8 col-sm-3 mb-1">
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Living_Expense"
+							name="ApplicationDetails_.Living_Expense"
+							class="form-control"
+							placeholder=""
+						/>
+					</div>
+					</div>
+				</div>
+				<div class="form-row mb-2">
+					<div class="col-md-4 row">
+
+					<label
+						class="col-md-2 col-lg-4 col-form-label text-sm-right"
+						
+						>Preference</label
+					>
+					<div class="col-md-8 col-sm-3 mb-1">
+						<input
+							type="text"
+							[(ngModel)]="ApplicationDetails_.Preference"
+							name="ApplicationDetails_.Preference"
+							class="form-control"
+							placeholder=""
+						/>
+					</div>
+					</div>
+
+					<div class="col-md-4 row">
+
+					<label
+					class="col-md-2 col-lg-4 col-form-label text-sm-right"
+					
+					>Course Link</label
+				>
+				<div class="col-md-8 col-sm-9 mb-1">
+					<input
+						type="text"
+						[(ngModel)]="ApplicationDetails_.Course_Link"
+						name="ApplicationDetails_.Course_Link"
+						class="form-control"
+						placeholder=""
+					/>
+				</div>
+				</div>
+
+<div class="col-md-4 row ml-2" style="display: flex;align-items: center;">
+				<button 
+			class="save-button-style btnflot mt-0 col-md-2" style="margin-right: 2px;
+			height: 30px;
+			width: 90px;
+			padding: 2px 2px;"
+			id="Save_Button"
+			*ngIf="Course_Link_Button"
+			(click)="CourseLInk()"
+			type="submit"
+		>
+			View
+		</button>
+	
+	</div>
+	</div>
+
+			
+
+		<div class="form-row mb-2">
+				<div class="col-lg-8 row">
+					<label class="col-md-2 col-sm-0 col-form-label text-sm-right" >Remark <span
+						style="
+							color: #ef071e;
+							font-size: 22px;
+							vertical-align: -webkit-baseline-middle;
+						"
+						>*</span
+					></label>
+					<div class="col-md-10 col-sm-3 mb-2" style="    padding: 0 8px;    padding-right: 40px;
+					">
+						<!-- <input type="text" class="form-control" [(ngModel)]="ApplicationDetails_.Remark" name="ApplicationDetails_.Remark"  placeholder="Remark"> -->
+
+						
+						<textarea
+						[(ngModel)]="ApplicationDetails_.Remark" name="ApplicationDetails_.Remark"  placeholder="Remark"
+						class="form-control"
+						
+						
+							class="form-control"
+							
+						>
+						</textarea>
+					   
+					</div>
+					</div>
+					<div class="col-md-4 row" style="    display: flex;
+					align-items: end;
+					margin-bottom: 10px;">
+						<button
+							class="save-button-style"
+							style="
+								height: 36px;
+								margin-top: 7px !important;
+								float: right;
+							"
+							*ngIf="Edit_save_button_view"							
+							id="Save_Button"
+							
+							(click)="Save_ApplicationDetails_Datas()"
+							type="submit"
+						>
+							Save Application
+						</button>
+						<button
+							class="close-button-style"
+							style="
+								height: 36px;
+								margin-top: 7px !important;
+								float: right;
+							"
+							id="Save_Button"
+							(click)="Close_Application()"
+							type="submit"
+						>
+							Close Application
+						</button>
+					</div>
+					</div>
+				
+
+				<!-- <div class="form-row mb-2">
+					<label class="col-md-2 col-lg-1 col-form-label text-sm-right x-tra-label"
+					style="padding-left: 6px;margin-left: -7px !important;"
+					>Offer Received</label>
+
+				<div class="mb-1 x-tra-label-mob">
+					<div
+						_ngcontent-xmy-c9=""
+						class="col-md-1 lead-search-section-date-alighn label-down-alighn-stk-ad-mstr-prhse-rte x-tra"
+					>
+						<div
+							_ngcontent-xmy-c9=""
+							class="form-check algyn-checkbx-lead-serch-scton margin-down-tocrect-lead-chckbox-date-front-section"
+						>
+							<label _ngcontent-xmy-c9="" class="form-check-label">
+								<input
+									type="checkbox"
+									class="form-check-input"
+									placeholder="Search..."
+									[(ngModel)]="ApplicationDetails_.Offer_Received"
+								/>
+								<span
+									_ngcontent-xmy-c9=""
+									class="form-check-sign"
+									style="margin-top: 0px; margin-left: -14px"
+									><span _ngcontent-xmy-c9="" class="check"></span>
+								</span>
+							
+							</label>
+						</div>
+					</div>
+				</div>
+
+					</div> -->
+
+				<div *ngIf="ApplicationDetails_.Offer_Received">
+					<div class="form-row mb-2">
+						<label class="col-md-2 col-lg-1 col-form-label text-sm-right"
+							>Portal User Name<span
+								style="
+									color: #ef071e;
+									font-size: 22px;
+									vertical-align: -webkit-baseline-middle;
+								"
+								>*</span
+							></label
+						>
+						<div class="col-md-3 col-sm-3 mb-1">
+							<input
+								type="text"
+								[(ngModel)]="ApplicationDetails_.Portal_User_Name"
+								name="ApplicationDetails_.Portal_User_Name"
+								class="form-control"
+								placeholder=""
+							/>
+						</div>
+
+						<label class="col-md-2 col-lg-1 col-form-label text-sm-right"
+							>Password<span
+								style="
+									color: #ef071e;
+									font-size: 22px;
+									vertical-align: -webkit-baseline-middle;
+								"
+								>*</span
+							></label
+						>
+						<div class="col-md-3 col-sm-3 mb-1">
+							<input
+								type="text"
+								[(ngModel)]="ApplicationDetails_.Password"
+								name="ApplicationDetails_.Password"
+								class="form-control"
+								placeholder=""
+							/>
+						</div>
+					</div>
+
+					<div class="form-row mb-2">
+						<label class="col-md-2 col-lg-1 col-form-label text-sm-right"
+							>Student Id
+							<span
+								style="
+									color: #ef071e;
+									font-size: 22px;
+									vertical-align: -webkit-baseline-middle;
+								"
+								>*</span
+							></label
+						>
+						<div class="col-md-3 col-sm-3 mb-1">
+							<input
+								type="text"
+								[(ngModel)]="ApplicationDetails_.Offer_Student_Id"
+								name="ApplicationDetails_.Offer_Student_Id"
+								class="form-control"
+								placeholder=""
+							/>
+						</div>
+
+						<label
+							class="col-md-2 col-lg-1 col-form-label text-sm-right x-tra-label"
+							>Fees Payment Last Date</label
+						>
+						<div
+							class="col-md-0 col-sm-0 mb-1 x-tra-label-mob"
+							style="padding-top: 6px"
+						>
+							<div
+								_ngcontent-xmy-c9=""
+								class="checkbox-to-crect-sales-search-section"
+							>
+								<div
+									_ngcontent-xmy-c9=""
+									class="form-check uper-dte-lbel-sales-sctn-new pl-0"
+								>
+									<label _ngcontent-xmy-c9="" class="form-check-label">
+										<input
+											type="checkbox"
+											class="form-check-input"
+											name="ApplicationDetails_.Feespaymentcheck"
+											[(ngModel)]="ApplicationDetails_.Feespaymentcheck"
+										/>
+										<span _ngcontent-xmy-c9="" class="form-check-sign"
+											><span _ngcontent-xmy-c9="" class="check"> </span>
+										</span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-0 col-sm-0"></div>
+
+						<div
+							class="col-md-3 col-lg-2 mb-1"
+							*ngIf="ApplicationDetails_.Feespaymentcheck"
+						>
+							<mat-form-field
+								class="form-control mrgn-crct-input-text-div-tre-prt-sles1"
+								style="padding-top: 12px !important"
+							>
+								<input
+									matInput
+									[matDatepicker]="dp1"
+									placeholder=""
+									[(ngModel)]="ApplicationDetails_.Fees_Payment_Last_Date"
+									name="ApplicationDetails_.Fees_Payment_Last_Date"
+								/>
+								<mat-datepicker-toggle
+									matSuffix
+									[for]="dp1"
+								></mat-datepicker-toggle>
+								<mat-datepicker #dp1></mat-datepicker>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="form-row  mb-2">
+		
+											<label class=" col-form-label " style="font-size: 14px!important;">Document</label>
+										<div class="col-md-3 col-sm-3 mb-1">
+										 
+											   <button class="btn btn-danger mb-2 pl-2 pr-2 ml-0" style="background-color: #5d6071;" type="button"  (click)="fileInput.click()"><span>Choose File</span>
+												<input #fileInput type="file" name="File"  [(ngModel)]="File" (change)="File_Change_Application($event)" style="display:none;" /> </button>
+												<input type="text"  name="Display_ApplicationFile_" [(ngModel)]="Display_ApplicationFile_" value="Display_ApplicationFile_" readonly style="border: none;background-color: #f6f6f6;"    class="col-md-6"/>
+										  
+										</div>
+									<div class="col-md-1 col-sm-1 mr-8"></div>  
+									<label class=" col-form-label " style="font-size: 14px!important;">Document Description</label>                            
+									<div class="col-md-3 col-sm-3 mb-1">
+										<input type="text" name ="ApplicationDocument_Description" [(ngModel)]="ApplicationDocument_Description"   class="form-control" placeholder="Document Description">
+									</div>
+		
+									<button class=" col-md-2 col-sm-2 btn btn-danger mb-2 pl-2 pr-2" (click)="Add_ApplicationDocument()" style="background-color: #0db195;">Add Document</button>
+		
+									   </div> -->
+
+				<div class="form-row mb-2">
+					<!-- <div class="columnfile ml-10  mr-2" *ngFor="let Items_ of ApplicationDocument_Array; let i = index" >
+											<div class="cardfiles">
+													
+													<img src="assets/img/ico3.png"  width="50px" >
+														<div class="d-flex flex-wrap arrcard mt-1"  >
+													   
+								<input type="text"  style="padding: 0!important; border: none;width:30%!important;font-weight: 700;" name={{Items_.Application_Document_Id}}a{{Items_.Application_Document_Id}}
+								[(ngModel)]="Items_.ApplicationDocument_Name"   class="form-control ml-1 mr-1" placeholder="">
+														
+														
+										<input type="text"  style="padding: 0!important; border: none;width:30%!important;" name={{Items_.Application_Document_Id}}b{{Items_.Application_Document_Id}}
+										[(ngModel)]="Items_.ApplicationDocument_File_Name"   class="form-control mr-1" placeholder="">                                                  
+													  
+															<span class="icon-bgdown mt-1 mr-1" style="float: right;"  *ngIf="Items_.New_Entry==0" (click)="Download_Photo(Items_.ApplicationFile_Name)" > <mat-icon class="text-green smalldown" >file_download</mat-icon></span>
+															<span class="icon-delete mt-1 mr-1" style="float: right;"  (click)="Delete_Application_Document(i,Items_.Application_Document_Id)" > <mat-icon class="text-red smalldelete" >delete</mat-icon></span>  
+															 
+													</div>     
+													
+													
+										 </div>
+										  </div> -->
+
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="dt-card__body mt-2" *ngIf="Comments_View">
+		<form class="mb-0">
+		  <div class="container-fluidprofile">
+			<div class="dt-card mt-2 col-md-12" style="display:flex; width: 100%">
+			  <div class="card-body col-md-7 card-body-for-searchedit-lead-section">
+				<div class="dt-card__header">
+				  <div class="dt-card__heading">
+					<h3 style="margin-top: 0px">
+					  <i
+						class="icon icon-users icon-fw icon-lg material-icons mr-2"
+						style="color: #586ae9"
+					  >
+						history </i
+					  ><b
+						style="
+						  margin-bottom: 20px;
+						  margin-bottom: 20px;
+						  color: #4b5cd5;
+						  font-weight: 600;
+						"
+						>Add Comment &nbsp;</b
+					  >
+					</h3>
+					<div class="mb-2"></div>
+					<hr class="lineheader" />
+				  </div>
+				</div>
+	  
+				<div class="form-row col-6">
+				  <div class="chat-input">
+					<textarea
+					  [(ngModel)]="messageText"
+					  name="messageText"
+					  (keyup.enter)="sendMessage1(messageText)"
+					  placeholder="Type your comment..."
+					  cols="50"
+					  rows="10"
+					></textarea>
+					<button
+						class="close-button-style btnflot mr-1"
+						(click)="Close_Comment()"
+						type="submit"
+					>
+						Close
+					</button>
+					<button 
+						class="save-button-style btnflot mr-1"
+						(click)="sendMessage1(messageText)"
+						type="submit"
+					>
+					Save
+					</button>
+					<span class="tag-span">
+					  <p *ngFor="let Tag_U of tagged_users; let j = index">
+						<ng-container
+						  *ngFor="let char of Tag_U['User_Details_Name'].split('')"
+						>
+						  <span *ngIf="char === '@'" class="blue">{{ char }}</span>
+						  <ng-container *ngIf="char !== '@'">{{ char }}</ng-container>
+						</ng-container>
+					  </p>
+					</span>
+					<br />
+					<span class="tag-span tag-span-2">
+					  <p>&nbsp;{{ Display_File_ }}</p></span
+					>
+				  </div>
+				</div>
+			  </div>
+	  
+			  <div class="col-md-1" style="display: flex; gap: 10px;">
+				<!-- <span
+				  class="icon-background2 mr-1"
+				  style="position: relative; background-color: transparent; right: 0px"
+				  data-toggle="modal"
+				  data-target="#User_View"
+				  (click)="User_Click()"
+				>
+				  <mat-icon class="text-green small" style="font-size: 23px"
+					>person_add</mat-icon
+				  >
+				</span> -->
+				<button 
+class=" mr-1"
+style="
+background-color: rgb(138, 126, 112); 
+border-radius: 10px;
+display: flex;
+height: 30px;
+
+border: none;
+
+align-items: center;
+font-size: 14px;
+line-height: 1;"
+data-toggle="modal"
+data-target="#User_View"
+(click)="User_Click()"
+>
+Tag User
+</button>
+	  
+				<!-- <mat-icon
+				  class="text-green small send-btn"
+				  style="font-size: 28px; margin-right: 10px; cursor: pointer"
+				  mat-button
+				  matSuffix
+				  (click)="sendMessage1(messageText)"
+				  >save</mat-icon
+				> -->
+			  </div>
+	  
+			  <div *ngIf="User_Div" style="max-width:300px;">
+				<input
+				  type="text"
+				  class="form-control"
+				  [(ngModel)]="User_Details_T_"
+				  (click)="Load_User_Details($event)"
+				  (keyup)="Load_User_Details($event)"
+				  placeholder="tag user"
+				/>
+				<div style="overflow-y: scroll; height: 400px;" *ngIf="User_Details_Filter.length > 0">
+					<p *ngFor="let User_D of User_Details_Filter; let i = index">
+					  <label class="form-check-label">
+						<input
+						  class="form-check-input"
+						  type="checkbox"
+						  [checked]="User_D.Check_Box"
+						  (change)="selectOnlyOne(User_D, i)"
+						/>
+						<span class="form-check-sign">
+						  <span class="check mt-2"></span>
+						</span>
+					  </label>
+					  {{ User_D["User_Details_Name"] }}
+					</p>
+				  </div>
+				<!-- <div
+				  style="overflow-y: scroll;height:400px;"
+				  *ngIf="User_Details_Filter.length > 0"
+				>
+				  <label
+					_ngcontent-xmy-c9=""
+					class="form-check-label p-0"
+					style="display: flex; gap: 5px;"
+				  >
+					<label>Select All</label>
+					<input
+					  _ngcontent-xmy-c9=""
+					  checked=""
+					  class="form-check-input"
+					  [(ngModel)]="Select_TaggedUser"
+					  (click)="Select_All_TaggedUser()"
+					  type="checkbox"
+					  name="Select_View"
+					  [checked]="Select_View_Check"
+					  value=""
+					/>
+					<span _ngcontent-xmy-c9="" class="form-check-sign">
+					  <span _ngcontent-xmy-c9="" class="check mt-3"></span>
+					</span>
+				  </label>
+				  <p *ngFor="let User_D of User_Details_Filter; let i = index">
+					<label _ngcontent-xmy-c9="" class="form-check-label">
+					  <input
+						_ngcontent-xmy-c9=""
+						checked=""
+						class="form-check-input"
+						[(ngModel)]="User_D.Check_Box"
+						type="checkbox"
+						name="{{ User_D.User_Details_Id }}"
+						[checked]="User_D.Check_Box"
+						value=""
+						(ngModelChange)="Tagged_Users(User_D, User_D.Check_Box, i)"
+					  />
+					  <span _ngcontent-xmy-c9="" class="form-check-sign">
+						<span _ngcontent-xmy-c9="" class="check mt-2"></span>
+					  </span>
+					</label>
+					{{ User_D["User_Details_Name"] }}
+				  </p>
+				</div> -->
+			  </div>
+			</div>
+		  </div>
+		</form>
+	  
+		<div class="col-md-12 pl-0 pr-0">
+		  <div
+			class="dt-module__content ps-custom-scrollbar"
+			style="min-height: 150px"
+		  >
+			<div
+			  class="card-body set-height-scroll-bar-wole-block"
+			  [style.height.px]="myHeightsubtwo"
+			  
+			>
+			  <div
+				class="card horizontal mb-1"
+				*ngFor="let Visa_D of Comment_Data; let i = index"
+			  >
+				<div class="card-stacked">
+				  <div class="card-body pb-1 pt-2">
+					<div class="d-flex flex-wrap mb-0">
+					  <div class="d-flex flex-wrap mb-1">
+						<div class="pr-3">
+						  Comment :
+						  <span>{{ Visa_D["Chats"] }}</span>
+						</div>
+						<div class="pr-3">
+						  By User :
+						  <span>{{ Visa_D["From_User_Name"] }}</span>
+						</div>
+						<div class="pr-3">
+						  Date and Time :
+						  <span>{{ Visa_D["Entry_Date_Time"] }}</span>
+						</div>
+						<div class="pr-3" *ngIf="Visa_D.User_List">
+						  Tagged Users :
+						  <span>{{ Visa_D["User_List"] }}</span>
+						</div>
+					  </div>
+					  <div></div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			
+		  </div>
+		</div>
+	  </div>
+
+
+
+	</div>
+</div>
+

@@ -1,0 +1,299 @@
+<!-- Loading Spinner -->
+<div
+  *ngIf="isLoading"
+  class="overlay"
+  [style.left.px]="spinLeft"
+  style="margin-top: 21%; margin-left: 46%; background-color: transparent"
+>
+  <img src="/assets/img/spinner.gif" width="100px" />
+</div>
+
+<div class="main-content new-margin-T" screenfixed>
+  <div class="container-fluid">
+    <!-- Entry View -->
+    <div class="row" *ngIf="entryView">
+      <div class="col-md-12 pl-0 pr-0">
+        <div class="dt-card mb-0 pb-1 mt-2 pt-0">
+          <div class="dt-card__body mb-0 pb-0 pt-3">
+            <form class="mb-0">
+              <div class="form-row">
+                <label class="col-form-label text-sm-right">
+                  Template Name
+                  <span
+                    style="
+                      color: #ef071e;
+                      font-size: 22px;
+                      vertical-align: -webkit-baseline-middle;
+                    "
+                    >*</span
+                  >
+                </label>
+                <div class="col-md-3 col-lg-4 mt-0">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="emailTemplate.name"
+                    name="template_name"
+                    placeholder="Template Name"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <label class="col-form-label text-sm-right">
+                  Subject
+                  <span
+                    style="
+                      color: #ef071e;
+                      font-size: 22px;
+                      vertical-align: -webkit-baseline-middle;
+                    "
+                    >*</span
+                  >
+                </label>
+                <div class="col-md-3 col-lg-4 mt-0">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="emailTemplate.subject"
+                    name="template_subject"
+                    placeholder="Email Subject"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <!--Null attachement adding-->
+                <!-- <button type="button" (click)="addNullAttachment()">
+                  Add Null Attachment
+                </button> -->
+                <label class="col-form-label text-sm-right">
+                  Attachments
+                </label>
+                <div class="mt-0 mb-3">
+                  <input
+                    type="file"
+                    multiple
+                    (change)="onFileSelected($event)"
+                    accept="audio/*, video/*, image/*, .pdf, .doc, .docx, .txt"
+                  />
+                  <!-- <div
+                    *ngFor="let file of attachments; let i = index"
+                    class="file-item"
+                  >
+                    <span>{{ file.name }}</span>
+                    <button type="button" (click)="removeFile(i)">
+                      Remove
+                    </button>
+                  </div> -->
+                  <div
+                    *ngFor="let file of attachments; let i = index"
+                    class="file-item"
+                  >
+                    <span *ngIf="file">{{ file.name }}</span>
+                    <span *ngIf="!file">Invalid attachment</span>
+                    <button type="button" (click)="removeFile(i)">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <label class="col-form-label text-sm-right">
+                  Document <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-3 col-lg-2 mt-0 mb-3">
+                  <select
+                    [(ngModel)]="Documents_"
+                    name="Documents_"
+                    required
+                    class="form-control custom-dropdown"
+                  >
+                    <option
+                      *ngFor="let Docs_ of Documents_Data"
+                      [ngValue]="Docs_"
+                    >
+                      {{ Docs_.Document_Name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <label class="col-form-label text-sm-right">
+                  Insert Fields
+                </label>
+                <div class="col-md-3 col-lg-2 mt-0 mb-3">
+                  <select
+                    class="form-control custom-dropdown"
+                    value=""
+                    (change)="onFieldSelect($event)"
+                  >
+                    <option value="">Insert Field</option>
+                    <option
+                      *ngFor="let field of templateFields"
+                      [value]="field.value"
+                    >
+                      {{ field.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row" style="margin-bottom: 100px">
+                <label class="col-form-label text-sm-right">
+                  Content
+                  <span
+                    style="
+                      color: #ef071e;
+                      font-size: 22px;
+                      vertical-align: -webkit-baseline-middle;
+                    "
+                    >*</span
+                  >
+                </label>
+                <textarea
+                  class="emailbody"
+                  name="emailTemplateBody"
+                  [(ngModel)]="emailTemplate.body"
+                  id=""
+                  rows="10"
+                >
+                </textarea>
+                <!-- <textarea [(ngModel)]="emailTemplate.body" rows="5" cols="30"></textarea> -->
+                <!-- <quill-editor 
+                                    [(ngModel)]="emailTemplate.body" 
+                                    [modules]="quillModules" 
+                                    (onEditorCreated)="onEditorCreated($event)"
+                                    name="emailTemplateBody"
+                                    #editorRef>
+                                </quill-editor> -->
+                <!-- <app-rich-editor 
+                                    [initialContent]="emailTemplate.body" 
+                                    (contentChange)="onContentChange($event)">
+                                </app-rich-editor> -->
+                <div class="mt-0">
+                  <button
+                    *ngIf="emailTemplateSave"
+                    (click)="saveEmailTemplate()"
+                    mat-raised-button
+                    type="submit"
+                    class="save-button-style pull-left ml-1 mr-1"
+                  >
+                    Save
+                  </button>
+                  <button
+                    (click)="closeClick()"
+                    mat-raised-button
+                    type="submit"
+                    class="close-button-style pull-left mr-1"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+
+              <!-- Add this section for file attachments -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- List View -->
+    <div class="row" *ngIf="!entryView">
+      <div class="col-md-12 pr-0 pl-0 mb-0 mt-2">
+        <div class="dt-card mb-2 pb-1 pt-0">
+          <div class="dt-card__body mb-0 pb-0 pt-3">
+            <form class="mb-0">
+              <div class="form-row" style="padding-left: 10px">
+                <label class="col-form-label text-sm-right mr-0"
+                  >Templates</label
+                >
+                <div class="col-md-3 col-sm-3 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="emailTemplateSearch"
+                    name="Search_Name"
+                    placeholder="Email Template"
+                  />
+                </div>
+                <div class="col-md-4 col-lg-3 mt-0">
+                  <button
+                    (click)="searchEmailTemplates()"
+                    mat-raised-button
+                    type="submit"
+                    class="other-button-style pull-left mr-1"
+                  >
+                    Search
+                  </button>
+                  <button
+                    (click)="createNewTemplate()"
+                    mat-raised-button
+                    type="submit"
+                    class="save-button-style pull-left mr-1"
+                  >
+                    Create New
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Templates List -->
+      <div
+        class="col-md-12 pl-0 pr-0 mt-0"
+        [style.height.px]="innerHeight"
+        itemSize="10"
+      >
+        <div class="dt-module">
+          <div class="dt-module__container">
+            <div class="dt-module__content ps-custom-scrollbar">
+              <div
+                class="dt-module__content-inner pl-0 pr-0 card-body set-height-scroll-bar-whole-block"
+              >
+                <div
+                  class="dt-module__list pl-0 pr-0"
+                  [style.height.px]="innerHeight"
+                  style="overflow-y: scroll"
+                  id="profile"
+                >
+                  <div
+                    class="dt-module__list-item pb-2 pt-2"
+                    *ngFor="
+                      let emailTemplate of emailTemplatesData;
+                      let i = index
+                    "
+                  >
+                    <div class="dt-module__list-item-content">
+                      <div class="user-detail">
+                        <span
+                          *ngIf="emailTemplateEdit"
+                          class="icon-background2 mr-1"
+                          (click)="editEmailTemplate(emailTemplate, i)"
+                        >
+                          <mat-icon class="text-green small">edit</mat-icon>
+                        </span>
+                        <span
+                          *ngIf="emailTemplateDelete"
+                          class="icon-background3 mr-1"
+                          (click)="deleteEmailTemplate(emailTemplate.id, i)"
+                        >
+                          <mat-icon class="text-red small">close</mat-icon>
+                        </span>
+                        <span class="user-name">{{
+                          emailTemplate["name"]
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

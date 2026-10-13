@@ -1,0 +1,98 @@
+/* styles.css or component-name.component.scss */
+.custom-select {
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #495057;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 6' fill='%23495057' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6H0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px;
+  }
+  
+  /* src/app/components/campaign/campaign.component.scss */
+.required-field {
+    color: #ef071e;
+  }
+  
+  .overlay {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .save-button-style {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .close-button-style {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .other-button-style {
+    background-color: #007bff;
+    color: white;
+  }
+  .pending-button-style {
+    background-color: orange;
+    color: white;
+  }
+  .icon-background2 {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+  }
+  
+  .icon-background3 {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+  }
+  
+  .text-green {
+    color: #28a745;
+  }
+  
+  .text-red {
+    color: #dc3545;
+  }
+  
+  .set-height-scroll-bar-wole-block {
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+  }
+  
+  .user-name {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .dt-module__list-item {
+    border-bottom: 1px solid #e9ecef;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+
+  }

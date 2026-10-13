@@ -1,0 +1,113 @@
+.one {
+  color: rgb(42, 11, 219);
+}
+
+.three {
+  color: green;
+}
+
+.two {
+  color: rgb(255, 0, 0);
+}
+
+.Four {
+  color: black;
+}
+
+.Five {
+  color: rgb(165, 2, 151);
+}
+
+.mobtn {
+  background-color: #0caef7;
+  height: 33px !important;
+  margin-top: 16px !important;
+}
+
+.dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.dialog-header,
+.dialog-body,
+.dialog-footer {
+  margin-bottom: 1rem;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+.followup-header {
+  background-color: #ff9800 !important;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.followup-cell {
+  background-color: #fff3cd;
+  font-size: 11px;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.remark-text {
+  color: #333;
+  font-style: italic;
+  word-wrap: break-word;
+  display: block;
+  margin-top: 4px;
+}
+
+.followup-date {
+  font-weight: bold;
+  color: #0066cc;
+  display: block;
+}

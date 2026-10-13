@@ -1,0 +1,150 @@
+<div *ngIf="issLoading" class="overlay" style="margin-top: 21%;margin-left:46% ;
+background-color: transparent;" [style.left.px]="spinleft">
+    <img src="/assets/img/spinner.gif" width="100px">
+</div>
+<div class="main-content new-margin-T">
+    <div class="container-fluid2">
+        <div class="row" *ngIf="Entry_View">
+            <div class="col-md-12 pt-4">
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 pl-2 pr-2">
+                                <div class="form-group form-row">
+                                    <label for="normal-input-4" class="col-md-2 col-sm-3 col-form-label text-sm-right"
+                                        style="background: transparent;">Target No<span
+                                            style="color:#ef071e; font-size: 22px; vertical-align: -webkit-baseline-middle;">*</span></label>
+                                    <div class="col-md-3 col-sm-3">
+                                        <input type="number" class="form-control" [(ngModel)]="User_Target_.User_Taget_No"
+                                            name="User_Target_.User_Taget_No" id="normal-input-4"
+                                            placeholder="Target No">
+                                    </div>
+                                <label class="col-md-1 col-sm-1 col-form-label text-sm-right">Month<span style="
+                          color: #ef071e;
+                          font-size: 22px;
+                          vertical-align: -webkit-baseline-middle;
+                        ">*</span></label>
+                                <div class="col-md-2 col-sm-2 mb-2">
+                                <select class="form-control p-0 pl-1" [(ngModel)]="User_Month_"
+                                    name="User_Month_">
+                                    <option *ngFor="let m of user_month_Data" [ngValue]="m">
+                                        {{ m.User_Month_Name }}
+                                    </option>
+                                </select>
+                            </div>   
+                                </div>
+                                <div class="form-row">                                                            
+                                    <label class="col-md-1 col-sm-2 col-form-label text-sm-right">Year<span style="
+                          color: #ef071e;
+                          font-size: 22px;
+                          vertical-align: -webkit-baseline-middle;
+                        ">*</span></label>
+                                    <div class="col-md-5 col-sm-3 mb-1">
+                                       <input type="number" class="form-control" [(ngModel)]="User_Target_.User_Target_Year"
+                                    name="User_Target_.User_Target_Year" placeholder="Like 2026">
+                                    </div>
+                                          <label class="col-md-1 col-sm-1 col-form-label text-sm-right">User<span style="
+                          color: #ef071e;
+                          font-size: 22px;
+                          vertical-align: -webkit-baseline-middle;
+                        ">*</span></label>
+                                       <div class="col-md-2 col-sm-2 mb-2">
+                                <select class="form-control p-0 pl-1" [(ngModel)]="User_Details_"
+                                    name="User_Details_">
+                                    <option *ngFor="let u of User_Details_Data" [ngValue]="u">
+                                        {{ u.User_Details_Name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                                </div>
+                                <div class="form-row mb-2">
+                                    <div class="col-lg-12">
+                                        <button mat-raised-button type="submit"
+                                            class="close-button-style pull-right mr-1 "
+                                            (click)="Close_Click()">Close</button>
+                                        <button mat-raised-button type="submit" [hidden]="User_Target_Save==false"
+                                            id="Save_Button" class="save-button-style pull-right mr-1"
+                                            (click)="Save_User_Target()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!Entry_View">
+        <div class="col-md-12  mb-2 mt-2">
+            <div class="dt-card mb-0 pb-1 pt-3">
+                <div class="dt-card__body mb-0 pb-0">
+                    <form class="mb-0">
+                        <div class="form-row" style="padding-left: 10px;">
+                            <label class="col-md-0 col-sm-0 col-form-label text-sm-right">Target No</label>
+                            <div class="col-md-3 col-sm-3 mb-2">
+                                <input type="text" class="form-control" [(ngModel)]="User_Taget_No_Search"
+                                    name="User_Taget_No_Search" placeholder="Month">
+                            </div>
+                            <label class="col-md-0 col-sm-0 col-form-label text-sm-right">Month</label>
+                            <div class="col-md-2 col-sm-2 mb-2">
+                                <select class="form-control p-0 pl-1" [(ngModel)]="Search_User_Month_"
+                                    name="Search_User_Month_">
+                                    <option *ngFor="let m of user_month_Data" [ngValue]="m">
+                                        {{ m.User_Month_Name }}
+                                    </option>
+                                </select>
+                            </div>
+                              <label class="col-md-0 col-sm-0 col-form-label text-sm-right">User</label>
+                            <div class="col-md-2 col-sm-2 mb-2">
+                                <select class="form-control p-0 pl-1" [(ngModel)]="Search_User_Details_"
+                                    name="Search_User_Details_">
+                                    <option *ngFor="let u of User_Details_Data" [ngValue]="u">
+                                        {{ u.User_Details_Name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3 mt-0">
+                                <button (click)="Search_User_Target()" mat-raised-button type="submit"
+                                    class="other-button-style pull-left mr-1">Search</button>
+                                <button (click)="Create_New()" mat-raised-button type="submit"
+                                    class="save-button-style pull-left mr-1 ">Create New</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12  pr-2 pl-2" [style.height.px]="myInnerHeight" itemSize="10">
+            <div class="dt-module">
+                <div class="dt-module__container">
+                    <div class="dt-module__content ps-custom-scrollbar">
+                        <div class="dt-module__content-inner card-body set-height-scroll-bar-wole-block">
+                            <div class="dt-module__list" [style.height.px]="myInnerHeight" style="overflow-y: scroll"
+                                id="profile">
+                                <div class="dt-module__list-item pb-2 pt-2"
+                                    *ngFor="let Location1 of User_Target_Data; let i = index">
+                                    <div class="dt-module__list-item-content">
+                                        <div class="user-detail">
+                                            <span class="icon-background2 mr-1" (click)="Edit_User_Target(Location1,i)">
+                                                <mat-icon class="text-green small">edit</mat-icon></span>
+                                            <span class="icon-background3 mr-1" (click)="Delete_User_Target(Location1,i)">
+                                                <mat-icon class="text-red small">close</mat-icon></span>
+                                            <span class="user-name line-space">{{ Location1["User_Taget_No"]
+                                                }}</span> <span class="dt-separator-v">&nbsp;</span>
+                                            <span class="user-name line-space">{{ Location1["User_Month_Name"]
+                                                }}</span> <span class="dt-separator-v">&nbsp;</span>
+                                            <span class="user-name line-space">{{ Location1["User_Target_Year"] }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+.one { color: rgb(42, 11, 219) ; } 
+.three { color:green; } 
+.two { color: rgb(255, 0, 0); } 
+.Four { color: black; }
+.Five { color: rgb(165, 2, 151); }
+.text-dark {
+    margin-left: 0;
+}
+
+.icon-backgroune {
+    cursor: pointer;
+    padding: 20px;
+    width: 78px;
+    text-align: center;
+    height: 37px;
+    background-color: #dff5df;
+    border: solid 1px #0ab33c;
+    border-radius: 10px;
+    display: inline-block;
+    border-radius: 9px;
+    padding-top: 6px;
+    padding-left: 8px;
+    padding-right: 9px;
+    transition: .4s ease-in-out;
+}
+.icon-backgroune:hover{
+    transform: scale(1.07);
+}
+.card:hover {
+    background-color: #fff;
+	box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15) !important;
+}
+.min-w-max {
+    min-width: max-content;
+}

@@ -1,0 +1,302 @@
+<div *ngIf="issLoading" class="overlay" 
+
+style="margin-top: 21%;margin-left:46% ;
+background-color: transparent;"
+[style.left.px]="spinleft">
+	
+	
+
+<img src="/assets/img/spinner.gif" width="100px" >
+</div>  
+  <div class="main-content new-margin-T">        
+    <div class="container-fluid">
+      <div class="row" *ngIf="Application_Div">
+        <div class="col-xl-12 pl-0 pr-0 " >
+       <div class="dt-card mb-2 mt-2">
+                  <!-- <div class="dt-card mt-0"> -->
+                    <div class="dt-card__header">
+                      <div class="dt-card__heading">
+                        <h3 style="margin-top: 0px">
+                          <i
+                            class="icon icon-users icon-fw icon-lg material-icons mr-2"
+                            style="color: #586ae9"
+                          >
+                            history </i
+                          ><b
+                            style="
+                              margin-bottom: 20px;
+                              margin-bottom: 20px;
+                              color: #4b5cd5;
+                              font-weight: 600;
+                            "
+                            >Change Status &nbsp;</b
+                          >
+  
+                          <b
+                        style="
+                          margin-bottom: 20px;
+                          margin-bottom: 20px;
+                          color: lightseagreen;
+                          font-weight: 600;
+                        "
+                        >{{App_List_Student_Name}}</b
+                      >
+                        </h3>
+                        <div class="mb-2"></div>
+                        <hr class="lineheader" />
+                      </div>
+                    </div>
+                      <div class="dt-card__body">               
+                          <form class="mb-0">
+                              <!-- <div class="cards"> -->
+                                <div class="form-row">
+                                  <!-- <label
+                                    class="col-md-2 col-lg-1 col-form-label text-sm-right"
+                                    >Status
+                                    <span
+                                      style="
+                                        color: #ef071e;
+                                        font-size: 22px;
+                                        vertical-align: -webkit-baseline-middle;
+                                      "
+                                      >*</span
+                                    ></label
+                                  >
+              
+                                  <div class="col-md-3 col-lg-3 mb-1">
+                                    <select
+                                [(ngModel)]="Department_Status_Mode_"
+                                name="Department_Status_Mode_"
+                                required
+                                class="form-control p-0 pl-1"
+                              >
+                                <option *ngFor="let Department_Status_s of Department_Status_Mode_Data" [ngValue]="Department_Status_s">
+                                  {{ Department_Status_s.Department_Status_Name }}
+                                </option>
+                              </select>
+                                  </div> -->
+              
+              
+                                  <label
+                                class="col-md-2 col-lg-1 text-sm-right col-form-label"
+                                style="
+                                  font-size: 14px !important;
+                                  
+                                "
+                                >Status<span
+                                  style="
+                                    color: #ef071e;
+                                    font-size: 22px;
+                                    vertical-align: -webkit-baseline-middle;
+                                  "
+                                  >*</span
+                                ></label
+                              >
+                              <div class="col-md-9 col-lg-5 mt-1">
+                                <input
+                                  Input
+                                  type="text"
+                                  class="form-control"
+                                  [matAutocomplete]="autoc13"
+                                  placeholder=""
+                                  [(ngModel)]="Department_Status_Mode1_"
+                                  name="Department_Status_Mode1_"
+                                  id="Department_Status_Mode1_"
+                                  (click)="Search_Application_StatusforChangeStatus_Typeahead($event)"
+                                  (keyup)="Search_Application_StatusforChangeStatus_Typeahead($event)"
+                                />
+                              </div>
+                              <mat-autocomplete
+                                #autoc13="matAutocomplete"
+                                [displayWith]="display_Application_Status"
+                              >
+                                <mat-option *ngIf="issLoading">
+                                  <mat-spinner diameter="500"></mat-spinner>
+                                </mat-option>
+                                <ng-container *ngIf="!issLoading">
+                                  <mat-option
+                                    *ngFor="let Department_Status_s of Department_Status_Mode_Data1_Filter"
+                                    [value]="Department_Status_s"
+                                  >
+                                    <span name="Department_Status_s.Department_Status_Name">{{
+                                      Department_Status_s.Department_Status_Name
+                                    }} &nbsp;</span>
+              
+                                    <span *ngIf="Department_Status_s.Transfer_Department_Name" style="color: #000000;"> - &nbsp;
+                                    </span>
+              
+                                    <span
+                                     
+                                    style="
+                                    color: #ef071e;
+                                    
+                                  "
+                                     >
+                                    {{
+                                      Department_Status_s.Transfer_Department_Name
+                                    }}</span>
+                                  </mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                                </div>
+                                <div class="form-row  " >
+                               
+
+                                
+           
+                                  <div class=" col-md-12 row">
+
+                                    <label
+                                      class="col-md-2 col-lg-1 col-form-label text-sm-right"
+                                      >Remark
+                                      <span
+                                        style="
+                                          color: #ef071e;
+                                          font-size: 22px;
+                                          vertical-align: -webkit-baseline-middle;
+                                        "
+                                        >*</span
+                                      ></label
+                                    >
+                                    <div class="col-md-5 col-lg-5">
+                                      <textarea
+                                            rows="1"
+                                            cols="2"
+                                            class="form-control"
+                                            [(ngModel)]="ApplicationDetails_.Bph_Remark"
+                                        name="ApplicationDetails_.Bph_Remark"
+                                            placeholder=""
+                                          >
+                                          </textarea>
+                                      <!-- <input
+                                        type="text"
+                                        [(ngModel)]="ApplicationDetails_.Bph_Remark"
+                                        name="ApplicationDetails_.Bph_Remark"
+                                        class="form-control mb-2"
+                                        placeholder=""
+                                      /> -->
+                                    </div>
+                                    <div class="col-md-3" style="
+                                    display: flex;
+                                    flex-direction: row-reverse;
+                                    justify-content: start;
+                                    align-items: center;
+                                  ">
+                                      
+                                  <button
+                                  class="other-button-style btnflot pull-right"
+                                  style="height: 33px !important"
+                                  (click)="Close_Click_Change_Status()"
+                                  type="submit"
+                                  style="background-color: red"
+                                >
+                                  Close
+                                </button>
+                
+                                <button
+                                  class="other-button-style btnflot pull-right mr-1"
+                                  style="height: 33px !important"
+                                  (click)="Save_Lodgemet()"
+                                  type="submit"
+                                  style="background-color: rgb(41, 214, 119)"
+                                >
+                                  Save
+                                </button>
+                                    </div>
+                                  </div>
+                
+
+
+                        
+
+<!-- 
+                                <div class="col-lg-1 mb-1">
+                                    <button class="save-button-style btnflot"  id="Save_Button" (click)="Save_Application_Setitngs()" type="submit">Save</button>
+                                  </div>   -->
+                                </div>
+
+
+                            <!-- <div class="col-md-1"></div> -->
+
+
+                            <!-- <label
+                            class="col-md-2 col-lg-2 ml-1 col-form-label text-sm-right x-tra-label"
+                            style="padding-left: 19px"
+                            >Registration Status</label
+                        >
+                               
+                        <div class="col-md-1 col-sm-0 mb-1 x-tra-label-mob" >
+                            <div
+                                _ngcontent-xmy-c9=""
+                                class="checkbox-to-crect-sales-search-section"
+                            >
+                                <div
+                                    _ngcontent-xmy-c9=""
+                                    class="form-check uper-dte-lbel-sales-sctn-new pl-0"
+                                >
+                                    <label _ngcontent-xmy-c9="" class="form-check-label">
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            name="Application_Settings_.Register_Transfer_Status"
+                                            [(ngModel)]="Application_Settings_.Register_Transfer_Status"
+                                        />
+                                        <span _ngcontent-xmy-c9="" class="form-check-sign"
+                                            ><span _ngcontent-xmy-c9="" class="check"> </span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+              
+                        <label
+                      class="col-md-2 col-sm-2 col-form-label text-sm-right"
+                      *ngIf="Application_Settings_.Register_Transfer_Status"
+                      > Departments</label
+                                >
+              
+                        <div class="col-md-2 col-sm-3 mb-1"  *ngIf="Application_Settings_.Register_Transfer_Status">
+                          <select
+                              [(ngModel)]="User_Profile_Department_"
+                              name="User_Profile_Department_"
+                              required
+                              class="form-control p-0 pl-1"
+                          >
+                              <option
+                                  *ngFor="let User_Profile_Department_Data_T of User_Profile_Department_Data"
+                                  [ngValue]="User_Profile_Department_Data_T"
+                              >
+                                  {{ User_Profile_Department_Data_T.Department_Name }}
+                              </option>
+                          </select>
+                      </div> -->
+              
+              
+              
+
+
+
+
+
+
+
+
+
+
+                        
+<!--                     
+                          <div class="form-row  mb-2">
+                            <div class="col-lg-12 mb-1">
+                                <button class="save-button-style btnflot"  id="Save_Button" (click)="Save_Application_Setitngs()" type="submit">Save</button>
+                              </div>                                       
+                          </div> -->
+                  </form>
+                  </div>
+                  <!-- </div> -->
+          </div>
+          </div>    
+          </div>
+      </div>
+  </div>
+  
+  

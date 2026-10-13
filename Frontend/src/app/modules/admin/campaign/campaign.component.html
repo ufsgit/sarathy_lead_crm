@@ -1,0 +1,199 @@
+<div *ngIf="isLoading" class="overlay" 
+  style="margin-top: 21%;margin-left:46% ; background-color: transparent;"
+  [style.left.px]="spinleft">
+    <img src="/assets/img/spinner.gif" width="100px" >
+</div>
+
+<div class="main-content screenfixed new-margin-T">
+  <div class="container-fluid2">
+    <div *ngIf="Entry_View" class="row">
+        <div class="col-md-12 pr-0 pl-0 pt-2 pt-3">
+          <div class="dt-card mb-0 pb-1 pt-4">
+            <div class="dt-card__body mb-0 pb-0">
+              <form class="mb-0">
+                <!-- Campaign Info -->
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                    <label>Master Campaign</label>
+                    <select [(ngModel)]="campaign_master_" name="campaign_master_"  required class="form-control p-0 pl-1">
+                    <option *ngFor="let campaign_master_T of campaign_master_Data" [ngValue]="campaign_master_T">{{campaign_master_T.Campaign_Master_Name}}</option>
+                    </select>
+                  </div>
+
+                    <div class="col-md-3 mb-3">
+                    <label>Enquiry Source</label>
+                    <input type="text" class="form-control" value="META" readonly>
+                  </div>
+                  <div class="col-md-3 mb-3" *ngIf="true">
+                    <label>Meta Form</label>
+                    <select [(ngModel)]="campaign.form_id" (ngModelChange)="onMetaFormChange()" name="form_id" class="form-control p-0 pl-1">
+                      <option [ngValue]="null">Select Form</option>
+                      <option *ngFor="let form of metaForms" [value]="form.id">{{form.name}} ({{form.status}})</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3" *ngIf="true">
+                    <label>Stored Procedure Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="campaign.procedure_name" name="procedure_name" placeholder="e.g. Post_FB_Lead_Immigration_Ather">
+                  </div>
+                </div>
+  
+                <!-- Status/Department/User Selection -->       
+                <div class="form-row">
+                   <div class="col-md-3 mb-3">
+                    <label>Branch</label>
+                    <select [(ngModel)]="Branch_" name="Branch_" (ngModelChange)="onBranchChange()" required class="form-control p-0 pl-1">
+                    <option *ngFor="let Branch_T of Branch_Data" [ngValue]="Branch_T">{{Branch_T.Branch_Name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label>Department</label>
+                  <select [(ngModel)]="Department_" name="Department_" (ngModelChange)="onDepartmentChange()"  required class="form-control p-0 pl-1">
+                  <option *ngFor="let Department_T of Department_Data" 
+                  [ngValue]="Department_T">{{Department_T.Department_Name}}</option>
+                  </select>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label>To User</label>
+                     <select [(ngModel)]="User_Details_" name="User_Details_" required class="form-control p-0 pl-1">
+                  <option *ngFor="let To_User_T of User_Details_Data" 
+                  [ngValue]="To_User_T">{{To_User_T.User_Details_Name}}</option>
+                  </select>
+
+                    <!-- <select class="custom-select" [(ngModel)]="Campaign_Department_Users_.To_User_Id" name="To_User_Id" [disabled]="!Campaign_Department_Users_.Department_Id">
+                      <option [ngValue]="null">Select User</option>
+                      <option *ngFor="let user of userList" [value]="user.User_Details_Id">{{ user.User_Details_Name }}</option>
+                    </select> -->
+
+                  </div>
+                    <div class="col-md-3 mb-3">
+                    <label>Status</label>
+                  <select [(ngModel)]="Department_Status_" name="Department_Status_" required class="form-control p-0 pl-1">
+                  <option *ngFor="let Department_Status_T of Department_Status_Data" 
+                  [ngValue]="Department_Status_T">{{Department_Status_T.Department_Status_Name}}</option>
+                  </select>
+                    <!-- <select class="custom-select" [(ngModel)]="Campaign_Department_Users_.Status_Id" name="Department_Status_Id" 
+                    [disabled]="!Campaign_Department_Users_.Department_Id">
+                      <option [ngValue]="null">Select Status</option>
+                      <option *ngFor="let status of statusList" [value]="status.Status_Id">{{ status.Department_Status_Name }}</option>
+                    </select> 
+                  </div>
+                <div class="col-md-2 margn-crct-sales-buton-serch mt-3">
+               <button mat-raised-button type="submit" (click)="Addbutton_click()" class="btn btn-danger change-colour-button">
+                <i class="fa fa-plus" aria-hidden="true"></i></button>      -->
+                  <label></label>
+                     <button (click)="Addbutton_click()" *ngIf="campaignSave" mat-raised-button type="button" class="save-button-style mr-2 mt-3">Add</button>
+              </div>
+            </div>
+
+                
+            
+              <div class="col-md-12 pl-0">
+              <div class="card-body pl-2">
+              <div class="table-responsive">
+              <table class="table table-hover table-for-sale-search-section-diary">
+              <thead class="thead">
+              <th>Department</th>
+              <th>To User</th> 
+              <th>Status</th> 
+              <th [hidden]="Item_Edit==false">View</th>
+              <th [hidden]="Item_Delete==false">Delete</th>
+              </thead>
+              <tbody class="bk_tb_bg" *ngFor="let Process_List of Campaign_Department_Users_Data; let i = index">
+              <td class="td-padding">{{Process_List["Department_Name"]}}</td>
+              <td class="td-padding">{{Process_List["To_User_Name"]}}</td>    
+                <td class="td-padding">{{Process_List["Status_Name"]}}</td>                
+              <td class="td-padding">
+              <button _ngcontent-jry-c5="" _ngcontent-gxp-c5="" aria-describedby="cdk-describedby-message-0" cdk-describedby-host="" class="aligyn-crect-deprtnment btn btn-primary btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Edit Task" ng-reflect-message="Edit Task" ng-reflect-position="above" type="button">
+                <span class="mat-button-wrapper"><span _ngcontent-jry-c5="" class="mat-button-wrapper"><i _ngcontent-jry-c5="" _ngcontent-gxp-c5="" class="material-icons"
+                (click)="Edit_Items(Process_List,i)" >edit</i></span>
+                <div _ngcontent-jry-c5="" class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false"  ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div><div _ngcontent-jry-c5=""  class="mat-button-focus-overlay"></div></span><div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div>
+                <div class="mat-button-focus-overlay" ></div>
+              </button>
+              </td>
+              <td class="td-padding"> 
+              <button _ngcontent-gdi-c11="" class="btn btn-danger btn-link btn-sm btn-just-icon mat-raised-button" mat-raised-button="" mattooltip="Remove" type="button" aria-describedby="cdk-describedby-message-1" cdk-describedby-host="" ng-reflect-position="above" ng-reflect-message="Remove"><span class="mat-button-wrapper"><i _ngcontent-gdi-c11="" class="material-icons"  
+                (click)="Delete_Items(i)" >close</i></span>
+                <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false"  ng-reflect-trigger="[object HTMLButtonElement]">
+              </div><div class="mat-button-focus-overlay"  ></div>
+              </button>
+              </td>
+              </tbody>
+              </table>
+              </div>
+              </div>
+              </div>
+  
+                <!-- Form Buttons -->
+                <div class="form-row justify-content-end mt-4">
+                  <div class="col-auto">
+                    <button (click)="saveCampaign()" *ngIf="campaignSave" mat-raised-button type="button" class="save-button-style mr-2">Save</button>
+                    <button (click)="closeClick()" mat-raised-button type="button" class="close-button-style">Close</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      
+    
+    <div class="row" *ngIf="!Entry_View">
+      <div class="col-md-12 pl-0 pr-0 mb-2 mt-3">
+        <div class="dt-card mb-0 pb-1 pt-3">         
+          <div class="dt-card__body mb-0 pb-0">
+            <form class="mb-0">           
+              <div class="form-row">
+                <label class="col-md-0 col-sm-0 col-form-label text-sm-right">Campaign Name</label>
+                <div class="col-md-3 col-sm-3 mb-2">
+                  <input type="text" class="form-control" [(ngModel)]="campaign_name_Search" name="campaign_name" placeholder="Campaign Name">
+                </div>
+                
+                <div class="col-md-4 col-lg-4 mt-0">                    
+                  <button (click)="searchCampaign()" mat-raised-button type="submit" class="other-button-style pull-left mr-1">Search</button>
+                  <button (click)="createNew()" mat-raised-button type="submit" class="save-button-style pull-left mr-1">Create New</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>        
+      </div> 
+
+      <div class="col-md-12 pr-0 pl-0" [style.height.px]="myInnerHeight" itemSize="10">
+        <div class="dt-module">            
+          <div class="dt-module__container">
+            <div class="dt-module__content ps-custom-scrollbar">
+              <div class="dt-module__content-inner pl-0 pr-0 card-body set-height-scroll-bar-wole-block">   
+                <div class="dt-module__list pl-0 pr-0" [style.height.px]="myInnerHeight"
+                style="overflow-y: scroll"
+                id="profile">
+                  <div class="dt-module__list-item pb-2 pt-2" *ngFor="let campaign of campaignData; let i = index"> 
+                    <div class="dt-module__list-item-content">
+                      <div class="user-detail">
+                        <span class="icon-background2 mr-1" *ngIf="campaignEdit" (click)="Edit_Campaign(campaign, i)"> 
+                          <mat-icon class="text-green small">edit</mat-icon>
+                        </span>
+                        <span class="icon-background3 mr-1" *ngIf="campaignDelete" (click)="Delete_Campaign(campaign.campaign_details_id, i)"> 
+                          <mat-icon class="text-red small">close</mat-icon>
+                        </span>
+                        <span class="user-name">{{ campaign.campaign_name }}</span>
+                      </div>
+                      <div class="campaign-details-row" style="font-size:12px; color:#555; margin-top:4px; display:flex; flex-wrap:wrap; gap:12px;">
+                        <span *ngIf="campaign.Branch_Name"><b>Branch:</b> {{ campaign.Branch_Name }}</span>
+                        <span *ngIf="campaign.Department_Name"><b>Department:</b> {{ campaign.Department_Name }}</span>
+                        <span *ngIf="campaign.To_User_Name"><b>To User:</b> {{ campaign.To_User_Name }}</span>
+                        <span *ngIf="campaign.Department_Status_Name"><b>Status:</b> {{ campaign.Department_Status_Name }}</span>
+                        <span *ngIf="campaign.FollowUp_Id"><b>Follow Up ID:</b> {{ campaign.FollowUp_Id }}</span>
+                        <span *ngIf="campaign.FollowUp != null"><b>Follow Up:</b> {{ campaign.FollowUp == 1 ? 'Yes' : 'No' }}</span>
+                      </div>
+                    </div>                                 
+                  </div>              
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>

@@ -1,0 +1,238 @@
+<div *ngIf="isLoading" class="overlay" 
+  style="margin-top: 21%;margin-left:46% ; background-color: transparent;">
+    <img src="/assets/img/spinner.gif" width="100px" >
+</div>
+
+<div class="main-content new-margin-T">
+  <div class="container-fluid2">
+
+    <!-- Tab Selection -->
+    <div class="row mb-3 mt-3" *ngIf="!isDetailView">
+      <div class="col-md-12">
+        <button mat-raised-button 
+                [ngClass]="activeTab === 'crm' ? 'save-button-style' : 'other-button-style'" 
+                (click)="switchTab('crm')" class="mr-2">
+          CRM Campaign Leads
+        </button>
+        <button mat-raised-button 
+                [ngClass]="activeTab === 'meta' ? 'save-button-style' : 'other-button-style'" 
+                (click)="switchTab('meta')">
+          Live Meta Campaigns
+        </button>
+      </div>
+    </div>
+
+    <!-- CRM Campaigns View -->
+    <div *ngIf="activeTab === 'crm' && !isDetailView">
+      <div class="row">
+        <div class="col-md-12 pl-0 pr-0 mb-2 mt-3">
+          <div class="dt-card mb-0 pb-1 pt-3">
+            <div class="dt-card__body">
+              <h3 class="mb-3 font-weight-bold" style="color: #f44336;">Total Leads (All Campaigns): {{ grandTotalLeads }}</h3>
+              <button (click)="loadDashboardSummary()" mat-raised-button type="button" class="save-button-style mb-3">Refresh</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 pr-0 pl-0">
+          <div class="dt-module">            
+            <div class="dt-module__container">
+              <div class="dt-module__content ps-custom-scrollbar">
+                <div class="dt-module__content-inner pl-0 pr-0 card-body">   
+                  <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                      <table class="table table-hover">
+                          <thead class="thead">
+                              <th>Campaign Name</th>
+                              <th>Campaign ID</th>
+                              <th>Branch</th>
+                              <th>Total Leads</th>
+                              <th>Action</th>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let campaign of campaignSummaryList">
+                                  <td>{{ campaign.campaign_name }}</td>
+                                  <td>{{ campaign.campaign_id }}</td>
+                                  <td>{{ campaign.Branch_Name || 'N/A' }}</td>
+                                  <td><strong>{{ campaign.Total_Leads }}</strong></td>
+                                  <td>
+                                      <button (click)="viewCampaignLeads(campaign)" class="btn btn-sm save-button-style">View Leads</button>
+                                  </td>
+                              </tr>
+                              <tr *ngIf="campaignSummaryList.length === 0">
+                                  <td colspan="5" class="text-center">No campaigns found.</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+
+    <!-- Live Meta Campaigns View -->
+    <div *ngIf="activeTab === 'meta' && !isDetailView">
+      <div class="row">
+        <div class="col-md-12 pl-0 pr-0 mb-2 mt-3">
+          <div class="dt-card mb-0 pb-1 pt-3">
+            <div class="dt-card__body">
+              <div class="form-group row pl-3">
+                <label class="col-sm-2 col-form-label font-weight-bold">Select Ad Account:</label>
+                <div class="col-sm-4">
+                  <select class="form-control" [(ngModel)]="selectedAdAccountId" (change)="onAdAccountChange()">
+                    <option *ngFor="let account of adAccounts" [value]="account.account_id">
+                      {{ account.name || account.account_id }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-sm-2">
+                  <button (click)="loadLiveCampaigns()" mat-raised-button type="button" class="save-button-style">Refresh</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 pr-0 pl-0">
+          <div class="dt-module">            
+            <div class="dt-module__container">
+              <div class="dt-module__content ps-custom-scrollbar">
+                <div class="dt-module__content-inner pl-0 pr-0 card-body">   
+                  <div class="table-responsive mb-4" style="max-height: 400px; overflow-y: auto;">
+                      <h4 class="mb-2 text-success">Active Campaigns</h4>
+                      <table class="table table-hover">
+                          <thead class="thead">
+                              <th>Campaign Name</th>
+                              <th>Campaign ID</th>
+                              <th>Status</th>
+                              <th>FB Results (Leads)</th>
+                              <th>Cost Per Result</th>
+                              <th>Amount Spent</th>
+                              <th>Budget</th>
+                              <th>Action</th>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let metaCamp of activeMetaCampaigns">
+                                  <td>{{ metaCamp.name }}</td>
+                                  <td>{{ metaCamp.id }}</td>
+                                  <td>
+                                    <span class="badge badge-success">{{ metaCamp.effective_status || metaCamp.status }}</span>
+                                  </td>
+                                  <td>{{ metaCamp.results ? metaCamp.results : '-' }}</td>
+                                  <td>{{ metaCamp.cost_per_result ? (metaCamp.cost_per_result | currency:'INR') : '-' }}</td>
+                                  <td>{{ metaCamp.spend ? (metaCamp.spend | currency:'INR') : '₹0.00' }}</td>
+                                  <td>
+                                    <span *ngIf="metaCamp.daily_budget">{{ metaCamp.daily_budget / 100 | currency:'INR' }} (Daily)</span>
+                                    <span *ngIf="metaCamp.lifetime_budget">{{ metaCamp.lifetime_budget / 100 | currency:'INR' }} (Lifetime)</span>
+                                    <span *ngIf="!metaCamp.daily_budget && !metaCamp.lifetime_budget">Using ad set budget</span>
+                                  </td>
+                                  <td>
+                                    <button (click)="viewMetaCampaignLeads(metaCamp)" class="btn btn-sm save-button-style">View Leads</button>
+                                  </td>
+                              </tr>
+                              <tr *ngIf="activeMetaCampaigns.length === 0">
+                                  <td colspan="8" class="text-center">No active campaigns found.</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+                  <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                      <h4 class="mb-2 text-secondary">Paused / Inactive Campaigns</h4>
+                      <table class="table table-hover">
+                          <thead class="thead">
+                              <th>Campaign Name</th>
+                              <th>Campaign ID</th>
+                              <th>Status</th>
+                              <th>FB Results (Leads)</th>
+                              <th>Cost Per Result</th>
+                              <th>Amount Spent</th>
+                              <th>Budget</th>
+                              <th>Action</th>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let metaCamp of pausedMetaCampaigns">
+                                  <td>{{ metaCamp.name }}</td>
+                                  <td>{{ metaCamp.id }}</td>
+                                  <td>
+                                    <span class="badge badge-secondary">{{ (metaCamp.effective_status || metaCamp.status) === 'PAUSED' ? 'OFF' : (metaCamp.effective_status || metaCamp.status) }}</span>
+                                  </td>
+                                  <td>{{ metaCamp.results ? metaCamp.results : '-' }}</td>
+                                  <td>{{ metaCamp.cost_per_result ? (metaCamp.cost_per_result | currency:'INR') : '-' }}</td>
+                                  <td>{{ metaCamp.spend ? (metaCamp.spend | currency:'INR') : '₹0.00' }}</td>
+                                  <td>
+                                    <span *ngIf="metaCamp.daily_budget">{{ metaCamp.daily_budget / 100 | currency:'INR' }} (Daily)</span>
+                                    <span *ngIf="metaCamp.lifetime_budget">{{ metaCamp.lifetime_budget / 100 | currency:'INR' }} (Lifetime)</span>
+                                    <span *ngIf="!metaCamp.daily_budget && !metaCamp.lifetime_budget">Using ad set budget</span>
+                                  </td>
+                                  <td>
+                                    <button (click)="viewMetaCampaignLeads(metaCamp)" class="btn btn-sm save-button-style">View Leads</button>
+                                  </td>
+                              </tr>
+                              <tr *ngIf="pausedMetaCampaigns.length === 0">
+                                  <td colspan="8" class="text-center">No paused campaigns found.</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+
+    <!-- Detail View -->
+    <div *ngIf="isDetailView" class="row">
+      <div class="col-md-12 pl-0 pr-0 mb-2 mt-3">
+        <div class="dt-card mb-0 pb-1 pt-3">
+          <div class="dt-card__body">
+            <h3 class="mb-3 font-weight-bold" style="color: #f44336;">
+                Leads for: {{ selectedCampaign?.campaign_name }}
+                <span class="float-right text-dark">Total: {{ selectedCampaign?.Total_Leads }}</span>
+            </h3>
+            <button (click)="backToSummary()" mat-raised-button type="button" class="other-button-style mb-3">Back</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 pr-0 pl-0">
+        <div class="dt-module">            
+          <div class="dt-module__container">
+            <div class="dt-module__content ps-custom-scrollbar">
+              <div class="dt-module__content-inner pl-0 pr-0 card-body">   
+                <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                    <table class="table table-hover">
+                        <thead class="thead">
+                            <th>Lead Name</th>
+                            <th>Phone Number</th>
+                            <th>Entry Date</th>
+                            <th>Status</th>
+                            <th>Follow-up By</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let lead of campaignLeadsList">
+                                <td>{{ lead.Student_Name }}</td>
+                                <td>{{ lead.Phone_Number }}</td>
+                                <td>{{ lead.Entry_Date | date:'mediumDate' }}</td>
+                                <td>{{ lead.Department_Status_Name }}</td>
+                                <td>{{ lead.By_UserName }}</td>
+                            </tr>
+                            <tr *ngIf="campaignLeadsList.length === 0">
+                                <td colspan="5" class="text-center">No leads found for this campaign.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+  </div>
+</div>

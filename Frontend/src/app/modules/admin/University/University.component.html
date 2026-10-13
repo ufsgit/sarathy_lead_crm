@@ -1,0 +1,450 @@
+<div
+  *ngIf="issLoading"
+  class="overlay"
+  style="margin-top: 21%; margin-left: 46%; background-color: transparent"
+  [style.left.px]="spinleft"
+>
+  <img src="/assets/img/spinner.gif" width="100px" />
+</div>
+<div class="main-content screenfixed new-margin-T">
+  <div class="container-fluid2">
+    <!-- Document View -->
+    <!-- <div class="row" *ngIf="Document_View">
+      <div class="col-md-12 pl-0 pr-0 pt-2">
+        <div class="dt-card mb-0 pb-1 pt-4">
+          <div class="dt-card__body mb-0 pb-0">
+            <form class="mb-0">
+              <div class="form-row mb-3 align-items-center">
+              
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right"
+                  >Document<span class="text-danger">*</span></label
+                >
+                <div class="col-md-4 col-sm-4 mb-2" style="position: relative;">
+                  <select
+                    [(ngModel)]="Documents_"
+                    name="Documents_"
+                    required
+                    class="form-control"
+                    style="width: 100%; padding: 5px;"
+                  >
+                    <option [ngValue]="null" disabled selected>Select a Document</option>
+                    <option
+                      *ngFor="let Docs_ of Documents_Data"
+                      [ngValue]="Docs_"
+                    >
+                      {{ Docs_.Document_Name }}
+                    </option>
+                  </select>
+                  
+                </div>
+
+                
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right"
+                  >Upload Documents<span class="text-danger">*</span></label
+                >
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <input
+                    readonly
+                    matInput
+                    type="text"
+                    [(ngModel)]="Image_Photo"
+                    name="Image_Photo"
+                    class="form-control"
+                    placeholder="Selected file will appear here"
+                  />
+                  <button
+                    class="btn btn-danger mb-2 pl-2 pr-2 mt-2"
+                    type="button"
+                    style="background-color: #5d6071; margin-left: 20px"
+                    (click)="fileInput.click()"
+                  >
+                    <span>Choose File</span>
+                    <input
+                      #fileInput
+                      type="file"
+                      name="DocumentFile"
+                      [(ngModel)]="DocumentFile"
+                      (change)="onDocumentsChange($event)"
+                      style="display: none"
+                    />
+                  </button>
+                </div>
+              </div>
+               
+              <div class="form-row mb-0">
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right"
+                  >Notes</label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <textarea
+                    [(ngModel)]="University_Documents_.Description"
+                    name="University_Documents_.Description"
+                    class="form-control"
+                    placeholder="Notes"
+                    rows="4"
+                    cols="50"
+                  ></textarea>
+                </div>
+              </div>
+
+              Save and Close Buttons
+              <div class="form-row mt-3">
+                <div class="col-md-12 text-center">
+                  <button
+                    (click)="Save_University_Document()"
+                    mat-raised-button
+                    type="submit"
+                    class="save-button-style mr-1"
+                    *ngIf="Documents_Tab_Save"
+                  >
+                    Save
+                  </button>
+                  <button
+                    (click)="Close_Documents()"
+                    mat-raised-button
+                    type="button"
+                    class="close-button-style ml-1"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+
+             
+              <div
+                class="dt-module__list-item pb-2 pt-2"
+                *ngFor="
+                  let University_doc of University_Document_Data;
+                  let i = index
+                "
+              >
+                <div class="dt-module__list-item-content">
+                  <div class="user-detail">
+                    <span
+                      class="icon-background2 mr-1"
+                      (click)="Edit_University(University_, i)"
+                    >
+                      <mat-icon class="text-green small">edit</mat-icon>
+                    </span>
+                    <span
+                      class="icon-background3 mr-1"
+                      (click)="Delete_University(University_.University_Id, i)"
+                    >
+                      <mat-icon class="text-red small">close</mat-icon>
+                    </span>
+
+                    <span class="user-name">{{
+                      University_doc["Document_Name"]
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Entry View -->
+    <div class="row" *ngIf="Entry_View">
+      <div class="col-md-12 pl-0 pr-0 pt-2">
+        <div class="dt-card mb-0 pb-1 pt-4">
+          <div class="dt-card__body mb-0 pb-0">
+            <form class="mb-0">
+              <div class="form-row">
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right">
+                  Final Update Name<span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="University_.University_Name"
+                    name="University_Name"
+                    placeholder="Enter Final Update Name"
+                    required
+                  />
+                </div>
+
+                <!-- Country -->
+                <!-- <label class="col-md-2 col-sm-2 col-form-label text-sm-right">
+                  Country<span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [matAutocomplete]="autoc1"
+                    placeholder="Enter Country"
+                    [(ngModel)]="Country_"
+                    name="Country"
+                    (click)="Search_Country_Typeahead($event)"
+                    (input)="Search_Country_Typeahead($event)"
+                    required
+                  />
+                  <mat-autocomplete
+                    #autoc1="matAutocomplete"
+                    [displayWith]="display_Country_"
+                  >
+                    <mat-option *ngIf="issLoading">
+                      <mat-spinner diameter="20"></mat-spinner>
+                    </mat-option>
+                    <ng-container *ngIf="!issLoading">
+                      <mat-option
+                        *ngFor="let Country_ of Country_Data"
+                        [value]="Country_"
+                      >
+                        {{ Country_.Country_Name }}
+                      </mat-option>
+                    </ng-container>
+                  </mat-autocomplete>
+                </div> -->
+              </div>
+
+              <!-- <div class="form-row">
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right">
+                  Initial Deposit<span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="University_.Initial_Deposit"
+                    name="Initial_Deposit"
+                    placeholder="Enter Initial Deposit"
+                    required
+                  />
+                </div>
+
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right">
+                  Campus Location<span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <textarea
+                    class="form-control"
+                    [(ngModel)]="University_.Campus_Location"
+                    name="Campus_Location"
+                    placeholder="Enter Campus Location"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+              </div> -->
+
+              <!-- <div class="form-row">
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right">
+                  Living Expense<span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="University_.Living_Expense"
+                    name="Living_Expense"
+                    placeholder="Enter Living Expense"
+                    required
+                  />
+                </div>
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right">
+                  Description<span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <textarea
+                    class="form-control"
+                    [(ngModel)]="University_.Description"
+                    name="Description"
+                    placeholder="Enter Description"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+              </div> -->
+
+              <!-- <div class="form-row">
+                <label class="col-md-2 col-sm-2 col-form-label text-sm-right">
+                  Part-Time Availability<span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="University_.Part_Time_Availability"
+                    name="Part_Time_Availability"
+                    placeholder="Enter Part-Time Availability"
+                    required
+                  />
+                </div>
+              </div> -->
+
+              <div class="form-row mt-3">
+                <div class="col-md-12 text-center">
+                  <button
+                    (click)="Save_University()"
+                    mat-raised-button
+                    type="submit"
+                    class="save-button-style mr-1"
+                  >
+                    Save
+                  </button>
+                  <button
+                    (click)="Close_Click()"
+                    mat-raised-button
+                    type="button"
+                    class="close-button-style ml-1"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- University List View -->
+    <div class="row mt-2" *ngIf="!Entry_View">
+      <div class="col-md-12 pl-0 pr-0 pt-0 mb-2">
+        <div class="dt-card mb-0 pb-1 pt-3">
+          <div class="dt-card__body mb-0 pb-0">
+            <form class="mb-0">
+              <div class="form-row" style="padding-left: 10px">
+                <label class="col-md-0 col-sm-0 col-form-label text-sm-right">
+                  Final Update Name
+                </label>
+                <div class="col-md-4 col-lg-3 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="University_Name_Search"
+                    name="University_Name"
+                    placeholder=""
+                  />
+                </div>
+
+                
+                <!-- <label
+                  for="normal-input-4"
+                  class="col-md-0 col-sm-0 col-form-label text-sm-right"
+                  >Country</label
+                >
+                <div class="col-md-4 col-lg-3 mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [matAutocomplete]="autoc1"
+                    placeholder=""
+                    [(ngModel)]="Search_Country_"
+                    name="Search_Country_"
+                    (click)="Search_Country_Typeahead($event)"
+                    (input)="Search_Country_Typeahead($event)"
+                  />
+                </div>
+                <mat-autocomplete
+                  #autoc1="matAutocomplete"
+                  [displayWith]="display_Country_"
+                >
+                  <mat-option *ngIf="issLoading">
+                    <mat-spinner diameter="500"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!issLoading">
+                    <mat-option
+                      *ngFor="let Country_1 of Country_Data"
+                      [value]="Country_1"
+                    >
+                      <span>{{ Country_1.Country_Name }}</span>
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+               -->
+
+                <div class="col-md-4 col-lg-4 mt-0">
+                  <button
+                    (click)="Search_University()"
+                    mat-raised-button
+                    type="submit"
+                    class="other-button-style pull-left mr-1"
+                  >
+                    Search
+                  </button>
+                  <button
+                    (click)="Create_New()"
+                    mat-raised-button
+                    type="submit"
+                    class="save-button-style pull-left mr-1"
+                  >
+                    Create New
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-md-12 pl-0 pr-0 mt-0"
+        [style.height.px]="myInnerHeight"
+        itemSize="10"
+      >
+        <div class="dt-module">
+          <div class="dt-module__container">
+            <div class="dt-module__content ps-custom-scrollbar">
+              <div
+                class="dt-module__content-inner pl-0 pr-0 card-body set-height-scroll-bar-wole-block"
+              >
+                <div
+                  class="dt-module__list pl-0 pr-0"
+                  [style.height.px]="myInnerHeight"
+                  style="overflow-y: scroll"
+                  id="profile"
+                >
+                  <div
+                    class="dt-module__list-item pb-2 pt-2"
+                    *ngFor="let University_ of University_Data; let i = index"
+                  >
+                    <div
+                      class="dt-module__list-item-content d-flex justify-content-between align-items-center"
+                    >
+                      <div class="user-detail">
+                        <span
+                          class="icon-background2 mr-1"
+                          (click)="Edit_University(University_, i)"
+                        >
+                          <mat-icon class="text-green small">edit</mat-icon>
+                        </span>
+                        <span
+                          class="icon-background3 mr-1"
+                          (click)="
+                            Delete_University(University_.University_Id, i)
+                          "
+                        >
+                          <mat-icon class="text-red small">close</mat-icon>
+                        </span>
+
+                        <span class="user-name">{{
+                          University_["University_Name"]
+                        }}</span>
+                      </div>
+                      <div>
+                        <!-- <span class="icon-background4">
+                          <button
+                            mat-raised-button
+                            color="primary"
+                            class="mat-button-style"
+                            (click)="Load_Documents(University_, i)"
+                          >
+                            Documents
+                          </button>
+                        </span> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
