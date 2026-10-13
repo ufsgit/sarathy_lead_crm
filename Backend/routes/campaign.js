@@ -180,7 +180,12 @@ router.post('/save_campaign', function(req, res, next) {
 
 router.get('/search_campaign', function(req, res, next) {
   try {
-    campaign.Search_Campaign(req.query.campaign_name, function(err, rows) {
+    const campaign_name = (req.query.campaign_name && req.query.campaign_name !== 'undefined' && req.query.campaign_name !== 'null') ? req.query.campaign_name : '';
+    const branch_id = parseInt(req.query.branch_id, 10) || 0;
+    const department_id = parseInt(req.query.department_id, 10) || 0;
+    const form_id = (req.query.form_id && req.query.form_id !== 'undefined' && req.query.form_id !== 'null') ? req.query.form_id : '';
+
+    campaign.Search_Campaign(campaign_name, branch_id, department_id, form_id, function(err, rows) {
       if (err) {
         res.json(err);
       } else {

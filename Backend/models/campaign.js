@@ -90,9 +90,15 @@ var Campaign = {
     );
   },
 
-  Search_Campaign: function (campaign_name, callback) {
-    return db.query("CALL Search_Campaign(@campaign_name_search :=?)",
-      [campaign_name || ''],
+  Search_Campaign: function (campaign_name, branch_id, department_id, form_id, callback) {
+    return db.query(
+      "CALL Search_Campaign(@campaign_name_search :=?, @Branch_Id_ :=?, @Department_Id_ :=?, @form_id_ :=?)",
+      [
+        campaign_name || '',
+        Number(branch_id) || 0,
+        Number(department_id) || 0,
+        form_id || ''
+      ],
       callback
     );
   },

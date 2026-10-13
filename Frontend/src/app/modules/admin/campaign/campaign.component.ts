@@ -26,6 +26,16 @@ export class campaignComponent implements OnInit {
   campaignData: campaign[] = [];
   campaign: campaign = new campaign();
   campaignNameSearch: string = '';
+  campaign_name_Search: string = '';
+
+  // Search Filters
+  Search_Branch_: Branch = null;
+  Search_Branch_Data_Filter: Branch[] = [];
+  Search_Department_: Department = null;
+  Search_Department_Data: Department[] = [];
+  Search_Department_Data_Filter: Department[] = [];
+  Search_Form_: any = null;
+  Search_Form_Data_Filter: any[] = [];
 
   // State properties
   Entry_View: boolean = false;
@@ -102,6 +112,8 @@ export class campaignComponent implements OnInit {
     
     this.loadMetaForms();
     
+    this.loadSearchDepartments(0);
+
     this.pageLoad();
     
   }
@@ -112,6 +124,7 @@ export class campaignComponent implements OnInit {
       data => {
           
         this.metaForms = data;
+        this.Search_Form_Data_Filter = (this.metaForms || []).slice();
       },
       err => {
         console.error('Error loading meta forms', err);
@@ -180,6 +193,7 @@ export class campaignComponent implements OnInit {
         this.Branch_Temp.Branch_Name = "Select";
         this.Branch_Data.unshift(this.Branch_Temp);
         this.Branch_ = this.Branch_Data[0];
+        this.Search_Branch_Data_Filter = this.Branch_Data.filter(b => b && b.Branch_Id > 0);
         this.isLoading = false;
       },
       err => {
@@ -279,14 +293,107 @@ export class campaignComponent implements OnInit {
 
   }
 
+  loadSearchDepartments(branchId: number = 0) {
+    if (branchId > 0) {
+      this.campaignService.Search_Branch_Department_Typeahead(branchId).subscribe(
+        data => {
+          this.Search_Department_Data = data && data[0] ? data[0] : [];
+          this.Search_Department_Data_Filter = this.Search_Department_Data.filter(d => d && d.Department_Id > 0);
+        },
+        err => console.error('Error loading branch departments', err)
+      );
+    } else {
+      this.campaignService.Search_Department('').subscribe(
+        data => {
+          this.Search_Department_Data = data && data[0] ? data[0] : [];
+          this.Search_Department_Data_Filter = this.Search_Department_Data.filter(d => d && d.Department_Id > 0);
+        },
+        err => console.error('Error loading all departments', err)
+      );
+    }
+  }
+
+  Search_Branch_Typeahead(event: any) {
+    const val = (event && event.target && event.target.value != null ? event.target.value : '').toLowerCase().trim();
+    const source = (this.Branch_Data || []).filter(b => b && b.Branch_Id > 0);
+    if (!val) {
+      this.Search_Branch_Data_Filter = source;
+    } else {
+      this.Search_Branch_Data_Filter = source.filter(b => b.Branch_Name && b.Branch_Name.toLowerCase().includes(val));
+    }
+  }
+
+  display_Branch(branch: Branch) {
+    return branch ? branch.Branch_Name : '';
+  }
+
+  onSearchBranchChange() {
+    this.Search_Department_ = null;
+    if (this.Search_Branch_ && this.Search_Branch_.Branch_Id > 0) {
+      this.loadSearchDepartments(this.Search_Branch_.Branch_Id);
+    } else {
+      this.loadSearchDepartments(0);
+    }
+  }
+
+  Search_Department_Typeahead(event: any) {
+    const val = (event && event.target && event.target.value != null ? event.target.value : '').toLowerCase().trim();
+    const source = (this.Search_Department_Data || []).filter(d => d && d.Department_Id > 0);
+    if (!val) {
+      this.Search_Department_Data_Filter = source;
+    } else {
+      this.Search_Department_Data_Filter = source.filter(d => d.Department_Name && d.Department_Name.toLowerCase().includes(val));
+    }
+  }
+
+  display_Department(dept: Department) {
+    return dept ? dept.Department_Name : '';
+  }
+
+  Search_Form_Typeahead(event: any) {
+    const val = (event && event.target && event.target.value != null ? event.target.value : '').toLowerCase().trim();
+    const source = (this.metaForms || []).slice();
+    if (!val) {
+      this.Search_Form_Data_Filter = source;
+    } else {
+      this.Search_Form_Data_Filter = source.filter(f => {
+        const name = (f.name || f.form_name || '').toLowerCase();
+        return name.includes(val);
+      });
+    }
+  }
+
+  display_Form(form: any) {
+    return form ? (form.name || form.form_name || '') : '';
+  }
+
+  clearFilters() {
+    this.campaign_name_Search = '';
+    this.Search_Branch_ = null;
+    this.Search_Department_ = null;
+    this.Search_Form_ = null;
+    this.loadSearchDepartments(0);
+    this.searchCampaign();
+  }
+
   searchCampaign() {
-      
     this.isLoading = true;
-    this.campaignService.searchCampaign(this.campaignNameSearch).subscribe(
+    const query = this.campaign_name_Search || this.campaignNameSearch || '';
+    const branchId = (this.Search_Branch_ && this.Search_Branch_.Branch_Id) ? this.Search_Branch_.Branch_Id : 0;
+    const departmentId = (this.Search_Department_ && this.Search_Department_.Department_Id) ? this.Search_Department_.Department_Id : 0;
+    let formId = '';
+    if (this.Search_Form_) {
+      formId = this.Search_Form_.id || this.Search_Form_.form_id || '';
+      if (!formId && typeof this.Search_Form_ === 'string') {
+        const matched = (this.metaForms || []).find(f => (f.name || f.form_name || '').toLowerCase() === this.Search_Form_.toLowerCase().trim());
+        formId = matched ? (matched.id || matched.form_id) : this.Search_Form_;
+      }
+    }
+
+    this.campaignService.searchCampaign(query, branchId, departmentId, formId).subscribe(
       rows => {
-          
-        this.campaignData = rows;
-        console.log('rows: ', rows);
+        this.campaignData = rows || [];
+        console.log('rows: ', this.campaignData);
         this.totalEntries = this.campaignData.length;
         if (this.campaignData.length === 0) {
           this.showInfoDialog('No Details Found');

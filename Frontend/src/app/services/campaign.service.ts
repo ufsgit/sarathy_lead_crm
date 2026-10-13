@@ -17,8 +17,12 @@ export class CampaignService {
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  searchCampaign(name?: string): Observable<campaign[]> {
-    const params = new HttpParams().set('campaign_name', name ? name : '');
+  searchCampaign(name?: string, branchId?: number, departmentId?: number, formId?: string): Observable<campaign[]> {
+    let params = new HttpParams()
+      .set('campaign_name', name ? name : '')
+      .set('branch_id', branchId ? String(branchId) : '0')
+      .set('department_id', departmentId ? String(departmentId) : '0')
+      .set('form_id', formId ? formId : '');
     
     return this.http.get<campaign[][]>(`${this.baseUrl}/search_campaign`, { params })
       .pipe(
@@ -43,6 +47,10 @@ export class CampaignService {
 
   Search_Branch_Department_Typeahead(branchId: number) {
     return this.http.get<any[]>(`${environment.BasePath}Department/Search_Branch_Department_Typeahead/${branchId}`);
+  }
+
+  Search_Department(name: string = '') {
+    return this.http.get<any[]>(`${environment.BasePath}Department/Search_Department/${name || ''}`);
   }
 
   get_campaigne_department_details(campaign_details_id)

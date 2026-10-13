@@ -20,6 +20,7 @@ export class campaign {
     form_id: string;
     form_name: string;
     procedure_name: string;
+    Entry_Date: string;
     Campaign_Department_Users_Data: Campaign_Department_Users[];
 
     constructor(values: Object = {}) {
