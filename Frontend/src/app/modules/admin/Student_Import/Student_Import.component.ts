@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Course_Import_Service } from "../../../services/Course_Import.service";
 import { Student_Import } from "../../../models/Student_Import";
@@ -939,7 +939,7 @@ export class Student_ImportComponent implements OnInit {
 			if (this.Balance_Selected != 0) {
 				const dialogRef = this.dialogBox.open(DialogBox_Component, {
 					panelClass: "Dialogbox-Class",
-					data: { Message: "New assign is not equal to total selected students", Type: "3" },
+					data: { Message: "New assign is not equal to total selected leads", Type: "3" },
 				});
 				return;
 			}
