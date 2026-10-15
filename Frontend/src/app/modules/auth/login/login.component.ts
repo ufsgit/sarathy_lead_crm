@@ -149,8 +149,8 @@ export class LoginComponent implements OnInit {
               //   this.Push_Menu({ path: '/Enquiry_Source_Report', title: 'Lead Source Report', icon: 'unarchive', class: '', Menu_Id: Menus[i].Menu_Id, 'View': Menus[i].VIew_All, Save: Menus[i].Menu_Save, Edit: Menus[i].Menu_Edit, Delete: Menus[i].Menu_Delete, Menu_Type: Menus[i].Menu_Type });
               // else  if(Menus[i].Menu_Id==26)
               // this.Push_Menu({ path: '/Efficiency_Report', title: 'Efficiency Report', icon: 'unarchive', class: '',Menu_Id:Menus[i].Menu_Id,'View':Menus[i].VIew_All, Save:Menus[i].Menu_Save ,Edit:Menus[i].Menu_Edit,Delete:Menus[i].Menu_Delete,Menu_Type:Menus[i].Menu_Type });
-              // else  if(Menus[i].Menu_Id==27)
-              // this.Push_Menu({ path: '/Student_Import', title: 'Student Import', icon: 'unarchive', class: '',Menu_Id:Menus[i].Menu_Id,'View':Menus[i].VIew_All, Save:Menus[i].Menu_Save ,Edit:Menus[i].Menu_Edit,Delete:Menus[i].Menu_Delete,Menu_Type:Menus[i].Menu_Type });
+              else  if(Menus[i].Menu_Id==27)
+              this.Push_Menu({ path: '/Student_Import', title: 'Lead Import', icon: 'unarchive', class: '',Menu_Id:Menus[i].Menu_Id,'View':Menus[i].VIew_All, Save:Menus[i].Menu_Save ,Edit:Menus[i].Menu_Edit,Delete:Menus[i].Menu_Delete,Menu_Type:Menus[i].Menu_Type });
               else if (Menus[i].Menu_Id == 28)
                 this.Push_Menu({ path: '/Pending_FollowUp', title: 'Pending Follow Up ', icon: 'unarchive', class: '', Menu_Id: Menus[i].Menu_Id, 'View': Menus[i].VIew_All, Save: Menus[i].Menu_Save, Edit: Menus[i].Menu_Edit, Delete: Menus[i].Menu_Delete, Menu_Type: Menus[i].Menu_Type });
               // else  if(Menus[i].Menu_Id==29)
